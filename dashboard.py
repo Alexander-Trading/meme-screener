@@ -59,6 +59,11 @@ a{color:var(--accent)} a:focus-visible{outline:2px solid var(--accent);outline-o
 .ev time{font-family:var(--mono);color:var(--muted);font-size:12px;margin-right:8px}
 .note{font-size:12px;color:var(--muted);max-width:65ch}
 .empty{color:var(--muted);font-size:14px;margin:0}
+.agrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;margin-top:16px}
+.agrid h3,#atop h3{font:600 14px/1.3 var(--body);margin:0 0 6px}
+.agrid table,#atop table{min-width:0;font-size:13px}
+#atop{margin-top:20px}
+.bar{height:6px;border-radius:3px;background:var(--accent);min-width:2px}
 </style>
 </head>
 <body>
@@ -90,6 +95,16 @@ a{color:var(--accent)} a:focus-visible{outline:2px solid var(--accent);outline-o
     <h2>Geschlossene Positionen</h2>
     <div class="panel scroll"><table id="closed"><thead><tr>
       <th>Token</th><th>Zeitraum</th><th class="r">Einsatz</th><th class="r">Erlös</th><th class="r">Ergebnis</th><th>Grund</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section>
+    <h2>Datenbank und Auswertung</h2>
+    <div class="panel">
+      <div class="kpis" id="dbkpis"></div>
+      <p class="note" id="anote"></p>
+      <div id="agroups" class="agrid"></div>
+      <div id="atop"></div>
+    </div>
   </section>
 
   <section>
@@ -184,6 +199,27 @@ fill('closed', (pf.closed||[]).slice().reverse().map(p=>{
   <td>${p.status==='dead'?'Totalverlust (Liquidität weg)':esc(last?last.reason:'')}</td></tr>`;
 }), 'Noch nichts verkauft.', 6);
 
+
+// Datenbank und Auswertung
+(function(){
+  const c=D.collect||{}, a=D.analysis||{};
+  const k=[['Verfolgte Tokens',(c.tracked??0).toLocaleString('de-DE')],
+           ['Zuletzt gesehen',(c.seen??0).toLocaleString('de-DE')],
+           ['Davon Filter bestanden',(c.passed??0).toLocaleString('de-DE')],
+           ['Letzte Sammlung',c.last?new Date(c.last).toLocaleString('de-DE',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'–']];
+  document.getElementById('dbkpis').innerHTML=k.map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join('');
+  const note=document.getElementById('anote');
+  if(!a.horizon){note.textContent='Die Auswertung erscheint, sobald genug Tokens mindestens 7 Tage verfolgt wurden. Sie zeigt dann, wie oft Tokens je Gruppe später das 3-Fache erreicht haben oder gestorben sind.';return}
+  note.textContent=`Grundlage: ${a.n} Tokens mit mindestens ${a.horizon} Tagen Verlauf. „≥3x“ = Anteil, der innerhalb von ${a.horizon} Tagen zeitweise das 3-Fache des Startkurses erreichte. „Tot“ = Liquidität inzwischen unter 3.000 $.`;
+  const maxWin=Math.max(1,...a.groups.flatMap(g=>g.rows.map(r=>r.win)));
+  document.getElementById('agroups').innerHTML=a.groups.map(g=>`<div><h3>${esc(g.title)}</h3><table><thead><tr><th>Gruppe</th><th class="r">n</th><th>≥3x</th><th class="r">Tot</th><th class="r">Median</th></tr></thead><tbody>${
+    g.rows.map(r=>`<tr><td>${esc(r.label)}</td><td class="r num">${r.n}</td><td><div class="num">${r.win.toFixed(1).replace('.',',')} %</div><div class="bar" style="width:${r.win/maxWin*100}%"></div></td><td class="r num">${r.dead.toFixed(0)} %</td><td class="r num">${r.median.toFixed(2).replace('.',',')}x</td></tr>`).join('')
+  }</tbody></table></div>`).join('');
+  if(a.top&&a.top.length) document.getElementById('atop').innerHTML=`<h3>Beste Tokens seit dem ersten Sehen</h3><div class="scroll"><table style="min-width:560px"><thead><tr><th>Token</th><th>Erstmals</th><th class="r">Bestes</th><th class="r">Score</th><th class="r">Alter</th><th class="r">Liquidität</th><th>Filter</th></tr></thead><tbody>${
+    a.top.map(t=>`<tr><td><a class="sym" href="https://dexscreener.com/${esc(t.chain)}/${esc(t.address)}" target="_blank" rel="noopener">${esc(t.symbol)}</a></td><td class="num">${fmtDate(t.first)}</td><td class="r num pos">${t.max.toFixed(1).replace('.',',')}x</td><td class="r num">${t.score??'–'}</td><td class="r num">${Math.round(t.age)} T</td><td class="r num">${usdShort(t.liq)}</td><td>${esc(t.filter)}</td></tr>`).join('')
+  }</tbody></table></div>`;
+})();
+
 const ev=document.getElementById('events');
 ev.innerHTML=(D.events||[]).slice(0,40).map(e=>`<li><time>${fmtDate(e.date)}</time>${esc(e.text)}</li>`).join('') || '<li class="empty">Noch keine Bewegungen.</li>';
 </script>
@@ -201,6 +237,8 @@ def build_dashboard(state: dict, config: dict, out: Path):
         "portfolio": state.get("portfolio"),
         "ranked": state.get("last_ranked", []),
         "events": state.get("events", []),
+        "collect": state.get("collect"),
+        "analysis": state.get("analysis"),
     }
     payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     out.parent.mkdir(parents=True, exist_ok=True)

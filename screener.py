@@ -626,7 +626,18 @@ def run():
     track = update_tracking(all_metrics, extra)
     log(f"Tracking: {len(track)} Tokens in der Datenbank, {len(extra)} nachgepreist")
 
+    state["collect"] = {"last": now_utc().isoformat(timespec="seconds"), "tracked": len(track),
+                        "seen": len(all_metrics), "passed": len(metrics), "rejected": rejected}
+    try:
+        from analyze import buckets
+        state["analysis"] = buckets(track)
+    except Exception as e:  # Auswertung darf den Lauf nie abbrechen
+        log(f"Auswertung übersprungen: {e}")
+
     if not main:
+        save_json(STATE_FILE, state)
+        from dashboard import build_dashboard
+        build_dashboard(state, CONFIG, DOCS / "index.html")
         log("Sammellauf fertig.")
         return
 
