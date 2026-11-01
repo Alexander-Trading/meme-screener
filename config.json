@@ -1,0 +1,38 @@
+{
+  "chains": ["solana", "base"],
+
+  "filter": {
+    "min_age_days": 3,
+    "max_age_days": 120,
+    "min_liquidity_usd": 30000,
+    "min_mcap_usd": 100000,
+    "max_mcap_usd": 50000000,
+    "min_txns_24h": 150,
+    "max_top10_pct": 35,
+    "max_tax_pct": 5
+  },
+
+  "score": {
+    "min_score_for_report": 50,
+    "min_score_for_buy": 65,
+    "report_top_n": 10
+  },
+
+  "portfolio": {
+    "start_cash_eur": 10000,
+    "position_size_eur": 100,
+    "max_buys_per_day": 3,
+    "stop_loss_pct": -70,
+    "take_profit_steps": [
+      {"multiple": 3, "sell_fraction": 0.33},
+      {"multiple": 10, "sell_fraction": 0.5}
+    ],
+    "max_hold_days": 90,
+    "dead_liquidity_usd": 3000
+  },
+
+  "tracking": {"days": 180, "max_tokens": 6000},
+
+  "safety_checks_per_run": 40,
+  "exclude_symbols": ["SOL", "WSOL", "USDC", "USDT", "WETH", "ETH", "CBBTC", "WBTC", "DAI", "USDS", "EURC", "JUP", "RAY"]
+}

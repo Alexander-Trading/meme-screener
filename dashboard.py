@@ -1,0 +1,207 @@
+"""Erzeugt docs/index.html (GitHub Pages) aus dem Zustand des Screeners."""
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+TEMPLATE = r"""<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Meme-Screener</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: eine Spalte, Kopf mit Depotkurve, darunter Kandidaten, Positionen, Verlauf */
+:root{
+  --bg:#f3f5f0; --surface:#ffffff; --fg:#17201a; --muted:#5d6b61; --line:#dce3db;
+  --accent:#2f7d4f; --accent-soft:#e3f0e7; --good:#1f8a4c; --bad:#c2410c; --warn:#a16207;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#101512; --surface:#171e19; --fg:#e7eee8; --muted:#93a398; --line:#26302a;
+  --accent:#5fbf86; --accent-soft:#1d2f24; --good:#4ade80; --bad:#fb923c; --warn:#facc15; color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 var(--body);
+  padding:24px max(16px,env(safe-area-inset-right)) 48px max(16px,env(safe-area-inset-left))}
+.wrap{max-width:1000px;margin:0 auto;display:grid;gap:28px}
+h1{font:800 clamp(28px,6vw,40px)/1.05 var(--display);margin:0;letter-spacing:-.01em;text-wrap:balance}
+h2{font:600 20px/1.2 var(--display);margin:0 0 12px}
+.sub{color:var(--muted);font-size:13px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.head{display:grid;gap:16px}
+.kpis{display:flex;flex-wrap:wrap;gap:10px 28px}
+.kpi b{display:block;font:500 22px/1.2 var(--mono)}
+.kpi span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+svg{display:block;width:100%;height:auto}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:680px}
+#cands{min-width:900px} #cands td:last-child{min-width:240px}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;font-weight:600;padding:6px 8px;border-bottom:1px solid var(--line)}
+td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+td.r,th.r{text-align:right;white-space:nowrap}
+.wrap>*,.head>*{min-width:0}
+a{color:var(--accent)} a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.score{display:inline-block;min-width:36px;text-align:center;font:500 13px/1 var(--mono);padding:5px 6px;border-radius:6px;background:var(--accent-soft);color:var(--accent)}
+.score.lo{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.chip{display:inline-block;font-size:11px;padding:1px 7px;border-radius:99px;border:1px solid var(--line);color:var(--muted);margin:2px 4px 0 0}
+.chip.w{border-color:color-mix(in srgb,var(--warn) 50%,transparent);color:var(--warn)}
+.chip.b{border-color:color-mix(in srgb,var(--bad) 50%,transparent);color:var(--bad)}
+.sym{font-weight:600}
+.ev{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:14px}
+.ev time{font-family:var(--mono);color:var(--muted);font-size:12px;margin-right:8px}
+.note{font-size:12px;color:var(--muted);max-width:65ch}
+.empty{color:var(--muted);font-size:14px;margin:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <div>
+      <h1>Meme-Screener</h1>
+      <div class="sub">Letzter Lauf: <span id="lastrun"></span> · Chains: <span id="chains"></span></div>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="panel"><svg id="curve" viewBox="0 0 800 200" role="img" aria-label="Depotwert über Zeit"></svg></div>
+  </header>
+
+  <section>
+    <h2>Kandidaten heute</h2>
+    <div class="panel scroll"><table id="cands"><thead><tr>
+      <th>Score</th><th>Token</th><th class="r">MCap</th><th class="r">Liquidität</th><th class="r">Alter</th>
+      <th class="r">24h</th><th class="r">Holder</th><th>Hinweise</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section>
+    <h2>Offene Positionen</h2>
+    <div class="panel scroll"><table id="open"><thead><tr>
+      <th>Token</th><th>Gekauft</th><th class="r">Einsatz</th><th class="r">Wert</th><th class="r">Entwicklung</th>
+      <th class="r">Hoch</th><th class="r">Realisiert</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section>
+    <h2>Geschlossene Positionen</h2>
+    <div class="panel scroll"><table id="closed"><thead><tr>
+      <th>Token</th><th>Zeitraum</th><th class="r">Einsatz</th><th class="r">Erlös</th><th class="r">Ergebnis</th><th>Grund</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section>
+    <h2>Depot-Bewegungen</h2>
+    <div class="panel"><ul class="ev" id="events"></ul></div>
+  </section>
+
+  <p class="note">Rein fiktives Musterdepot zur Überprüfung der Screener-Regeln. Keine Anlageberatung. Meme-Coins sind hochspekulativ; die meisten verlieren fast vollständig an Wert.</p>
+</div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const D = JSON.parse(document.getElementById('data').textContent);
+const eur = v => (v ?? 0).toLocaleString('de-DE',{maximumFractionDigits:0}) + ' €';
+const usdShort = v => !v ? '–' : v >= 1e6 ? (v/1e6).toFixed(2).replace('.',',')+' M$' : (v/1e3).toFixed(0)+' k$';
+const pct = v => v == null ? '–' : (v>0?'+':'') + v.toFixed(1).replace('.',',') + ' %';
+const cls = v => v > 0 ? 'pos' : v < 0 ? 'neg' : '';
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmtDate = s => s ? s.split('-').reverse().join('.') : '–';
+
+document.getElementById('lastrun').textContent = D.last_run ? new Date(D.last_run).toLocaleString('de-DE') : 'noch nie';
+document.getElementById('chains').textContent = D.chains.join(', ');
+
+const pf = D.portfolio || {history:[],positions:[],closed:[],cash:D.start};
+const hist = pf.history || [];
+const last = hist.length ? hist[hist.length-1].total : D.start;
+const realized = (pf.closed||[]).reduce((s,p)=>s+(p.realized||0)-p.cost,0);
+const wins = (pf.closed||[]).filter(p=>(p.realized||0)>p.cost).length;
+const kpis = [
+  ['Depotwert', eur(last), ''],
+  ['Seit Start', pct((last/D.start-1)*100), cls(last-D.start)],
+  ['Offen', String((pf.positions||[]).length), ''],
+  ['Geschlossen', `${(pf.closed||[]).length} (${wins} im Plus)`, ''],
+  ['Realisiert', eur(realized), cls(realized)],
+];
+document.getElementById('kpis').innerHTML = kpis.map(([l,v,c])=>`<div class="kpi"><span>${l}</span><b class="${c}">${v}</b></div>`).join('');
+
+// Depotkurve
+(function(){
+  const svg = document.getElementById('curve'), W=800,H=200,P={l:56,r:12,t:12,b:24};
+  const pts = hist.length ? hist : [{date:'',total:D.start}];
+  const vals = pts.map(p=>p.total).concat([D.start]);
+  let lo=Math.min(...vals), hi=Math.max(...vals); if(hi-lo<1){hi+=50;lo-=50}
+  const pad=(hi-lo)*.1; lo-=pad; hi+=pad;
+  const x=i=>P.l+(pts.length<2?0:i*(W-P.l-P.r)/(pts.length-1));
+  const y=v=>P.t+(hi-v)*(H-P.t-P.b)/(hi-lo);
+  let s='';
+  for(let k=0;k<=3;k++){const v=lo+(hi-lo)*k/3;s+=`<line x1="${P.l}" x2="${W-P.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${P.l-8}" y="${y(v)+4}" text-anchor="end" font-size="13" fill="var(--muted)" font-family="var(--mono)">${Math.round(v).toLocaleString('de-DE')}</text>`}
+  s+=`<line x1="${P.l}" x2="${W-P.r}" y1="${y(D.start)}" y2="${y(D.start)}" stroke="var(--muted)" stroke-dasharray="4 4"/>`;
+  if(pts.length>1){
+    const d=pts.map((p,i)=>`${i?'L':'M'}${x(i)},${y(p.total)}`).join('');
+    s+=`<path d="${d}L${x(pts.length-1)},${H-P.b}L${x(0)},${H-P.b}Z" fill="var(--accent-soft)"/>`;
+    s+=`<path d="${d}" fill="none" stroke="var(--accent)" stroke-width="2"/>`;
+    s+=`<text x="${P.l}" y="${H-6}" font-size="11" fill="var(--muted)">${fmtDate(pts[0].date)}</text><text x="${W-P.r}" y="${H-6}" text-anchor="end" font-size="11" fill="var(--muted)">${fmtDate(pts[pts.length-1].date)}</text>`;
+  } else {
+    s+=`<text x="${W/2}" y="${H/2}" text-anchor="middle" font-size="13" fill="var(--muted)">Die Kurve erscheint ab dem zweiten Lauf.</text>`;
+  }
+  const lp=pts[pts.length-1]; s+=`<circle cx="${x(pts.length-1)}" cy="${y(lp.total)}" r="4" fill="var(--accent)"/>`;
+  svg.innerHTML=s;
+})();
+
+function fill(id, rows, empty, cols){
+  const tb=document.querySelector(`#${id} tbody`);
+  tb.innerHTML = rows.length ? rows.join('') : `<tr><td colspan="${cols}"><p class="empty">${empty}</p></td></tr>`;
+}
+
+fill('cands', (D.ranked||[]).slice(0,25).map(c=>{
+  const chips=[...(c.why||[]).map(w=>`<span class="chip ${w.startsWith('⚠')?'w':''}">${esc(w.replace('⚠ ',''))}</span>`),
+               ...(c.flags||[]).map(f=>`<span class="chip ${c.safety_ok===false?'b':'w'}">${esc(f)}</span>`)];
+  if(c.safety_ok===null) chips.push('<span class="chip w">Sicherheit ungeprüft</span>');
+  return `<tr><td><span class="score ${c.score<D.min_buy?'lo':''}">${c.score}</span></td>
+    <td><a class="sym" href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.symbol)}</a><div class="sub">${esc(c.chain)}</div></td>
+    <td class="r num">${usdShort(c.mcap)}</td><td class="r num">${usdShort(c.liq)}</td>
+    <td class="r num">${Math.round(c.age_days)} T</td><td class="r num ${cls(c.chg24)}">${pct(c.chg24)}</td>
+    <td class="r num">${c.holders?c.holders.toLocaleString('de-DE'):'–'}${c.holder_growth_7d!=null?`<div class="sub ${cls(c.holder_growth_7d)}">${pct(c.holder_growth_7d)} 7T</div>`:''}</td>
+    <td>${chips.join('')}</td></tr>`;
+}), 'Noch kein Lauf oder heute keine Kandidaten.', 8);
+
+fill('open', (pf.positions||[]).map(p=>{
+  const val=p.units*p.price*p.eur_per_usd, m=p.price/p.entry_price;
+  return `<tr><td><a class="sym" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.symbol)}</a><div class="sub">${esc(p.chain)} · Score ${p.score}</div></td>
+  <td class="num">${fmtDate(p.opened)}</td><td class="r num">${eur(p.cost)}</td><td class="r num">${eur(val)}</td>
+  <td class="r num ${cls(m-1)}">${pct((m-1)*100)}</td><td class="r num">${(p.max_mult||1).toFixed(2).replace('.',',')}x</td>
+  <td class="r num">${eur(p.realized||0)}</td></tr>`;
+}), 'Noch keine Positionen.', 7);
+
+fill('closed', (pf.closed||[]).slice().reverse().map(p=>{
+  const res=(p.realized||0)-p.cost, last=(p.sales||[]).slice(-1)[0];
+  return `<tr><td><a class="sym" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.symbol)}</a><div class="sub">${esc(p.chain)}</div></td>
+  <td class="num">${fmtDate(p.opened)} – ${fmtDate(p.closed)}</td><td class="r num">${eur(p.cost)}</td>
+  <td class="r num">${eur(p.realized||0)}</td><td class="r num ${cls(res)}">${pct(res/p.cost*100)}</td>
+  <td>${p.status==='dead'?'Totalverlust (Liquidität weg)':esc(last?last.reason:'')}</td></tr>`;
+}), 'Noch nichts verkauft.', 6);
+
+const ev=document.getElementById('events');
+ev.innerHTML=(D.events||[]).slice(0,40).map(e=>`<li><time>${fmtDate(e.date)}</time>${esc(e.text)}</li>`).join('') || '<li class="empty">Noch keine Bewegungen.</li>';
+</script>
+</body>
+</html>
+"""
+
+
+def build_dashboard(state: dict, config: dict, out: Path):
+    data = {
+        "last_run": state.get("last_run"),
+        "chains": config["chains"],
+        "start": config["portfolio"]["start_cash_eur"],
+        "min_buy": config["score"]["min_score_for_buy"],
+        "portfolio": state.get("portfolio"),
+        "ranked": state.get("last_ranked", []),
+        "events": state.get("events", []),
+    }
+    payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(TEMPLATE.replace("__DATA__", payload), encoding="utf-8")
