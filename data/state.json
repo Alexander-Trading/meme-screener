@@ -978,5 +978,25 @@
    "date": "2026-11-01",
    "text": "Kauf JEANPHIL (solana) für 100 €, Score 71"
   }
- ]
+ ],
+ "collect": {
+  "last": "2026-11-01T23:39:30+00:00",
+  "tracked": 184,
+  "seen": 183,
+  "passed": 33,
+  "rejected": {
+   "zu jung": 118,
+   "Liquidität zu gering": 13,
+   "zu alt": 13,
+   "Marktkapitalisierung außerhalb": 2,
+   "ausgeschlossen": 4
+  }
+ },
+ "analysis": {
+  "tracked": 184,
+  "with_history": 178,
+  "horizon": null,
+  "groups": [],
+  "top": []
+ }
 }
