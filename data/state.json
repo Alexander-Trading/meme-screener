@@ -947,22 +947,21 @@
   }
  ],
  "collect": {
-  "last": "2026-11-02T06:52:22+00:00",
-  "tracked": 241,
-  "seen": 160,
-  "passed": 28,
+  "last": "2026-11-02T13:38:22+00:00",
+  "tracked": 294,
+  "seen": 147,
+  "passed": 31,
   "rejected": {
-   "zu jung": 105,
-   "zu alt": 11,
-   "Liquidität zu gering": 10,
+   "zu jung": 90,
+   "zu alt": 14,
+   "Liquidität zu gering": 7,
    "Marktkapitalisierung außerhalb": 1,
-   "ausgeschlossen": 4,
-   "zu wenig Handel": 1
+   "ausgeschlossen": 4
   }
  },
  "analysis": {
-  "tracked": 241,
-  "with_history": 230,
+  "tracked": 294,
+  "with_history": 281,
   "horizon": null,
   "groups": [],
   "top": []
