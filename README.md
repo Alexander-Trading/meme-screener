@@ -33,6 +33,8 @@ Nach dem ersten Lauf ist das Dashboard unter `https://<dein-name>.github.io/meme
 3. **Sicherheit:** Solana über RugCheck, Base über GoPlus. Ausschluss bei aktivem Mint/Freeze, Honeypot, hohen Steuern, Rug-Markierung, gefährlichen Risiken oder wenn die Top-10-Wallets über 35 % halten.
 4. **Score:** Alter (Überlebende 14–60 Tage bevorzugt), Liquidität und deren Verhältnis zur MCap, Volumen/Liquidität (Wash-Trading-Warnung), Kaufdruck, Aktivität, Trend ohne Pump-Hinterherlaufen, Socials, Holderzahl und **Holderwachstum über 7 Tage** (aus eigenen täglichen Snapshots, wirkt also ab ca. Tag 2–8 voll).
 5. **Musterdepot:** Startkapital 10.000 € fiktiv. Pro Tag bis zu 3 Käufe à 100 € für Kandidaten mit Score ≥ 65 und bestandenem Sicherheitscheck. Gewinnmitnahme: ⅓ bei 3x, die Hälfte des Rests bei 10x. Stop-Loss −70 %, Verkauf nach spätestens 90 Tagen. Verschwindet die Liquidität, zählt die Position als Totalverlust.
+   Zusätzliche Ausstiege (`exits` in `config.json`): Trailing Stop (ab 2x, Rest raus bei −50 % vom Hoch), Liquidität −50 % seit gestern, negativer Sicherheitscheck (sofort raus), Holder −10 % in 7 Tagen (halbieren).
+   Verkaufte Tokens werden unbegrenzt weiterverfolgt; das Dashboard zeigt Hoch und Kurs nach dem Verkauf und je Regel, ob sie Geld gerettet hat.
 
 Alle Grenzen und Regeln stehen in `config.json` und lassen sich dort anpassen (z. B. `"chains": ["solana", "base", "bsc", "ethereum"]`).
 

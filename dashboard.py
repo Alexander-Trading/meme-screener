@@ -94,7 +94,16 @@ a{color:var(--accent)} a:focus-visible{outline:2px solid var(--accent);outline-o
   <section>
     <h2>Geschlossene Positionen</h2>
     <div class="panel scroll"><table id="closed"><thead><tr>
-      <th>Token</th><th>Zeitraum</th><th class="r">Einsatz</th><th class="r">Erlös</th><th class="r">Ergebnis</th><th>Grund</th></tr></thead><tbody></tbody></table></div>
+      <th>Token</th><th>Zeitraum</th><th class="r">Einsatz</th><th class="r">Erlös</th><th class="r">Ergebnis</th><th>Grund</th>
+      <th class="r">Hoch danach</th><th class="r">Heute</th><th class="r">Gehalten</th></tr></thead><tbody></tbody></table></div>
+    <p class="note">Verkaufte Tokens werden unbegrenzt weiterverfolgt. „Hoch danach“ und „Heute“ zeigen den Kurs als Vielfaches des Kaufkurses. „Gehalten“ ist das Ergebnis, wenn die ganze Position bis heute gehalten worden wäre.</p>
+  </section>
+
+  <section>
+    <h2>Bilanz der Ausstiegsregeln</h2>
+    <div class="panel scroll"><table id="rules"><thead><tr>
+      <th>Regel</th><th class="r">Fälle</th><th class="r">Ergebnis tatsächlich</th><th class="r">Gehalten bis heute</th><th class="r">Differenz</th><th>Fazit</th></tr></thead><tbody></tbody></table></div>
+    <p class="note">Positive Differenz: Der Verkauf hat gegenüber Halten Geld gerettet. Negative Differenz: Halten wäre besser gewesen. Erst nach einigen Wochen aussagekräftig.</p>
   </section>
 
   <section>
@@ -191,13 +200,40 @@ fill('open', (pf.positions||[]).map(p=>{
   <td class="r num">${eur(p.realized||0)}</td></tr>`;
 }), 'Noch keine Positionen.', 7);
 
+const reasonOf = p => {
+  if(p.status==='dead') return 'Totalverlust (Liquidität weg)';
+  const r=((p.sales||[]).slice(-1)[0]||{}).reason||'';
+  return r.replace(/ \(.*\)$/,'').replace(/ -\d+% .*/,'').replace(/^Liquidität.*/,'Liquiditätsabzug').replace(/^Holder.*/,'Holder schrumpfen');
+};
+const heldVal = p => p.post_price ? p.cost*p.post_price/p.entry_price*((p.post_liq??1e9)<3000?0:1) : (p.status==='dead'?0:null);
+const mx = v => v==null ? '–' : (v>=10?v.toFixed(0):v.toFixed(2)).replace('.',',')+'x';
 fill('closed', (pf.closed||[]).slice().reverse().map(p=>{
-  const res=(p.realized||0)-p.cost, last=(p.sales||[]).slice(-1)[0];
+  const res=(p.realized||0)-p.cost, last=(p.sales||[]).slice(-1)[0], hv=heldVal(p);
+  const hi=p.post_max?p.post_max/p.entry_price:null, now=p.post_price?p.post_price/p.entry_price:null;
   return `<tr><td><a class="sym" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.symbol)}</a><div class="sub">${esc(p.chain)}</div></td>
   <td class="num">${fmtDate(p.opened)} – ${fmtDate(p.closed)}</td><td class="r num">${eur(p.cost)}</td>
   <td class="r num">${eur(p.realized||0)}</td><td class="r num ${cls(res)}">${pct(res/p.cost*100)}</td>
-  <td>${p.status==='dead'?'Totalverlust (Liquidität weg)':esc(last?last.reason:'')}</td></tr>`;
-}), 'Noch nichts verkauft.', 6);
+  <td>${p.status==='dead'?'Totalverlust (Liquidität weg)':esc(last?last.reason:'')}</td>
+  <td class="r num">${mx(hi)}${p.post_max_date?`<div class="sub">${fmtDate(p.post_max_date)}</div>`:''}</td>
+  <td class="r num ${now!=null?cls(now-1):''}">${mx(now)}</td>
+  <td class="r num ${hv!=null?cls(hv-p.cost):''}">${hv==null?'–':pct((hv/p.cost-1)*100)}${(p.post_liq??1e9)<3000?'<div class="sub">Liquidität weg</div>':''}</td></tr>`;
+}), 'Noch nichts verkauft.', 9);
+
+(function(){
+  const g={};
+  for(const p of pf.closed||[]){
+    const k=reasonOf(p), hv=heldVal(p);
+    g[k]=g[k]||{n:0,real:0,cost:0,held:0,nh:0};
+    g[k].n++; g[k].real+=(p.realized||0); g[k].cost+=p.cost;
+    if(hv!=null){g[k].held+=hv; g[k].nh++}
+  }
+  fill('rules', Object.entries(g).sort((a,b)=>b[1].n-a[1].n).map(([k,v])=>{
+    const ok=v.nh===v.n, diff=v.real-v.held;
+    const verdict=!ok?'noch keine Kursdaten nach Verkauf':Math.abs(diff)<v.cost*0.05?'neutral':diff>0?'Regel hat Geld gerettet':'Halten wäre besser gewesen';
+    return `<tr><td>${esc(k)}</td><td class="r num">${v.n}</td><td class="r num ${cls(v.real-v.cost)}">${eur(v.real-v.cost)}</td>
+      <td class="r num ${ok?cls(v.held-v.cost):''}">${ok?eur(v.held-v.cost):'–'}</td><td class="r num ${ok?cls(diff):''}">${ok?eur(diff):'–'}</td><td>${verdict}</td></tr>`;
+  }), 'Noch keine Verkäufe.', 6);
+})();
 
 
 // Datenbank und Auswertung

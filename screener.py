@@ -20,7 +20,7 @@ import math
 import os
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 import requests
@@ -363,9 +363,12 @@ def score(m: dict) -> tuple[int, list[str]]:
 
 
 # ------------------------------------------------------- 5. Musterdepot
-def update_portfolio(state: dict, prices: dict[str, dict], ranked: list[dict]) -> list[str]:
+def update_portfolio(state: dict, prices: dict[str, dict], ranked: list[dict],
+                     pos_safety: dict[str, dict] | None = None) -> list[str]:
     """Aktualisiert Positionen, führt Exit-Regeln aus, kauft neue Kandidaten."""
     cfg = CONFIG["portfolio"]
+    ex = CONFIG.get("exits", {})
+    pos_safety = pos_safety or {}
     pf = state.setdefault("portfolio", {"cash": cfg["start_cash_eur"], "positions": [], "closed": [], "history": []})
     events: list[str] = []
     today = now_utc().date().isoformat()
@@ -375,6 +378,7 @@ def update_portfolio(state: dict, prices: dict[str, dict], ranked: list[dict]) -
     for pos in pf["positions"]:
         if pos["status"] != "open":
             continue
+        prev_liq = pos.get("liq", 0)
         p = prices.get(pos["key"])
         if p and p["price"] > 0:
             pos["price"] = p["price"]
@@ -382,27 +386,53 @@ def update_portfolio(state: dict, prices: dict[str, dict], ranked: list[dict]) -
             pos["updated"] = today
         mult = pos["price"] / pos["entry_price"] if pos["entry_price"] else 0
         pos["max_mult"] = max(pos.get("max_mult", 1.0), mult)
-        value = pos["units"] * pos["price"] * pos["eur_per_usd"]
+        sf = pos_safety.get(pos["key"]) or {}
+        if sf.get("holders"):
+            hh = pos.setdefault("holders_hist", [])
+            hh[:] = [h for h in hh if h[0] != today] + [[today, sf["holders"]]]
+            del hh[:-30]
 
         def sell(fraction: float, reason: str):
-            nonlocal value
             units = pos["units"] * fraction
             proceeds = units * pos["price"] * pos["eur_per_usd"]
             pos["units"] -= units
             pos["realized"] = pos.get("realized", 0.0) + proceeds
             pf["cash"] += proceeds
-            pos.setdefault("sales", []).append({"date": today, "mult": round(mult, 2), "eur": round(proceeds, 2), "reason": reason})
+            pos.setdefault("sales", []).append({"date": today, "mult": round(mult, 3), "price": pos["price"],
+                                                "units": units, "eur": round(proceeds, 2), "reason": reason})
             events.append(f"{pos['symbol']}: {reason}, {fraction*100:.0f}% verkauft bei {mult:.2f}x ({proceeds:.0f} €)")
-            value = pos["units"] * pos["price"] * pos["eur_per_usd"]
+
+        def close(status: str):
+            pos["status"] = status
+            pos["closed"] = today
+            pf["closed"].append(pos)
 
         # Token tot (Liquidität weg, keine Daten mehr seit 3 Tagen)
         stale = (ts - datetime.fromisoformat(pos.get("updated", today)).replace(tzinfo=timezone.utc).timestamp()) > 3 * 86400
         if pos.get("liq", 0) < cfg["dead_liquidity_usd"] or stale:
-            pos["status"] = "dead"
-            pos["closed"] = today
             events.append(f"{pos['symbol']}: Liquidität weg, als Totalverlust gewertet")
-            pf["closed"].append(pos)
+            close("dead")
             continue
+
+        # Warnsignale: sofort alles verkaufen
+        exit_reason = None
+        if sf.get("ok") is False and ex.get("sell_on_safety_fail", True):
+            exit_reason = "Sicherheitscheck negativ (" + ", ".join((sf.get("flags") or ["Risiko"])[:2]) + ")"
+        elif prev_liq and ex.get("liquidity_drop_pct") and pos["liq"] < prev_liq * (1 - ex["liquidity_drop_pct"] / 100):
+            exit_reason = f"Liquidität -{(1 - pos['liq'] / prev_liq) * 100:.0f}% seit gestern"
+        if exit_reason:
+            sell(1.0, exit_reason)
+            close("closed")
+            continue
+
+        # Community schrumpft: einmalig halbieren
+        hd = ex.get("holder_drop_pct_7d")
+        hh = pos.get("holders_hist") or []
+        if hd and len(hh) >= 2 and "holderdrop" not in pos.get("done", []):
+            ref = [h for h in hh if 5 <= (date.fromisoformat(today) - date.fromisoformat(h[0])).days <= 9]
+            if ref and ref[0][1] > 0 and hh[-1][1] < ref[0][1] * (1 - hd / 100):
+                sell(ex.get("holder_drop_sell_fraction", 0.5), f"Holder -{(1 - hh[-1][1] / ref[0][1]) * 100:.0f}% in 7 Tagen")
+                pos.setdefault("done", []).append("holderdrop")
 
         for step in cfg["take_profit_steps"]:
             tag = f"tp{step['multiple']}"
@@ -411,14 +441,15 @@ def update_portfolio(state: dict, prices: dict[str, dict], ranked: list[dict]) -
                 pos.setdefault("done", []).append(tag)
 
         age = (ts - pos["opened_ts"]) / 86400
+        tr = ex.get("trailing_stop") or {}
         if (mult - 1) * 100 <= cfg["stop_loss_pct"]:
             sell(1.0, "Stop-Loss")
+        elif tr and pos["max_mult"] >= tr["activate_multiple"] and mult <= pos["max_mult"] * (1 - tr["drawdown_pct"] / 100):
+            sell(1.0, f"Trailing Stop (-{tr['drawdown_pct']}% vom Hoch {pos['max_mult']:.1f}x)")
         elif age >= cfg["max_hold_days"]:
             sell(1.0, f"Haltedauer {cfg['max_hold_days']} Tage erreicht")
         if pos["units"] <= 1e-12:
-            pos["status"] = "closed"
-            pos["closed"] = today
-            pf["closed"].append(pos)
+            close("closed")
 
     pf["positions"] = [p for p in pf["positions"] if p["status"] == "open"]
 
@@ -555,6 +586,26 @@ def update_tracking(all_metrics: list[dict], extra_prices: dict[str, dict]):
     return track
 
 
+def update_after_sale(state: dict, prices: dict[str, dict]):
+    """Verfolgt verkaufte Positionen weiter: Höchststand und Kurs nach dem Verkauf."""
+    pf = state.get("portfolio") or {}
+    today = now_utc().date().isoformat()
+    days = CONFIG.get("tracking", {}).get("after_sale_days")  # None/0 = unbegrenzt
+    for pos in pf.get("closed", []):
+        if days and (date.fromisoformat(today) - date.fromisoformat(pos["closed"])).days > days:
+            continue
+        q = prices.get(pos["key"])
+        if not q or q["price"] <= 0:
+            continue
+        pos["post_price"] = q["price"]
+        pos["post_liq"] = round(q["liq"])
+        pos["post_updated"] = today
+        if pos["closed"] != today:  # Höchststand erst ab dem Tag nach dem Verkauf
+            pos["post_max"] = max(pos.get("post_max", 0), q["price"])
+            if pos.get("post_max_date") is None or q["price"] >= pos["post_max"]:
+                pos["post_max_date"] = today
+
+
 def is_main_run(state: dict) -> bool:
     """Erster Lauf des Tages ab 5 Uhr UTC = Hauptlauf (Depot + Telegram), sonst nur Datensammlung."""
     if os.getenv("FORCE_MAIN") == "1":
@@ -617,6 +668,14 @@ def run():
         ch, addr = key.split(":", 1)
         if ch in chains:
             missing.setdefault(ch, []).append(addr)
+    # verkaufte Positionen ebenfalls nachpreisen
+    days = CONFIG.get("tracking", {}).get("after_sale_days")  # None/0 = unbegrenzt
+    for pos in (state.get("portfolio") or {}).get("closed", []):
+        if pos["key"] in prices or (days and (date.fromisoformat(today) - date.fromisoformat(pos["closed"])).days > days):
+            continue
+        lst = missing.setdefault(pos["chain"], [])
+        if pos["address"] not in lst:
+            lst.append(pos["address"])
     extra: dict[str, dict] = {}
     for ch, addrs in missing.items():
         for addr, p in fetch_pairs(ch, addrs).items():
@@ -626,6 +685,7 @@ def run():
     track = update_tracking(all_metrics, extra)
     log(f"Tracking: {len(track)} Tokens in der Datenbank, {len(extra)} nachgepreist")
 
+    update_after_sale(state, prices)
     state["collect"] = {"last": now_utc().isoformat(timespec="seconds"), "tracked": len(track),
                         "seen": len(all_metrics), "passed": len(metrics), "rejected": rejected}
     try:
@@ -685,7 +745,31 @@ def run():
     cutoff = t - 45 * 86400
     snaps = {k: v[-30:] for k, v in snaps.items() if v and v[-1]["t"] >= cutoff}
 
-    events = update_portfolio(state, prices, ranked)
+    # Sicherheitscheck für offene Positionen (Ausstiegssignale)
+    pos_safety: dict[str, dict] = {m["key"]: {"ok": m["safety_ok"], "flags": m["flags"], "holders": m["holders"]}
+                                   for m in ranked}
+    todo: dict[str, list[str]] = {}
+    for pos in (state.get("portfolio") or {}).get("positions", []):
+        if pos["key"] not in pos_safety:
+            todo.setdefault(pos["chain"], []).append(pos["address"])
+    for ch, addrs in todo.items():
+        if ch == "solana":
+            for addr in addrs:
+                pos_safety[f"{ch}:{addr}"] = safety_solana(addr)
+                SLEEP(1.2)
+        else:
+            for addr, r in safety_evm(ch, addrs).items():
+                pos_safety[f"{ch}:{addr}"] = r
+    for k, r in pos_safety.items():
+        t10 = r.get("top10")
+        if t10 is not None and t10 > CONFIG["filter"]["max_top10_pct"] and r.get("ok") is not None:
+            r["ok"] = False
+            r["flags"] = list(r.get("flags") or []) + [f"Top-10 > {CONFIG['filter']['max_top10_pct']}%"]
+        if r.get("ok") is None or any(f in ("RugCheck nicht erreichbar", "GoPlus ohne Daten") for f in r.get("flags") or []):
+            r["ok"] = None  # fehlende Daten sind kein Verkaufsgrund
+
+    events = update_portfolio(state, prices, ranked, pos_safety)
+    update_after_sale(state, prices)
     state["last_run"] = now_utc().isoformat(timespec="seconds")
     state["last_stats"] = {"collected": sum(len(v) for v in found.values()), "passed_filter": len(metrics),
                            "checked": len(to_check), "rejected": rejected}

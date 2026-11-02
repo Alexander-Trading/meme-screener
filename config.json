@@ -31,7 +31,15 @@
     "dead_liquidity_usd": 3000
   },
 
-  "tracking": {"days": 180, "max_tokens": 6000},
+  "exits": {
+    "trailing_stop": {"activate_multiple": 2, "drawdown_pct": 50},
+    "liquidity_drop_pct": 50,
+    "sell_on_safety_fail": true,
+    "holder_drop_pct_7d": 10,
+    "holder_drop_sell_fraction": 0.5
+  },
+
+  "tracking": {"days": 180, "max_tokens": 6000, "after_sale_days": null},
 
   "safety_checks_per_run": 40,
   "exclude_symbols": ["SOL", "WSOL", "USDC", "USDT", "WETH", "ETH", "CBBTC", "WBTC", "DAI", "USDS", "EURC", "JUP", "RAY"]
