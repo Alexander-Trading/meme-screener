@@ -1022,22 +1022,22 @@
   }
  ],
  "collect": {
-  "last": "2026-11-03T15:54:26+00:00",
-  "tracked": 549,
-  "seen": 156,
-  "passed": 29,
+  "last": "2026-11-03T19:51:19+00:00",
+  "tracked": 587,
+  "seen": 161,
+  "passed": 31,
   "rejected": {
    "zu jung": 92,
    "zu alt": 16,
-   "Liquidität zu gering": 11,
-   "Marktkapitalisierung außerhalb": 1,
-   "ausgeschlossen": 5,
-   "zu wenig Handel": 2
+   "Liquidität zu gering": 14,
+   "Marktkapitalisierung außerhalb": 2,
+   "zu wenig Handel": 2,
+   "ausgeschlossen": 4
   }
  },
  "analysis": {
-  "tracked": 549,
-  "with_history": 529,
+  "tracked": 587,
+  "with_history": 567,
   "horizon": null,
   "groups": [],
   "top": []
