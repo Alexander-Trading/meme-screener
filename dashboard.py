@@ -256,11 +256,12 @@ async function liveUpdate(){
   const by={};
   for(const p of items){(by[p.chain]=by[p.chain]||new Set()).add(p.address)}
   const best={};
+  let src='DEX Screener';
   try{
     for(const [ch,set] of Object.entries(by)){
       const a=[...set];
       for(let i=0;i<a.length;i+=30){
-        const r=await fetch(`https://api.dexscreener.com/tokens/v1/${ch}/${a.slice(i,i+30).join(',')}`);
+        const r=await fetch(`https://api.dexscreener.com/tokens/v1/${ch}/${a.slice(i,i+30).join(',')}`,{cache:'no-store'});
         if(!r.ok) throw new Error('HTTP '+r.status);
         const js=await r.json();
         for(const x of (Array.isArray(js)?js:(js.pairs||[]))){
@@ -269,27 +270,48 @@ async function liveUpdate(){
         }
       }
     }
-  }catch(e){ showLive(false); return }
+  }catch(e){
+    console.warn('DEX Screener nicht erreichbar, versuche GeckoTerminal', e);
+    src='GeckoTerminal';
+    const NET={solana:'solana',base:'base',bsc:'bsc',ethereum:'eth'};
+    try{
+      for(const [ch,set] of Object.entries(by)){
+        if(!NET[ch]) continue;
+        const a=[...set];
+        for(let i=0;i<a.length;i+=30){
+          const r=await fetch(`https://api.geckoterminal.com/api/v2/networks/${NET[ch]}/tokens/multi/${a.slice(i,i+30).join(',')}`,{headers:{accept:'application/json'},cache:'no-store'});
+          if(!r.ok) throw new Error('HTTP '+r.status);
+          const js=await r.json();
+          for(const x of js.data||[]){
+            const at=x.attributes||{}, k=(ch+':'+(at.address||'')).toLowerCase();
+            const liq=+(at.total_reserve_in_usd||0);
+            if(+at.price_usd>0) best[k]={price:+at.price_usd,liq:liq||null};
+          }
+        }
+      }
+    }catch(e2){ console.warn('Live-Kurse nicht erreichbar', e2); showLive(false); return }
+  }
+  if(!Object.keys(best).length){ showLive(false); return }
   const today=new Date().toISOString().slice(0,10);
   for(const p of pf.positions||[]){
     const b=best[p.key.toLowerCase()];
-    if(b&&b.price>0){p.price=b.price;p.liq=b.liq;p.max_mult=Math.max(p.max_mult||1,p.price/p.entry_price)}
+    if(b&&b.price>0){p.price=b.price;if(b.liq!=null)p.liq=b.liq;p.max_mult=Math.max(p.max_mult||1,p.price/p.entry_price)}
   }
   for(const p of pf.closed||[]){
     const b=best[p.key.toLowerCase()];
     if(b&&b.price>0){
-      p.post_price=b.price;p.post_liq=b.liq;
+      p.post_price=b.price;if(b.liq!=null)p.post_liq=b.liq;
       if(p.closed!==today&&b.price>(p.post_max||0)){p.post_max=b.price;p.post_max_date=today}
     }
   }
   renderPortfolio();
-  showLive(true);
+  showLive(true, src);
 }
-function showLive(ok){
+function showLive(ok, src){
   const el=document.getElementById('live');
   el.hidden=false;
   el.classList.toggle('off',!ok);
-  el.textContent=ok?`Live-Kurse · Stand ${new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})} Uhr · aktualisiert jede Minute`
+  el.textContent=ok?`Live-Kurse (${src}) · Stand ${new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})} Uhr · aktualisiert jede Minute`
                    :'Live-Kurse gerade nicht erreichbar · angezeigt wird der Stand des letzten Laufs';
 }
 liveUpdate();
