@@ -59,6 +59,9 @@ a{color:var(--accent)} a:focus-visible{outline:2px solid var(--accent);outline-o
 .ev time{font-family:var(--mono);color:var(--muted);font-size:12px;margin-right:8px}
 .note{font-size:12px;color:var(--muted);max-width:65ch}
 .empty{color:var(--muted);font-size:14px;margin:0}
+.live{display:flex;align-items:center;gap:6px;margin-top:2px}
+.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--good)}
+.live.off::before{background:var(--warn)}
 .agrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;margin-top:16px}
 .agrid h3,#atop h3{font:600 14px/1.3 var(--body);margin:0 0 6px}
 .agrid table,#atop table{min-width:0;font-size:13px}
@@ -72,6 +75,7 @@ a{color:var(--accent)} a:focus-visible{outline:2px solid var(--accent);outline-o
     <div>
       <h1>Meme-Screener</h1>
       <div class="sub">Letzter Lauf: <span id="lastrun"></span> · Chains: <span id="chains"></span></div>
+      <div class="sub live" id="live" hidden></div>
     </div>
     <div class="kpis" id="kpis"></div>
     <div class="panel"><svg id="curve" viewBox="0 0 800 200" role="img" aria-label="Depotwert über Zeit"></svg></div>
@@ -89,6 +93,7 @@ a{color:var(--accent)} a:focus-visible{outline:2px solid var(--accent);outline-o
     <div class="panel scroll"><table id="open"><thead><tr>
       <th>Token</th><th>Gekauft</th><th class="r">Einsatz</th><th class="r">Wert</th><th class="r">Entwicklung</th>
       <th class="r">Hoch</th><th class="r">Realisiert</th></tr></thead><tbody></tbody></table></div>
+    <p class="note">Kurse kommen beim Öffnen live von DEX Screener und werden jede Minute aktualisiert. Käufe und Verkäufe nach den Depotregeln passieren einmal täglich im Hauptlauf.</p>
   </section>
 
   <section>
@@ -139,17 +144,20 @@ document.getElementById('chains').textContent = D.chains.join(', ');
 
 const pf = D.portfolio || {history:[],positions:[],closed:[],cash:D.start};
 const hist = pf.history || [];
-const last = hist.length ? hist[hist.length-1].total : D.start;
-const realized = (pf.closed||[]).reduce((s,p)=>s+(p.realized||0)-p.cost,0);
-const wins = (pf.closed||[]).filter(p=>(p.realized||0)>p.cost).length;
-const kpis = [
-  ['Depotwert', eur(last), ''],
-  ['Seit Start', pct((last/D.start-1)*100), cls(last-D.start)],
-  ['Offen', String((pf.positions||[]).length), ''],
-  ['Geschlossen', `${(pf.closed||[]).length} (${wins} im Plus)`, ''],
-  ['Realisiert', eur(realized), cls(realized)],
-];
-document.getElementById('kpis').innerHTML = kpis.map(([l,v,c])=>`<div class="kpi"><span>${l}</span><b class="${c}">${v}</b></div>`).join('');
+function renderKpis(){
+  const openVal=(pf.positions||[]).reduce((t,p)=>t+p.units*p.price*p.eur_per_usd,0);
+  const last = D.portfolio ? (pf.cash||0)+openVal : D.start;
+  const realized = (pf.closed||[]).reduce((t,p)=>t+(p.realized||0)-p.cost,0);
+  const wins = (pf.closed||[]).filter(p=>(p.realized||0)>p.cost).length;
+  const kpis = [
+    ['Depotwert', eur(last), ''],
+    ['Seit Start', pct((last/D.start-1)*100), cls(last-D.start)],
+    ['Offen', String((pf.positions||[]).length), ''],
+    ['Geschlossen', `${(pf.closed||[]).length} (${wins} im Plus)`, ''],
+    ['Realisiert', eur(realized), cls(realized)],
+  ];
+  document.getElementById('kpis').innerHTML = kpis.map(([l,v,c])=>`<div class="kpi"><span>${l}</span><b class="${c}">${v}</b></div>`).join('');
+}
 
 // Depotkurve
 (function(){
@@ -192,6 +200,7 @@ fill('cands', (D.ranked||[]).slice(0,25).map(c=>{
     <td>${chips.join('')}</td></tr>`;
 }), 'Noch kein Lauf oder heute keine Kandidaten.', 8);
 
+function renderOpen(){
 fill('open', (pf.positions||[]).map(p=>{
   const val=p.units*p.price*p.eur_per_usd, m=p.price/p.entry_price;
   return `<tr><td><a class="sym" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.symbol)}</a><div class="sub">${esc(p.chain)} · Score ${p.score}</div></td>
@@ -199,6 +208,7 @@ fill('open', (pf.positions||[]).map(p=>{
   <td class="r num ${cls(m-1)}">${pct((m-1)*100)}</td><td class="r num">${(p.max_mult||1).toFixed(2).replace('.',',')}x</td>
   <td class="r num">${eur(p.realized||0)}</td></tr>`;
 }), 'Noch keine Positionen.', 7);
+}
 
 const reasonOf = p => {
   if(p.status==='dead') return 'Totalverlust (Liquidität weg)';
@@ -207,6 +217,7 @@ const reasonOf = p => {
 };
 const heldVal = p => p.post_price ? p.cost*p.post_price/p.entry_price*((p.post_liq??1e9)<3000?0:1) : (p.status==='dead'?0:null);
 const mx = v => v==null ? '–' : (v>=10?v.toFixed(0):v.toFixed(2)).replace('.',',')+'x';
+function renderClosed(){
 fill('closed', (pf.closed||[]).slice().reverse().map(p=>{
   const res=(p.realized||0)-p.cost, last=(p.sales||[]).slice(-1)[0], hv=heldVal(p);
   const hi=p.post_max?p.post_max/p.entry_price:null, now=p.post_price?p.post_price/p.entry_price:null;
@@ -219,7 +230,7 @@ fill('closed', (pf.closed||[]).slice().reverse().map(p=>{
   <td class="r num ${hv!=null?cls(hv-p.cost):''}">${hv==null?'–':pct((hv/p.cost-1)*100)}${(p.post_liq??1e9)<3000?'<div class="sub">Liquidität weg</div>':''}</td></tr>`;
 }), 'Noch nichts verkauft.', 9);
 
-(function(){
+
   const g={};
   for(const p of pf.closed||[]){
     const k=reasonOf(p), hv=heldVal(p);
@@ -233,7 +244,57 @@ fill('closed', (pf.closed||[]).slice().reverse().map(p=>{
     return `<tr><td>${esc(k)}</td><td class="r num">${v.n}</td><td class="r num ${cls(v.real-v.cost)}">${eur(v.real-v.cost)}</td>
       <td class="r num ${ok?cls(v.held-v.cost):''}">${ok?eur(v.held-v.cost):'–'}</td><td class="r num ${ok?cls(diff):''}">${ok?eur(diff):'–'}</td><td>${verdict}</td></tr>`;
   }), 'Noch keine Verkäufe.', 6);
-})();
+}
+
+function renderPortfolio(){ renderKpis(); renderOpen(); renderClosed(); }
+renderPortfolio();
+
+// Live-Kurse direkt von DEX Screener
+async function liveUpdate(){
+  const items=[...(pf.positions||[]),...(pf.closed||[])];
+  if(!items.length) return;
+  const by={};
+  for(const p of items){(by[p.chain]=by[p.chain]||new Set()).add(p.address)}
+  const best={};
+  try{
+    for(const [ch,set] of Object.entries(by)){
+      const a=[...set];
+      for(let i=0;i<a.length;i+=30){
+        const r=await fetch(`https://api.dexscreener.com/tokens/v1/${ch}/${a.slice(i,i+30).join(',')}`);
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        const js=await r.json();
+        for(const x of (Array.isArray(js)?js:(js.pairs||[]))){
+          const k=(ch+':'+(x.baseToken&&x.baseToken.address||'')).toLowerCase(), liq=+((x.liquidity||{}).usd||0);
+          if(!best[k]||liq>best[k].liq) best[k]={price:+x.priceUsd||0,liq};
+        }
+      }
+    }
+  }catch(e){ showLive(false); return }
+  const today=new Date().toISOString().slice(0,10);
+  for(const p of pf.positions||[]){
+    const b=best[p.key.toLowerCase()];
+    if(b&&b.price>0){p.price=b.price;p.liq=b.liq;p.max_mult=Math.max(p.max_mult||1,p.price/p.entry_price)}
+  }
+  for(const p of pf.closed||[]){
+    const b=best[p.key.toLowerCase()];
+    if(b&&b.price>0){
+      p.post_price=b.price;p.post_liq=b.liq;
+      if(p.closed!==today&&b.price>(p.post_max||0)){p.post_max=b.price;p.post_max_date=today}
+    }
+  }
+  renderPortfolio();
+  showLive(true);
+}
+function showLive(ok){
+  const el=document.getElementById('live');
+  el.hidden=false;
+  el.classList.toggle('off',!ok);
+  el.textContent=ok?`Live-Kurse · Stand ${new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})} Uhr · aktualisiert jede Minute`
+                   :'Live-Kurse gerade nicht erreichbar · angezeigt wird der Stand des letzten Laufs';
+}
+liveUpdate();
+setInterval(()=>{ if(!document.hidden) liveUpdate() }, 60000);
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden) liveUpdate() });
 
 
 // Datenbank und Auswertung
