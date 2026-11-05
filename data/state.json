@@ -1299,21 +1299,21 @@
   }
  ],
  "collect": {
-  "last": "2026-11-05T14:59:35+00:00",
-  "tracked": 898,
-  "seen": 175,
-  "passed": 31,
+  "last": "2026-11-05T20:18:29+00:00",
+  "tracked": 943,
+  "seen": 160,
+  "passed": 35,
   "rejected": {
-   "zu jung": 96,
-   "Marktkapitalisierung außerhalb": 4,
-   "Liquidität zu gering": 15,
-   "zu alt": 21,
-   "ausgeschlossen": 8
+   "zu jung": 79,
+   "Liquidität zu gering": 20,
+   "zu alt": 18,
+   "ausgeschlossen": 7,
+   "Marktkapitalisierung außerhalb": 1
   }
  },
  "analysis": {
-  "tracked": 898,
-  "with_history": 863,
+  "tracked": 943,
+  "with_history": 905,
   "horizon": null,
   "groups": [],
   "top": []
