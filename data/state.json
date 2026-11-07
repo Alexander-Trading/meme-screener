@@ -1550,22 +1550,22 @@
   }
  ],
  "collect": {
-  "last": "2026-11-07T13:35:36+00:00",
-  "tracked": 1228,
-  "seen": 152,
+  "last": "2026-11-07T17:54:29+00:00",
+  "tracked": 1268,
+  "seen": 162,
   "passed": 31,
   "rejected": {
-   "zu jung": 90,
-   "Liquidität zu gering": 10,
-   "zu alt": 14,
-   "ausgeschlossen": 5,
+   "zu jung": 102,
+   "zu alt": 15,
+   "Liquidität zu gering": 9,
+   "ausgeschlossen": 3,
    "Marktkapitalisierung außerhalb": 1,
    "zu wenig Handel": 1
   }
  },
  "analysis": {
-  "tracked": 1228,
-  "with_history": 1178,
+  "tracked": 1268,
+  "with_history": 1216,
   "horizon": null,
   "groups": [],
   "top": []
