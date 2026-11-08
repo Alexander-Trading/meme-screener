@@ -1847,21 +1847,22 @@
   }
  ],
  "collect": {
-  "last": "2026-11-08T06:45:21+00:00",
-  "tracked": 1382,
-  "seen": 185,
-  "passed": 35,
+  "last": "2026-11-08T09:24:37+00:00",
+  "tracked": 1477,
+  "seen": 244,
+  "passed": 40,
   "rejected": {
-   "zu jung": 123,
-   "zu alt": 17,
-   "Marktkapitalisierung außerhalb": 1,
-   "Liquidität zu gering": 7,
-   "ausgeschlossen": 2
+   "zu jung": 139,
+   "zu alt": 40,
+   "Marktkapitalisierung außerhalb": 3,
+   "Liquidität zu gering": 13,
+   "ausgeschlossen": 7,
+   "zu wenig Handel": 2
   }
  },
  "analysis": {
-  "tracked": 1382,
-  "with_history": 1327,
+  "tracked": 1477,
+  "with_history": 1419,
   "horizon": 7,
   "groups": [
    {
@@ -1869,10 +1870,10 @@
     "rows": [
      {
       "label": "0–39",
-      "n": 65,
-      "win": 1.5,
-      "dead": 35.4,
-      "median": 0.57
+      "n": 66,
+      "win": 3.0,
+      "dead": 36.4,
+      "median": 0.61
      },
      {
       "label": "40–54",
@@ -1886,7 +1887,7 @@
       "n": 11,
       "win": 18.2,
       "dead": 0.0,
-      "median": 1.07
+      "median": 1.06
      }
     ]
    },
@@ -1895,9 +1896,9 @@
     "rows": [
      {
       "label": "unter 3 Tage",
-      "n": 56,
-      "win": 3.6,
-      "dead": 48.2,
+      "n": 57,
+      "win": 5.3,
+      "dead": 49.1,
       "median": 0.27
      },
      {
@@ -1928,9 +1929,9 @@
     "rows": [
      {
       "label": "unter 30k $",
-      "n": 54,
-      "win": 1.9,
-      "dead": 46.3,
+      "n": 55,
+      "win": 3.6,
+      "dead": 47.3,
       "median": 0.44
      },
      {
@@ -1975,9 +1976,9 @@
      },
      {
       "label": "keine",
-      "n": 16,
-      "win": 0.0,
-      "dead": 25.0,
+      "n": 17,
+      "win": 5.9,
+      "dead": 29.4,
       "median": 0.87
      }
     ]
@@ -1997,7 +1998,7 @@
       "n": 2,
       "win": 0.0,
       "dead": 0.0,
-      "median": 0.61
+      "median": 0.57
      },
      {
       "label": "ausgeschlossen",
@@ -2022,21 +2023,33 @@
      },
      {
       "label": "zu jung",
-      "n": 55,
-      "win": 3.6,
-      "dead": 49.1,
-      "median": 0.26
+      "n": 56,
+      "win": 5.4,
+      "dead": 50.0,
+      "median": 0.27
      }
     ]
    }
   ],
   "top": [
    {
+    "symbol": "BLUE",
+    "chain": "solana",
+    "address": "9aE7rkUorCqv1qp52Etyhyq4UXfXEBKSasYznqT5Vcxy",
+    "first": "2026-11-01",
+    "max": 8269.231,
+    "score": 5,
+    "age": 0.848,
+    "liq": 0.0,
+    "mcap": 0.24,
+    "filter": "zu jung"
+   },
+   {
     "symbol": "FLOAT",
     "chain": "solana",
     "address": "Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr",
     "first": "2026-11-01",
-    "max": 8.281,
+    "max": 8.062,
     "score": 58,
     "age": 4.0552,
     "liq": 254425.84,
@@ -2060,7 +2073,7 @@
     "chain": "solana",
     "address": "2j5SaS7xy776qCBpyPQbZjyQSAtKiFgrwjfErthnW2ZM",
     "first": "2026-11-01",
-    "max": 3.671,
+    "max": 4.391,
     "score": 55,
     "age": 25.9102,
     "liq": 189267.4,
@@ -2138,20 +2151,8 @@
     "liq": 0.0,
     "mcap": 11100.74,
     "filter": "zu jung"
-   },
-   {
-    "symbol": "NIO",
-    "chain": "solana",
-    "address": "7SL2VnfYsChvog5oQY9Nmtqu1wceaMiQzWoqoLQpump",
-    "first": "2026-11-01",
-    "max": 2.269,
-    "score": 42,
-    "age": 11.3172,
-    "liq": 83114.81,
-    "mcap": 638738.0,
-    "filter": "ok"
    }
   ],
-  "n": 118
+  "n": 119
  }
 }
