@@ -491,7 +491,7 @@ def update_portfolio(state: dict, prices: dict[str, dict], ranked: list[dict],
             "key": c["key"], "chain": c["chain"], "address": c["address"], "symbol": c["symbol"],
             "url": c["url"], "opened": today, "opened_ts": ts, "entry_price": c["price"], "price": c["price"],
             "liq": c["liq"], "units": units, "cost": eur, "eur_per_usd": eur_per_usd, "score": c["score"],
-            "status": "open", "updated": today, "max_mult": 1.0,
+            "status": "open", "updated": today, "max_mult": 1.0, "image": c.get("image"),
         })
         events.append(f"Kauf {c['symbol']} ({c['chain']}) für {eur:.0f} €, Score {c['score']}")
         bought += 1
