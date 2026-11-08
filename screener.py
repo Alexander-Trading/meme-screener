@@ -680,7 +680,11 @@ def update_ohlc(track: dict, pairs: dict[str, str]):
             due.append((rec["first"], k, age))
     due.sort()
     out, calls = {}, 0
+    t_start = time.monotonic()
+    max_sec = ocfg.get("max_seconds_per_run", 480)
     for first, k, age in due[:budget]:
+        if time.monotonic() - t_start > max_sec:
+            break
         ch = k.split(":", 1)[0]
         net = GECKO_NET.get(ch)
         if not net:
@@ -698,11 +702,11 @@ def update_ohlc(track: dict, pairs: dict[str, str]):
             done[k] = sorted(set(done.get(k, [])) | {m for m in milestones if age >= m})
             if is_dead(track[k]):  # tot: es kommen keine neuen Hochs mehr, spätere Abrufe sparen
                 done[k] = list(milestones)
-        SLEEP(2.1)  # GeckoTerminal: 30 Abrufe/Minute
+        SLEEP(ocfg.get("pause_seconds", 6))  # GeckoTerminal drosselt kostenlose Abrufe
     if out:
         gz_save(OHLC_DIR / f"{now_utc():%Y-%m-%d_%H}.json.gz", out)
     save_json_compact(OHLC_DONE_FILE, dict(sorted(done.items())))
-    log(f"Tageshochs: {len(out)} Tokens nachgeladen, {max(0, len(due) - budget)} warten noch")
+    log(f"Tageshochs: {len(out)} Tokens nachgeladen ({calls} Abrufe), {max(0, len(due) - calls)} warten noch")
 
 
 def save_json_compact(path: Path, obj):
