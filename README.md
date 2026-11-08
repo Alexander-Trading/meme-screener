@@ -46,12 +46,13 @@ Alle Grenzen und Regeln stehen in `config.json` und lassen sich dort anpassen (z
 - `data/snapshots.json` – Verlauf je Token für das Holderwachstum
 - `data/runs/JJJJ-MM-TT.json` – die sicherheitsgeprüften Kandidaten je Tag
 - `data/raw/JJJJ-MM-TT_HH.json.gz` – Rohdaten **aller** gesehenen Tokens je Lauf (auch der aussortierten)
-- `data/tracking.json.gz` – jeder je gesehene Token wird 180 Tage lang täglich nachgepreist
-- `data/analyse.csv` – Merkmale am ersten Tag + Entwicklung nach 7/30/90 Tagen (Excel, Semikolon)
+- `data/tokens/JJJJ-MM-TT.json.gz` – Tokens, die an diesem Tag zum ersten Mal gesehen wurden (Startmerkmale)
+- `data/prices/JJJJ-MM-TT_HH.json.gz` – Kurse aller verfolgten Tokens je Lauf; jeder Token wird 180 Tage verfolgt, tote Tokens (7 Tage Liquidität < 1.000 $) nicht mehr
+- `analyse.csv` – Merkmale am ersten Tag + Entwicklung nach 7/30/90 Tagen (Excel, Semikolon); nach jedem Hauptlauf unter **Actions → letzter Lauf → Artifacts** zum Download
 - `analyze.py` – Zusammenfassung: Trefferquote (≥ 3x) und Ausfallquote nach Score, Alter und Filter
 
 ## Daten sammeln und auswerten
-Weil ein Rückwärtstest mit kostenlosen Daten nicht sauber geht, baut der Screener sich seine eigene Datenbank auf: Jeder Token, der irgendwo auftaucht, wird mit seinen Startmerkmalen gespeichert und danach täglich weiterverfolgt – auch die, die durchfallen oder sterben. Nach 1–3 Monaten zeigt `analyse.csv`, welche Merkmale die späteren Gewinner am ersten Tag hatten und ob der Score funktioniert. Die Datenmenge liegt bei grob 100 MB pro Jahr.
+Weil ein Rückwärtstest mit kostenlosen Daten nicht sauber geht, baut der Screener sich seine eigene Datenbank auf: Jeder Token, der irgendwo auftaucht, wird mit seinen Startmerkmalen gespeichert und danach täglich weiterverfolgt – auch die, die durchfallen oder sterben. Nach 1–3 Monaten zeigt die Auswertung im Dashboard bzw. `analyse.csv`, welche Merkmale die späteren Gewinner am ersten Tag hatten und ob der Score funktioniert. Alle Datendateien werden nur einmal geschrieben, damit das Repository langsam wächst (grob 150–300 MB pro Jahr).
 
 ## Grenzen
 - Die kostenlosen APIs können Felder ändern oder zeitweise drosseln; dann fallen einzelne Prüfungen aus und das Dashboard markiert „Sicherheit ungeprüft“.

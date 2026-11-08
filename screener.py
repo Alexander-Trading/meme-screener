@@ -32,7 +32,9 @@ STATE_FILE = DATA / "state.json"
 SNAP_FILE = DATA / "snapshots.json"
 RUNS_DIR = DATA / "runs"
 RAW_DIR = DATA / "raw"
-TRACK_FILE = DATA / "tracking.json.gz"
+TRACK_FILE = DATA / "tracking.json.gz"  # alt, wird migriert
+TOKENS_DIR = DATA / "tokens"
+PRICES_DIR = DATA / "prices"
 
 CONFIG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
 
@@ -66,6 +68,13 @@ HTTP_GET = _http_get
 SLEEP = time.sleep
 
 
+EVM_CHAINS = {"base", "bsc", "ethereum"}
+
+
+def norm(chain: str, addr: str) -> str:
+    return addr.lower() if chain in EVM_CHAINS and addr else addr
+
+
 def now_utc() -> datetime:
     return datetime.now(timezone.utc)
 
@@ -97,7 +106,7 @@ def collect_candidates(chains: list[str]) -> dict[str, set[str]]:
         for item in data or []:
             ch, addr = item.get("chainId"), item.get("tokenAddress")
             if ch in found and addr:
-                found[ch].add(addr)
+                found[ch].add(norm(ch, addr))
         SLEEP(1)
 
     # GeckoTerminal: trendende Pools – findet auch ältere "Überlebende"
@@ -115,7 +124,7 @@ def collect_candidates(chains: list[str]) -> dict[str, set[str]]:
                     rel = pool.get("relationships", {}).get("base_token", {}).get("data", {})
                     tid = rel.get("id", "")
                     if "_" in tid:
-                        found[ch].add(tid.split("_", 1)[1])
+                        found[ch].add(norm(ch, tid.split("_", 1)[1]))
                 SLEEP(2.2)  # GeckoTerminal: ca. 30 Abrufe/Minute
     return found
 
@@ -126,17 +135,18 @@ def fetch_pairs(chain: str, addresses: list[str]) -> dict[str, dict]:
     best: dict[str, dict] = {}
     for i in range(0, len(addresses), 30):
         chunk = addresses[i:i + 30]
+        wanted = {norm(chain, a) for a in chunk}
         data = HTTP_GET(f"{DEX}/tokens/v1/{chain}/{','.join(chunk)}")
         if isinstance(data, dict):
             data = data.get("pairs") or []
         for p in data or []:
-            base = (p.get("baseToken") or {}).get("address")
-            if not base or base not in chunk:
+            base = norm(chain, (p.get("baseToken") or {}).get("address") or "")
+            if not base or base not in wanted:
                 continue
             liq = fnum((p.get("liquidity") or {}).get("usd"))
             if base not in best or liq > fnum((best[base].get("liquidity") or {}).get("usd")):
                 best[base] = p
-        SLEEP(1.1)
+        SLEEP(0.3)  # DEX Screener erlaubt 300 Abrufe/Minute auf diesem Endpunkt
     return best
 
 
@@ -150,7 +160,7 @@ def to_metrics(chain: str, p: dict) -> dict:
     base = p.get("baseToken") or {}
     return {
         "chain": chain,
-        "address": base.get("address"),
+        "address": norm(chain, base.get("address") or ""),
         "symbol": (base.get("symbol") or "?")[:20],
         "name": (base.get("name") or "")[:40],
         "url": p.get("url"),
@@ -373,6 +383,7 @@ def update_portfolio(state: dict, prices: dict[str, dict], ranked: list[dict],
     events: list[str] = []
     today = now_utc().date().isoformat()
     ts = now_utc().timestamp()
+    fx = state.get("eur_per_usd", 0.92)  # aktueller USD→EUR-Kurs
 
     # 5a. Bestehende Positionen bewerten
     for pos in pf["positions"]:
@@ -394,7 +405,7 @@ def update_portfolio(state: dict, prices: dict[str, dict], ranked: list[dict],
 
         def sell(fraction: float, reason: str):
             units = pos["units"] * fraction
-            proceeds = units * pos["price"] * pos["eur_per_usd"]
+            proceeds = units * pos["price"] * fx
             pos["units"] -= units
             pos["realized"] = pos.get("realized", 0.0) + proceeds
             pf["cash"] += proceeds
@@ -455,7 +466,7 @@ def update_portfolio(state: dict, prices: dict[str, dict], ranked: list[dict],
 
     # 5b. Neue Käufe
     held = {p["key"] for p in pf["positions"]} | {p["key"] for p in pf["closed"]}
-    eur_per_usd = state.get("eur_per_usd", 0.92)
+    eur_per_usd = fx
     bought = 0
     for c in ranked:
         if bought >= cfg["max_buys_per_day"] or pf["cash"] < cfg["position_size_eur"]:
@@ -475,7 +486,7 @@ def update_portfolio(state: dict, prices: dict[str, dict], ranked: list[dict],
         bought += 1
 
     # 5c. Depotwert
-    open_val = sum(p["units"] * p["price"] * p["eur_per_usd"] for p in pf["positions"])
+    open_val = sum(p["units"] * p["price"] * fx for p in pf["positions"])
     total = pf["cash"] + open_val
     pf["history"] = [h for h in pf["history"] if h["date"] != today]
     pf["history"].append({"date": today, "total": round(total, 2), "cash": round(pf["cash"], 2),
@@ -558,32 +569,96 @@ def gz_save(path: Path, obj):
         json.dump(obj, f, ensure_ascii=False, separators=(",", ":"))
 
 
-def update_tracking(all_metrics: list[dict], extra_prices: dict[str, dict]):
-    """Verfolgt JEDEN je gesehenen Token täglich weiter (Preis, Liquidität, MCap),
-    damit später messbar ist, welche Startmerkmale zu Gewinnern geführt haben."""
-    tcfg = CONFIG.get("tracking", {})
-    track = gz_load(TRACK_FILE, {})
-    today = now_utc().date().isoformat()
-    seen_now = {m["key"]: m for m in all_metrics}
-    for key, m in seen_now.items():
-        if key not in track and len(track) < tcfg.get("max_tokens", 6000):
-            track[key] = {"first": today, "symbol": m["symbol"],
-                          "f": {k: (round(m[k], 4) if isinstance(m.get(k), float) else m.get(k)) for k in RAW_FIELDS if k != "key"},
-                          "s": []}
-    for key, rec in track.items():
-        src = seen_now.get(key) or extra_prices.get(key)
-        if not src:
-            continue
-        point = [today, src["price"], round(src["liq"]), round(src.get("mcap", 0))]
-        if rec["s"] and rec["s"][-1][0] == today:
-            rec["s"][-1] = point
-        else:
-            rec["s"].append(point)
-    cutoff = (now_utc().date().toordinal() - tcfg.get("days", 180))
-    track = {k: v for k, v in track.items()
-             if datetime.fromisoformat(v["first"]).date().toordinal() >= cutoff}
-    gz_save(TRACK_FILE, track)
+def _add_point(rec: dict, point: list):
+    if rec["s"] and rec["s"][-1][0] == point[0]:
+        rec["s"][-1] = point
+    elif not rec["s"] or rec["s"][-1][0] < point[0]:
+        rec["s"].append(point)
+
+
+def load_tracking(days: int | None = None) -> dict:
+    """Baut die Tracking-Datenbank aus den Tagesdateien auf.
+    data/tokens/JJJJ-MM-TT.json.gz   – Tokens, die an diesem Tag zum ersten Mal gesehen wurden (Startmerkmale)
+    data/prices/JJJJ-MM-TT_HH.json.gz – Kurse je Lauf (einmal geschrieben, nie geändert)
+    Ergebnis: {key: {"first", "symbol", "f", "s": [[datum, preis, liquidität, mcap], ...]}}"""
+    days = days or CONFIG.get("tracking", {}).get("days", 180)
+    today_ord = now_utc().date().toordinal()
+    def recent(f: Path) -> bool:
+        try:
+            return today_ord - date.fromisoformat(f.name[:10]).toordinal() <= days
+        except ValueError:
+            return False
+    track: dict = {}
+    for f in sorted(TOKENS_DIR.glob("*.json.gz")):
+        if recent(f):
+            for k, v in gz_load(f, {}).items():
+                track.setdefault(k, {"first": f.name[:10], "symbol": v.get("symbol"), "f": v.get("f") or {}, "s": []})
+    for f in sorted(PRICES_DIR.glob("*.json.gz")):
+        if recent(f):
+            d = f.name[:10]
+            for k, pt in gz_load(f, {}).items():
+                rec = track.get(k)
+                if rec and d >= rec["first"]:
+                    _add_point(rec, [d] + list(pt))
     return track
+
+
+def is_dead(rec: dict) -> bool:
+    """Seit mindestens 7 Tagen Liquidität unter 1.000 $ → nicht mehr nachpreisen."""
+    s = rec.get("s") or []
+    if len(s) < 7:
+        return False
+    last = s[-7:]
+    return all((x[2] or 0) < 1000 for x in last) and \
+        (date.fromisoformat(last[-1][0]) - date.fromisoformat(last[0][0])).days >= 6
+
+
+def update_tracking(all_metrics: list[dict], extra_prices: dict[str, dict], track: dict) -> dict:
+    """Speichert neue Tokens und die Kurse dieses Laufs; jeder je gesehene Token wird so
+    über den Tracking-Zeitraum weiterverfolgt, auch wenn er aussortiert wurde oder stirbt."""
+    today = now_utc().date().isoformat()
+    new = {}
+    for m in all_metrics:
+        if m["key"] not in track and m["key"] not in new:
+            new[m["key"]] = {"symbol": m["symbol"],
+                             "f": {k: (round(m[k], 4) if isinstance(m.get(k), float) else m.get(k))
+                                   for k in RAW_FIELDS if k != "key"}}
+    if new:
+        tf = TOKENS_DIR / f"{today}.json.gz"
+        cur = gz_load(tf, {})
+        cur.update(new)
+        gz_save(tf, cur)
+        for k, v in new.items():
+            track[k] = {"first": today, **v, "s": []}
+    pts = {m["key"]: [m["price"], round(m["liq"]), round(m.get("mcap") or 0)] for m in all_metrics}
+    for k, v in extra_prices.items():
+        pts.setdefault(k, [v["price"], round(v["liq"]), round(v.get("mcap") or 0)])
+    gz_save(PRICES_DIR / f"{now_utc():%Y-%m-%d_%H}.json.gz", pts)
+    for k, pt in pts.items():
+        if k in track:
+            _add_point(track[k], [today] + pt)
+    return track
+
+
+def migrate_old_tracking():
+    """Einmalig: alte tracking.json.gz in Tagesdateien umwandeln (spart Speicher im Repository)."""
+    if not TRACK_FILE.exists():
+        return
+    old = gz_load(TRACK_FILE, {})
+    by_first: dict[str, dict] = {}
+    by_day: dict[str, dict] = {}
+    for k, rec in old.items():
+        ch, addr = k.split(":", 1)
+        k2 = f"{ch}:{norm(ch, addr)}"
+        by_first.setdefault(rec["first"], {})[k2] = {"symbol": rec.get("symbol"), "f": rec.get("f") or {}}
+        for pt in rec.get("s") or []:
+            by_day.setdefault(pt[0], {})[k2] = pt[1:]
+    for d, toks in by_first.items():
+        gz_save(TOKENS_DIR / f"{d}.json.gz", toks)
+    for d, pts in by_day.items():
+        gz_save(PRICES_DIR / f"{d}_00.json.gz", pts)
+    TRACK_FILE.unlink()
+    log(f"Tracking migriert: {len(old)} Tokens, {len(by_day)} Tage")
 
 
 def update_after_sale(state: dict, prices: dict[str, dict]):
@@ -620,6 +695,7 @@ def run():
     chains = CONFIG["chains"]
     state = load_json(STATE_FILE, {})
     snaps = load_json(SNAP_FILE, {})
+    migrate_old_tracking()
     main = is_main_run(state)
     log("Hauptlauf (Depot + Telegram)" if main else "Sammellauf (nur Daten)")
     if main:
@@ -658,12 +734,12 @@ def run():
     gz_save(RAW_DIR / f"{now_utc():%Y-%m-%d_%H}.json.gz",
             [{k: m.get(k) for k in RAW_FIELDS} for m in all_metrics])
 
-    # Bereits verfolgte Tokens, die heute nicht auftauchen, nachpreisen
-    track_old = gz_load(TRACK_FILE, {})
+    # Bereits verfolgte Tokens, die heute nicht auftauchen, nachpreisen (tote Tokens nicht mehr)
+    track_old = load_tracking()
     today = now_utc().date().isoformat()
     missing: dict[str, list[str]] = {}
     for key, rec in track_old.items():
-        if key in prices or (rec["s"] and rec["s"][-1][0] == today):
+        if key in prices or (rec["s"] and rec["s"][-1][0] == today) or is_dead(rec):
             continue
         ch, addr = key.split(":", 1)
         if ch in chains:
@@ -682,7 +758,7 @@ def run():
             mm = to_metrics(ch, p)
             extra[f"{ch}:{addr}"] = {"price": mm["price"], "liq": mm["liq"], "mcap": mm["mcap"]}
     prices.update(extra)
-    track = update_tracking(all_metrics, extra)
+    track = update_tracking(all_metrics, extra, track_old)
     log(f"Tracking: {len(track)} Tokens in der Datenbank, {len(extra)} nachgepreist")
 
     update_after_sale(state, prices)
@@ -789,7 +865,7 @@ def run():
     build_dashboard(state, CONFIG, DOCS / "index.html")
     try:
         from analyze import export
-        export(track, DATA / "analyse.csv")
+        export(track, ROOT / "out" / "analyse.csv")
     except Exception as e:  # Auswertung darf den Lauf nie abbrechen
         log(f"Auswertung übersprungen: {e}")
     send_telegram(telegram_text(ranked, events, state))

@@ -152,8 +152,10 @@ document.getElementById('chains').textContent = D.chains.join(', ');
 
 const pf = D.portfolio || {history:[],positions:[],closed:[],cash:D.start};
 const hist = pf.history || [];
+// aktueller USD→EUR-Kurs aus dem letzten Hauptlauf (Kaufkurs nur als Rückfallwert)
+const fxOf = p => D.fx || p.eur_per_usd;
 function renderKpis(){
-  const openVal=(pf.positions||[]).reduce((t,p)=>t+p.units*p.price*p.eur_per_usd,0);
+  const openVal=(pf.positions||[]).reduce((t,p)=>t+p.units*p.price*fxOf(p),0);
   const last = D.portfolio ? (pf.cash||0)+openVal : D.start;
   // realisierter Gewinn: Erlös minus anteiliger Einsatz der verkauften Stücke (auch Teilverkäufe)
   const realizedPnl = p => {
@@ -164,11 +166,14 @@ function renderKpis(){
   };
   const realized = [...(pf.positions||[]),...(pf.closed||[])].reduce((t,p)=>t+realizedPnl(p),0);
   const wins = (pf.closed||[]).filter(p=>(p.realized||0)>p.cost).length;
+  const partial = [...(pf.positions||[]),...(pf.closed||[])].reduce((t,p)=>t+(p.sales||[]).length,0)
+                  - (pf.closed||[]).filter(p=>p.status!=='dead'&&(p.sales||[]).length).length;
   const kpis = [
     ['Depotwert', eur(last), ''],
     ['Seit Start', pct((last/D.start-1)*100), cls(last-D.start)],
     ['Offen', String((pf.positions||[]).length), ''],
-    ['Geschlossen', `${(pf.closed||[]).length} (${wins} im Plus)`, ''],
+    ['Komplett geschlossen', `${(pf.closed||[]).length} (${wins} im Plus)`, ''],
+    ['Teilverkäufe', String(partial), ''],
     ['Realisierter Gewinn', eur(realized), cls(realized)],
   ];
   document.getElementById('kpis').innerHTML = kpis.map(([l,v,c])=>`<div class="kpi"><span>${l}</span><b class="${c}">${v}</b></div>`).join('');
@@ -217,7 +222,7 @@ fill('cands', (D.ranked||[]).slice(0,25).map(c=>{
 
 function renderOpen(){
 fill('open', (pf.positions||[]).map(p=>{
-  const val=p.units*p.price*p.eur_per_usd, m=p.price/p.entry_price;
+  const val=p.units*p.price*fxOf(p), m=p.price/p.entry_price;
   return `<tr><td><a class="sym" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.symbol)}</a><div class="sub">${esc(p.chain)} · Score ${p.score}</div></td>
   <td class="num">${fmtDate(p.opened)}</td><td class="r num">${eur(p.cost)}</td><td class="r num">${eur(val)}</td>
   <td class="r num ${cls(m-1)}">${pct((m-1)*100)}</td><td class="r num">${(p.max_mult||1).toFixed(2).replace('.',',')}x</td>
@@ -386,6 +391,7 @@ def build_dashboard(state: dict, config: dict, out: Path):
         "ranked": state.get("last_ranked", []),
         "events": state.get("events", []),
         "collect": state.get("collect"),
+        "fx": state.get("eur_per_usd"),
         "analysis": state.get("analysis"),
     }
     payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")

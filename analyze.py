@@ -18,7 +18,6 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-TRACK_FILE = ROOT / "data" / "tracking.json.gz"
 FEATURES = ("price", "liq", "mcap", "vol24", "buys24", "sells24", "buys6", "sells6", "chg1", "chg6", "chg24",
             "age_days", "twitter", "telegram", "website", "boosted", "pre_score", "filter")
 
@@ -144,8 +143,13 @@ def buckets(track: dict, win_mult: float = 3.0) -> dict:
 
 
 if __name__ == "__main__":
-    try:
-        with gzip.open(TRACK_FILE, "rt", encoding="utf-8") as fh:
-            summary(json.load(fh))
-    except FileNotFoundError:
+    import sys
+    from screener import load_tracking
+    track = load_tracking()
+    if not track:
         print("Noch keine Daten. Erst den Screener einige Tage laufen lassen.")
+    else:
+        summary(track)
+        if "--csv" in sys.argv:
+            export(track, ROOT / "out" / "analyse.csv")
+            print("CSV geschrieben: out/analyse.csv")
