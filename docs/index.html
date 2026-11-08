@@ -149,14 +149,21 @@ const hist = pf.history || [];
 function renderKpis(){
   const openVal=(pf.positions||[]).reduce((t,p)=>t+p.units*p.price*p.eur_per_usd,0);
   const last = D.portfolio ? (pf.cash||0)+openVal : D.start;
-  const realized = (pf.closed||[]).reduce((t,p)=>t+(p.realized||0)-p.cost,0);
+  // realisierter Gewinn: Erlös minus anteiliger Einsatz der verkauften Stücke (auch Teilverkäufe)
+  const realizedPnl = p => {
+    if(p.status!=='open') return (p.realized||0)-p.cost;
+    const initial=p.cost/p.eur_per_usd/p.entry_price;
+    const sold=(p.sales||[]).reduce((t,x)=>t+(x.units??0),0);
+    return (p.realized||0)-(initial?p.cost*Math.min(1,sold/initial):0);
+  };
+  const realized = [...(pf.positions||[]),...(pf.closed||[])].reduce((t,p)=>t+realizedPnl(p),0);
   const wins = (pf.closed||[]).filter(p=>(p.realized||0)>p.cost).length;
   const kpis = [
     ['Depotwert', eur(last), ''],
     ['Seit Start', pct((last/D.start-1)*100), cls(last-D.start)],
     ['Offen', String((pf.positions||[]).length), ''],
     ['Geschlossen', `${(pf.closed||[]).length} (${wins} im Plus)`, ''],
-    ['Realisiert', eur(realized), cls(realized)],
+    ['Realisierter Gewinn', eur(realized), cls(realized)],
   ];
   document.getElementById('kpis').innerHTML = kpis.map(([l,v,c])=>`<div class="kpi"><span>${l}</span><b class="${c}">${v}</b></div>`).join('');
 }
