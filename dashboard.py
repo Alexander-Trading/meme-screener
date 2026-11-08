@@ -97,10 +97,18 @@ a{color:var(--accent)} a:focus-visible{outline:2px solid var(--accent);outline-o
   </section>
 
   <section>
+    <h2>Verkäufe</h2>
+    <div class="panel scroll"><table id="sales"><thead><tr>
+      <th>Datum</th><th>Token</th><th class="r">Anteil</th><th class="r">Kurs</th><th class="r">Erlös</th><th>Grund</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+    <p class="note">Jeder Verkauf des Musterdepots, auch Teilverkäufe. „Anteil“ bezieht sich auf die ursprüngliche Positionsgröße, „Kurs“ auf den Kaufkurs.</p>
+  </section>
+
+  <section>
     <h2>Geschlossene Positionen</h2>
     <div class="panel scroll"><table id="closed"><thead><tr>
       <th>Token</th><th>Zeitraum</th><th class="r">Einsatz</th><th class="r">Erlös</th><th class="r">Ergebnis</th><th>Grund</th>
       <th class="r">Hoch danach</th><th class="r">Heute</th><th class="r">Gehalten</th></tr></thead><tbody></tbody></table></div>
+    <p class="note">Hier stehen nur komplett verkaufte Positionen. Teilverkäufe findest du unter „Verkäufe“.</p>
     <p class="note">Verkaufte Tokens werden unbegrenzt weiterverfolgt. „Hoch danach“ und „Heute“ zeigen den Kurs als Vielfaches des Kaufkurses. „Gehalten“ ist das Ergebnis, wenn die ganze Position bis heute gehalten worden wäre.</p>
   </section>
 
@@ -246,7 +254,21 @@ fill('closed', (pf.closed||[]).slice().reverse().map(p=>{
   }), 'Noch keine Verkäufe.', 6);
 }
 
-function renderPortfolio(){ renderKpis(); renderOpen(); renderClosed(); }
+function renderSales(){
+  const rows=[];
+  for(const p of [...(pf.positions||[]),...(pf.closed||[])]){
+    const initial=p.cost/p.eur_per_usd/p.entry_price;
+    for(const x of p.sales||[]) rows.push({p,x,share:x.units!=null&&initial?x.units/initial:null});
+  }
+  rows.sort((a,b)=>a.x.date<b.x.date?1:a.x.date>b.x.date?-1:0);
+  fill('sales', rows.map(({p,x,share})=>`<tr><td class="num">${fmtDate(x.date)}</td>
+    <td><a class="sym" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.symbol)}</a><div class="sub">${esc(p.chain)}</div></td>
+    <td class="r num">${share==null?'–':Math.round(share*100)+' %'}</td>
+    <td class="r num ${cls(x.mult-1)}">${mx(x.mult)}</td><td class="r num">${eur(x.eur)}</td>
+    <td>${esc(x.reason)}</td><td>${p.status==='open'?'Rest offen':p.status==='dead'?'Totalverlust':'geschlossen'}</td></tr>`),
+    'Noch keine Verkäufe.', 7);
+}
+function renderPortfolio(){ renderKpis(); renderOpen(); renderSales(); renderClosed(); }
 renderPortfolio();
 
 // Live-Kurse direkt von DEX Screener
