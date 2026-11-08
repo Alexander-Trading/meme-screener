@@ -1847,13 +1847,13 @@
   }
  ],
  "collect": {
-  "last": "2026-11-08T09:24:37+00:00",
-  "tracked": 1477,
-  "seen": 244,
-  "passed": 40,
+  "last": "2026-11-08T09:44:09+00:00",
+  "tracked": 1478,
+  "seen": 230,
+  "passed": 39,
   "rejected": {
-   "zu jung": 139,
-   "zu alt": 40,
+   "zu jung": 128,
+   "zu alt": 38,
    "Marktkapitalisierung außerhalb": 3,
    "Liquidität zu gering": 13,
    "ausgeschlossen": 7,
@@ -1861,17 +1861,18 @@
   }
  },
  "analysis": {
-  "tracked": 1477,
-  "with_history": 1419,
+  "tracked": 1478,
+  "with_history": 1420,
   "horizon": 7,
   "groups": [
    {
-    "title": "Score am ersten Tag",
+    "title": "Score beim ersten Sehen",
     "rows": [
      {
       "label": "0–39",
       "n": 66,
       "win": 3.0,
+      "win10": 1.5,
       "dead": 36.4,
       "median": 0.61
      },
@@ -1879,15 +1880,91 @@
       "label": "40–54",
       "n": 42,
       "win": 2.4,
+      "win10": 0.0,
       "dead": 11.9,
-      "median": 0.73
+      "median": 0.72
      },
      {
       "label": "55–64",
       "n": 11,
       "win": 18.2,
+      "win10": 0.0,
       "dead": 0.0,
-      "median": 1.06
+      "median": 1.03
+     }
+    ]
+   },
+   {
+    "title": "Voller Score (mit Holderdaten)",
+    "rows": [
+     {
+      "label": "0–39",
+      "n": 4,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 0.9
+     },
+     {
+      "label": "40–54",
+      "n": 11,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 0.74
+     },
+     {
+      "label": "55–64",
+      "n": 12,
+      "win": 8.3,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 0.81
+     },
+     {
+      "label": "65–74",
+      "n": 10,
+      "win": 20.0,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 1.18
+     },
+     {
+      "label": "keine Daten",
+      "n": 82,
+      "win": 2.4,
+      "win10": 1.2,
+      "dead": 35.4,
+      "median": 0.5
+     }
+    ]
+   },
+   {
+    "title": "Sicherheitscheck",
+    "rows": [
+     {
+      "label": "bestanden",
+      "n": 33,
+      "win": 9.1,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 0.95
+     },
+     {
+      "label": "durchgefallen",
+      "n": 4,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 0.9
+     },
+     {
+      "label": "nicht geprüft",
+      "n": 82,
+      "win": 2.4,
+      "win10": 1.2,
+      "dead": 35.4,
+      "median": 0.5
      }
     ]
    },
@@ -1898,6 +1975,7 @@
       "label": "unter 3 Tage",
       "n": 57,
       "win": 5.3,
+      "win10": 1.8,
       "dead": 49.1,
       "median": 0.27
      },
@@ -1905,6 +1983,7 @@
       "label": "3–14 Tage",
       "n": 23,
       "win": 4.3,
+      "win10": 0.0,
       "dead": 4.3,
       "median": 0.74
      },
@@ -1912,6 +1991,7 @@
       "label": "14–60 Tage",
       "n": 15,
       "win": 6.7,
+      "win10": 0.0,
       "dead": 0.0,
       "median": 0.98
      },
@@ -1919,8 +1999,54 @@
       "label": "über 60 Tage",
       "n": 24,
       "win": 0.0,
+      "win10": 0.0,
       "dead": 0.0,
       "median": 0.95
+     }
+    ]
+   },
+   {
+    "title": "Marktkapitalisierung",
+    "rows": [
+     {
+      "label": "unter 250k $",
+      "n": 63,
+      "win": 4.8,
+      "win10": 1.6,
+      "dead": 42.9,
+      "median": 0.44
+     },
+     {
+      "label": "250k–1 M $",
+      "n": 12,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 8.3,
+      "median": 0.54
+     },
+     {
+      "label": "1–5 M $",
+      "n": 19,
+      "win": 10.5,
+      "win10": 0.0,
+      "dead": 5.3,
+      "median": 0.82
+     },
+     {
+      "label": "5–50 M $",
+      "n": 13,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 0.96
+     },
+     {
+      "label": "über 50 M $",
+      "n": 12,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 0.98
      }
     ]
    },
@@ -1931,6 +2057,7 @@
       "label": "unter 30k $",
       "n": 55,
       "win": 3.6,
+      "win10": 1.8,
       "dead": 47.3,
       "median": 0.44
      },
@@ -1938,6 +2065,7 @@
       "label": "30–100k $",
       "n": 20,
       "win": 5.0,
+      "win10": 0.0,
       "dead": 10.0,
       "median": 0.44
      },
@@ -1945,6 +2073,7 @@
       "label": "100–500k $",
       "n": 27,
       "win": 7.4,
+      "win10": 0.0,
       "dead": 3.7,
       "median": 0.95
      },
@@ -1952,8 +2081,263 @@
       "label": "über 500k $",
       "n": 17,
       "win": 0.0,
+      "win10": 0.0,
       "dead": 0.0,
       "median": 0.96
+     }
+    ]
+   },
+   {
+    "title": "Liquidität/MCap",
+    "rows": [
+     {
+      "label": "unter 5 %",
+      "n": 36,
+      "win": 2.8,
+      "win10": 2.8,
+      "dead": 33.3,
+      "median": 0.95
+     },
+     {
+      "label": "5–15 %",
+      "n": 23,
+      "win": 4.3,
+      "win10": 0.0,
+      "dead": 8.7,
+      "median": 0.72
+     },
+     {
+      "label": "15–30 %",
+      "n": 20,
+      "win": 10.0,
+      "win10": 0.0,
+      "dead": 10.0,
+      "median": 0.73
+     },
+     {
+      "label": "über 30 %",
+      "n": 40,
+      "win": 2.5,
+      "win10": 0.0,
+      "dead": 32.5,
+      "median": 0.44
+     }
+    ]
+   },
+   {
+    "title": "Volumen/Liquidität (24 h)",
+    "rows": [
+     {
+      "label": "unter 0,5",
+      "n": 23,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 4.3,
+      "median": 0.95
+     },
+     {
+      "label": "0,5–2",
+      "n": 24,
+      "win": 8.3,
+      "win10": 0.0,
+      "dead": 8.3,
+      "median": 0.77
+     },
+     {
+      "label": "2–5",
+      "n": 11,
+      "win": 9.1,
+      "win10": 0.0,
+      "dead": 9.1,
+      "median": 0.46
+     },
+     {
+      "label": "5–15",
+      "n": 22,
+      "win": 4.5,
+      "win10": 0.0,
+      "dead": 22.7,
+      "median": 0.74
+     },
+     {
+      "label": "über 15",
+      "n": 26,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 30.8,
+      "median": 0.18
+     },
+     {
+      "label": "keine Daten",
+      "n": 13,
+      "win": 7.7,
+      "win10": 7.7,
+      "dead": 92.3,
+      "median": 0.38
+     }
+    ]
+   },
+   {
+    "title": "Käufe/Verkäufe (24 h)",
+    "rows": [
+     {
+      "label": "unter 0,9",
+      "n": 5,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 0.98
+     },
+     {
+      "label": "0,9–1,1",
+      "n": 30,
+      "win": 6.7,
+      "win10": 3.3,
+      "dead": 20.0,
+      "median": 0.91
+     },
+     {
+      "label": "1,1–1,5",
+      "n": 53,
+      "win": 3.8,
+      "win10": 0.0,
+      "dead": 26.4,
+      "median": 0.32
+     },
+     {
+      "label": "über 1,5",
+      "n": 31,
+      "win": 3.2,
+      "win10": 0.0,
+      "dead": 29.0,
+      "median": 0.61
+     }
+    ]
+   },
+   {
+    "title": "Kursänderung 24 h",
+    "rows": [
+     {
+      "label": "unter −20 %",
+      "n": 30,
+      "win": 3.3,
+      "win10": 0.0,
+      "dead": 36.7,
+      "median": 0.5
+     },
+     {
+      "label": "−20 bis 0 %",
+      "n": 25,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 12.0,
+      "median": 0.87
+     },
+     {
+      "label": "0–50 %",
+      "n": 33,
+      "win": 6.1,
+      "win10": 3.0,
+      "dead": 9.1,
+      "median": 0.98
+     },
+     {
+      "label": "50–200 %",
+      "n": 17,
+      "win": 11.8,
+      "win10": 0.0,
+      "dead": 29.4,
+      "median": 0.31
+     },
+     {
+      "label": "über 200 %",
+      "n": 14,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 50.0,
+      "median": 0.12
+     }
+    ]
+   },
+   {
+    "title": "Holder beim ersten Check",
+    "rows": [
+     {
+      "label": "500–2.000",
+      "n": 1,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 1.85
+     },
+     {
+      "label": "2.000–10.000",
+      "n": 14,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 0.74
+     },
+     {
+      "label": "über 10.000",
+      "n": 22,
+      "win": 13.6,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 1.13
+     },
+     {
+      "label": "keine Daten",
+      "n": 82,
+      "win": 2.4,
+      "win10": 1.2,
+      "dead": 35.4,
+      "median": 0.5
+     }
+    ]
+   },
+   {
+    "title": "Top-10-Anteil",
+    "rows": [
+     {
+      "label": "unter 15 %",
+      "n": 3,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 1.43
+     },
+     {
+      "label": "15–25 %",
+      "n": 28,
+      "win": 10.7,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 0.95
+     },
+     {
+      "label": "25–35 %",
+      "n": 2,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 1.38
+     },
+     {
+      "label": "über 35 %",
+      "n": 4,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 0.9
+     },
+     {
+      "label": "keine Daten",
+      "n": 82,
+      "win": 2.4,
+      "win10": 1.2,
+      "dead": 35.4,
+      "median": 0.5
      }
     ]
    },
@@ -1964,6 +2348,7 @@
       "label": "X und Telegram",
       "n": 32,
       "win": 0.0,
+      "win10": 0.0,
       "dead": 12.5,
       "median": 0.88
      },
@@ -1971,6 +2356,7 @@
       "label": "nur eins",
       "n": 70,
       "win": 5.7,
+      "win10": 0.0,
       "dead": 28.6,
       "median": 0.45
      },
@@ -1978,8 +2364,51 @@
       "label": "keine",
       "n": 17,
       "win": 5.9,
+      "win10": 5.9,
       "dead": 29.4,
       "median": 0.87
+     }
+    ]
+   },
+   {
+    "title": "Bezahlter Boost",
+    "rows": [
+     {
+      "label": "ja",
+      "n": 22,
+      "win": 4.5,
+      "win10": 0.0,
+      "dead": 18.2,
+      "median": 0.7
+     },
+     {
+      "label": "nein",
+      "n": 97,
+      "win": 4.1,
+      "win10": 1.0,
+      "dead": 25.8,
+      "median": 0.7
+     }
+    ]
+   },
+   {
+    "title": "Chain",
+    "rows": [
+     {
+      "label": "base",
+      "n": 5,
+      "win": 0.0,
+      "win10": 0.0,
+      "dead": 0.0,
+      "median": 0.98
+     },
+     {
+      "label": "solana",
+      "n": 114,
+      "win": 4.4,
+      "win10": 0.9,
+      "dead": 25.4,
+      "median": 0.7
      }
     ]
    },
@@ -1990,6 +2419,7 @@
       "label": "Liquidität zu gering",
       "n": 12,
       "win": 0.0,
+      "win10": 0.0,
       "dead": 8.3,
       "median": 0.98
      },
@@ -1997,13 +2427,15 @@
       "label": "Marktkapitalisierung außerhalb",
       "n": 2,
       "win": 0.0,
+      "win10": 0.0,
       "dead": 0.0,
-      "median": 0.57
+      "median": 0.58
      },
      {
       "label": "ausgeschlossen",
       "n": 4,
       "win": 0.0,
+      "win10": 0.0,
       "dead": 0.0,
       "median": 0.99
      },
@@ -2011,6 +2443,7 @@
       "label": "ok",
       "n": 32,
       "win": 6.2,
+      "win10": 0.0,
       "dead": 0.0,
       "median": 0.85
      },
@@ -2018,6 +2451,7 @@
       "label": "zu alt",
       "n": 13,
       "win": 0.0,
+      "win10": 0.0,
       "dead": 0.0,
       "median": 0.96
      },
@@ -2025,6 +2459,7 @@
       "label": "zu jung",
       "n": 56,
       "win": 5.4,
+      "win10": 1.8,
       "dead": 50.0,
       "median": 0.27
      }
@@ -2039,9 +2474,12 @@
     "first": "2026-11-01",
     "max": 8269.231,
     "score": 5,
+    "full_score": null,
     "age": 0.848,
     "liq": 0.0,
     "mcap": 0.24,
+    "holders": null,
+    "top10": null,
     "filter": "zu jung"
    },
    {
@@ -2049,11 +2487,14 @@
     "chain": "solana",
     "address": "Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr",
     "first": "2026-11-01",
-    "max": 8.062,
+    "max": 8.281,
     "score": 58,
+    "full_score": 68,
     "age": 4.0552,
     "liq": 254425.84,
     "mcap": 1563521.0,
+    "holders": 12380,
+    "top10": 18.3,
     "filter": "ok"
    },
    {
@@ -2063,9 +2504,12 @@
     "first": "2026-11-01",
     "max": 6.1,
     "score": 46,
+    "full_score": 60,
     "age": 2.2262,
     "liq": 42527.43,
     "mcap": 224241.0,
+    "holders": 11030,
+    "top10": 22.8,
     "filter": "zu jung"
    },
    {
@@ -2073,11 +2517,14 @@
     "chain": "solana",
     "address": "2j5SaS7xy776qCBpyPQbZjyQSAtKiFgrwjfErthnW2ZM",
     "first": "2026-11-01",
-    "max": 4.391,
+    "max": 4.432,
     "score": 55,
+    "full_score": 67,
     "age": 25.9102,
     "liq": 189267.4,
     "mcap": 1802209.0,
+    "holders": 39461,
+    "top10": 16.3,
     "filter": "ok"
    },
    {
@@ -2087,9 +2534,12 @@
     "first": "2026-11-01",
     "max": 3.067,
     "score": 33,
+    "full_score": null,
     "age": 0.1227,
     "liq": 12120.15,
     "mcap": 26750.0,
+    "holders": null,
+    "top10": null,
     "filter": "zu jung"
    },
    {
@@ -2099,9 +2549,12 @@
     "first": "2026-11-01",
     "max": 2.76,
     "score": 34,
+    "full_score": null,
     "age": 3.8803,
     "liq": 29807.11,
     "mcap": 103624.0,
+    "holders": null,
+    "top10": null,
     "filter": "Liquidität zu gering"
    },
    {
@@ -2111,9 +2564,12 @@
     "first": "2026-11-01",
     "max": 2.697,
     "score": 31,
+    "full_score": null,
     "age": 0.5635,
     "liq": 10867.86,
     "mcap": 20615.0,
+    "holders": null,
+    "top10": null,
     "filter": "zu jung"
    },
    {
@@ -2123,9 +2579,12 @@
     "first": "2026-11-01",
     "max": 2.512,
     "score": 24,
+    "full_score": null,
     "age": 12.4056,
     "liq": 6389.27,
     "mcap": 8825.0,
+    "holders": null,
+    "top10": null,
     "filter": "Liquidität zu gering"
    },
    {
@@ -2135,9 +2594,12 @@
     "first": "2026-11-01",
     "max": 2.299,
     "score": 54,
+    "full_score": 66,
     "age": 17.4223,
     "liq": 124492.43,
     "mcap": 1069244.0,
+    "holders": 15732,
+    "top10": 20.7,
     "filter": "ok"
    },
    {
@@ -2147,12 +2609,91 @@
     "first": "2026-11-01",
     "max": 2.28,
     "score": 28,
+    "full_score": null,
     "age": 1.9353,
     "liq": 0.0,
     "mcap": 11100.74,
+    "holders": null,
+    "top10": null,
     "filter": "zu jung"
+   },
+   {
+    "symbol": "NIO",
+    "chain": "solana",
+    "address": "7SL2VnfYsChvog5oQY9Nmtqu1wceaMiQzWoqoLQpump",
+    "first": "2026-11-01",
+    "max": 2.269,
+    "score": 42,
+    "full_score": 53,
+    "age": 11.3172,
+    "liq": 83114.81,
+    "mcap": 638738.0,
+    "holders": 16973,
+    "top10": 20.8,
+    "filter": "ok"
+   },
+   {
+    "symbol": "CATO",
+    "chain": "solana",
+    "address": "GeNwBZWJcWQAkLDdty7geii9xSjtCuga1qE9DDzLpump",
+    "first": "2026-11-01",
+    "max": 2.22,
+    "score": 39,
+    "full_score": null,
+    "age": 33.5036,
+    "liq": 9095.07,
+    "mcap": 16753.0,
+    "holders": null,
+    "top10": null,
+    "filter": "Liquidität zu gering"
+   },
+   {
+    "symbol": "ARNOLD",
+    "chain": "solana",
+    "address": "nG3jfPQHU2ZQhPERkTZD8YPSAsrrWiePPDcm9jxpump",
+    "first": "2026-11-01",
+    "max": 2.123,
+    "score": 34,
+    "full_score": 47,
+    "age": 2.0625,
+    "liq": 24264.53,
+    "mcap": 84036.0,
+    "holders": 1801,
+    "top10": 19.1,
+    "filter": "zu jung"
+   },
+   {
+    "symbol": "BingBingBing",
+    "chain": "solana",
+    "address": "FqmuGbw5jtX5D8vsNvEG5M83py2s3RcWyxbWczw3pump",
+    "first": "2026-11-01",
+    "max": 2.113,
+    "score": 30,
+    "full_score": null,
+    "age": 0.0487,
+    "liq": 0.0,
+    "mcap": 17858.44,
+    "holders": null,
+    "top10": null,
+    "filter": "zu jung"
+   },
+   {
+    "symbol": "CHOO",
+    "chain": "solana",
+    "address": "EJAxERvKU4kEVXn3NarjvRtgaMaJyP9ZuMeKA7JJpump",
+    "first": "2026-11-01",
+    "max": 2.102,
+    "score": 56,
+    "full_score": 67,
+    "age": 11.1983,
+    "liq": 138567.83,
+    "mcap": 2037715.0,
+    "holders": 11389,
+    "top10": 15.4,
+    "filter": "ok"
    }
   ],
-  "n": 119
+  "n": 119,
+  "with_candles": 0
  }
 }
