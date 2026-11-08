@@ -379,8 +379,9 @@ def score(m: dict) -> tuple[int, list[str]]:
 
 # ------------------------------------------------------- 5. Musterdepot
 def update_portfolio(state: dict, prices: dict[str, dict], ranked: list[dict],
-                     pos_safety: dict[str, dict] | None = None) -> list[str]:
-    """Aktualisiert Positionen, führt Exit-Regeln aus, kauft neue Kandidaten."""
+                     pos_safety: dict[str, dict] | None = None, main: bool = True) -> list[str]:
+    """Aktualisiert Positionen und führt die Ausstiegsregeln aus (bei jedem Lauf).
+    Nur im Hauptlauf: neue Käufe, Sicherheits- und Holder-Signale, Referenz für den Liquiditätsabzug."""
     cfg = CONFIG["portfolio"]
     ex = CONFIG.get("exits", {})
     pos_safety = pos_safety or {}
@@ -394,7 +395,7 @@ def update_portfolio(state: dict, prices: dict[str, dict], ranked: list[dict],
     for pos in pf["positions"]:
         if pos["status"] != "open":
             continue
-        prev_liq = pos.get("liq", 0)
+        ref_liq = pos.get("liq_ref") or pos.get("liq", 0)  # Liquidität beim letzten Hauptlauf
         p = prices.get(pos["key"])
         if p and p["price"] > 0:
             pos["price"] = p["price"]
@@ -434,8 +435,8 @@ def update_portfolio(state: dict, prices: dict[str, dict], ranked: list[dict],
         exit_reason = None
         if sf.get("ok") is False and ex.get("sell_on_safety_fail", True):
             exit_reason = "Sicherheitscheck negativ (" + ", ".join((sf.get("flags") or ["Risiko"])[:2]) + ")"
-        elif prev_liq and ex.get("liquidity_drop_pct") and pos["liq"] < prev_liq * (1 - ex["liquidity_drop_pct"] / 100):
-            exit_reason = f"Liquidität -{(1 - pos['liq'] / prev_liq) * 100:.0f}% seit gestern"
+        elif ref_liq and ex.get("liquidity_drop_pct") and pos["liq"] < ref_liq * (1 - ex["liquidity_drop_pct"] / 100):
+            exit_reason = f"Liquidität -{(1 - pos['liq'] / ref_liq) * 100:.0f}% seit dem Vortag"
         if exit_reason:
             sell(1.0, exit_reason)
             close("closed")
@@ -468,8 +469,13 @@ def update_portfolio(state: dict, prices: dict[str, dict], ranked: list[dict],
             close("closed")
 
     pf["positions"] = [p for p in pf["positions"] if p["status"] == "open"]
+    if main:
+        for pos in pf["positions"]:
+            pos["liq_ref"] = pos.get("liq", 0)
 
-    # 5b. Neue Käufe
+    # 5b. Neue Käufe (nur im Hauptlauf)
+    if not main:
+        ranked = []
     held = {p["key"] for p in pf["positions"]} | {p["key"] for p in pf["closed"]}
     eur_per_usd = fx
     bought = 0
@@ -758,13 +764,12 @@ def update_after_sale(state: dict, prices: dict[str, dict]):
 
 
 def is_main_run(state: dict) -> bool:
-    """Erster Lauf des Tages ab 5 Uhr UTC = Hauptlauf (Depot + Telegram), sonst nur Datensammlung."""
+    """Erster Lauf des Tages ab 6 Uhr UTC = Hauptlauf (Käufe, Sicherheitschecks, Telegram); sonst stündlicher Lauf."""
     if os.getenv("FORCE_MAIN") == "1":
         return True
     today = now_utc().date().isoformat()
-    hist = ((state.get("portfolio") or {}).get("history") or [])
-    done_today = bool(hist) and hist[-1]["date"] == today
-    return not done_today and now_utc().hour >= 5
+    last_main = state.get("last_main") or (state.get("last_run") or "")[:10]
+    return last_main != today and now_utc().hour >= 6
 
 
 def run():
@@ -852,6 +857,14 @@ def run():
         log(f"Auswertung übersprungen: {e}")
 
     if not main:
+        # Ausstiegsregeln auch in den stündlichen Läufen prüfen (Kurs/Liquidität), aber nichts kaufen
+        if (state.get("portfolio") or {}).get("positions"):
+            events = update_portfolio(state, prices, [], {}, main=False)
+            update_after_sale(state, prices)
+            state["events"] = ([{"date": now_utc().date().isoformat(), "text": e} for e in events]
+                               + state.get("events", []))[:200]
+            if events:
+                log(f"Depot: {len(events)} Verkäufe im stündlichen Lauf")
         save_json(STATE_FILE, state)
         from dashboard import build_dashboard
         build_dashboard(state, CONFIG, DOCS / "index.html")
@@ -929,6 +942,7 @@ def run():
     events = update_portfolio(state, prices, ranked, pos_safety)
     update_after_sale(state, prices)
     state["last_run"] = now_utc().isoformat(timespec="seconds")
+    state["last_main"] = now_utc().date().isoformat()
     state["last_stats"] = {"collected": sum(len(v) for v in found.values()), "passed_filter": len(metrics),
                            "checked": len(to_check), "rejected": rejected}
     keep = ("chain", "address", "symbol", "name", "url", "price", "liq", "mcap", "vol24", "chg24",

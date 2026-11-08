@@ -74,7 +74,7 @@ a{color:var(--accent)} a:focus-visible{outline:2px solid var(--accent);outline-o
   <header class="head">
     <div>
       <h1>Meme-Screener</h1>
-      <div class="sub">Letzter Lauf: <span id="lastrun"></span> · Chains: <span id="chains"></span></div>
+      <div class="sub">Letzte Aktualisierung: <span id="lastrun"></span> · Chains: <span id="chains"></span></div>
       <div class="sub live" id="live" hidden></div>
     </div>
     <div class="kpis" id="kpis"></div>
@@ -93,7 +93,7 @@ a{color:var(--accent)} a:focus-visible{outline:2px solid var(--accent);outline-o
     <div class="panel scroll"><table id="open"><thead><tr>
       <th>Token</th><th>Gekauft</th><th class="r">Einsatz</th><th class="r">Wert</th><th class="r">Entwicklung</th>
       <th class="r">Hoch</th><th class="r">Realisiert</th></tr></thead><tbody></tbody></table></div>
-    <p class="note">Kurse kommen beim Öffnen live von DEX Screener und werden jede Minute aktualisiert. Käufe und Verkäufe nach den Depotregeln passieren einmal täglich im Hauptlauf.</p>
+    <p class="note">Kurse kommen beim Öffnen live von DEX Screener und werden jede Minute aktualisiert. Verkäufe nach den Depotregeln prüft das Depot stündlich, Käufe einmal täglich im Hauptlauf.</p>
   </section>
 
   <section>
@@ -147,7 +147,8 @@ const cls = v => v > 0 ? 'pos' : v < 0 ? 'neg' : '';
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmtDate = s => s ? s.split('-').reverse().join('.') : '–';
 
-document.getElementById('lastrun').textContent = D.last_run ? new Date(D.last_run).toLocaleString('de-DE') : 'noch nie';
+const fmtTs = t => t ? new Date(t).toLocaleString('de-DE',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : 'noch nie';
+document.getElementById('lastrun').textContent = `${fmtTs((D.collect||{}).last||D.last_run)} · Hauptlauf ${fmtTs(D.last_run)}`;
 document.getElementById('chains').textContent = D.chains.join(', ');
 
 const pf = D.portfolio || {history:[],positions:[],closed:[],cash:D.start};

@@ -24,7 +24,7 @@ Prüft einmal täglich neue und trendende Meme-Coins auf **Solana** und **Base**
 Nach dem ersten Lauf ist das Dashboard unter `https://<dein-name>.github.io/meme-screener/` erreichbar.
 
 ### 4. Starten
-**Actions → „Taeglicher Meme-Screener“ → Run workflow.** Danach läuft er automatisch: morgens gegen 7:45/8:45 Uhr der Hauptlauf (Depot + Telegram), dazu drei Sammelläufe am Tag, die nur Daten speichern. Ein manueller Start nach 6/7 Uhr deutscher Zeit gilt als Hauptlauf, solange es an dem Tag noch keinen gab.
+**Actions → „Taeglicher Meme-Screener“ → Run workflow.** Danach läuft er automatisch jede Stunde (zur Minute 43): Jeder Lauf sammelt Daten und prüft die Ausstiegsregeln der offenen Positionen. Der erste Lauf ab 07:43 Uhr (Sommerzeit 08:43 Uhr) ist der Hauptlauf mit Käufen, Sicherheitschecks und Telegram.
 
 ## So arbeitet der Screener
 

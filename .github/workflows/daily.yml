@@ -2,8 +2,7 @@ name: Taeglicher Meme-Screener
 
 on:
   schedule:
-    - cron: "43 6 * * *"    # Hauptlauf: Depot + Telegram (ca. 07:43 / 08:43 Uhr deutscher Zeit)
-    - cron: "43 0,12,18 * * *"  # zusätzliche Sammelläufe für mehr Daten
+    - cron: "43 * * * *"    # stündlich; der erste Lauf ab 06:00 UTC (07:43 / 08:43 Uhr deutscher Zeit) ist der Hauptlauf
   workflow_dispatch: {}     # manuell starten über "Run workflow"
 
 permissions:
