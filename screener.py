@@ -35,6 +35,9 @@ RAW_DIR = DATA / "raw"
 TRACK_FILE = DATA / "tracking.json.gz"  # alt, wird migriert
 TOKENS_DIR = DATA / "tokens"
 PRICES_DIR = DATA / "prices"
+OHLC_DIR = DATA / "ohlc"
+OHLC_DONE_FILE = DATA / "ohlc_done.json"
+PAIRS_FILE = DATA / "pairs.json"
 
 CONFIG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
 
@@ -164,6 +167,8 @@ def to_metrics(chain: str, p: dict) -> dict:
         "symbol": (base.get("symbol") or "?")[:20],
         "name": (base.get("name") or "")[:40],
         "url": p.get("url"),
+        "pair": p.get("pairAddress"),
+        "dex": p.get("dexId"),
         "price": fnum(p.get("priceUsd")),
         "liq": fnum((p.get("liquidity") or {}).get("usd")),
         "mcap": fnum(p.get("marketCap")) or fnum(p.get("fdv")),
@@ -552,7 +557,7 @@ def eur_rate() -> float:
 
 RAW_FIELDS = ("key", "symbol", "price", "liq", "mcap", "vol24", "buys24", "sells24", "buys6", "sells6",
               "chg1", "chg6", "chg24", "age_days", "twitter", "telegram", "website", "boosted",
-              "pre_score", "filter")
+              "pre_score", "filter", "pair", "dex")
 
 
 def gz_load(path: Path, default):
@@ -600,6 +605,10 @@ def load_tracking(days: int | None = None) -> dict:
                 rec = track.get(k)
                 if rec and d >= rec["first"]:
                     _add_point(rec, [d] + list(pt))
+    for f in sorted(OHLC_DIR.glob("*.json.gz")):
+        for k, candles in gz_load(f, {}).items():
+            if k in track:
+                track[k]["o"] = candles  # neuere Datei ersetzt ältere
     return track
 
 
@@ -638,6 +647,69 @@ def update_tracking(all_metrics: list[dict], extra_prices: dict[str, dict], trac
         if k in track:
             _add_point(track[k], [today] + pt)
     return track
+
+
+def update_pairs(all_metrics: list[dict], extra: dict[str, dict]) -> dict[str, str]:
+    """Merkt sich die Pool-Adresse jedes verfolgten Tokens (für das Nachladen der Tageshochs)."""
+    pairs = load_json(PAIRS_FILE, {})
+    for m in all_metrics:
+        if m.get("pair"):
+            pairs[m["key"]] = m["pair"]
+    for k, v in extra.items():
+        if v.get("pair"):
+            pairs[k] = v["pair"]
+    save_json_compact(PAIRS_FILE, dict(sorted(pairs.items())))
+    return pairs
+
+
+def update_ohlc(track: dict, pairs: dict[str, str]):
+    """Lädt echte Tageskerzen (Hoch/Tief) von GeckoTerminal, jeweils an Tag 7, 30 und 90 nach dem
+    ersten Sehen. So werden Kursspitzen zwischen den Abrufen nicht übersehen."""
+    ocfg = CONFIG.get("ohlc", {})
+    milestones = ocfg.get("milestones", [7, 30, 90])
+    budget = ocfg.get("max_calls_per_run", 100)
+    done = load_json(OHLC_DONE_FILE, {})
+    today = now_utc().date()
+    due = []
+    for k, rec in track.items():
+        if k not in pairs:
+            continue
+        age = (today - date.fromisoformat(rec["first"])).days
+        open_ms = [m for m in milestones if age >= m and m not in done.get(k, [])]
+        if open_ms:
+            due.append((rec["first"], k, age))
+    due.sort()
+    out, calls = {}, 0
+    for first, k, age in due[:budget]:
+        ch = k.split(":", 1)[0]
+        net = GECKO_NET.get(ch)
+        if not net:
+            done[k] = list(milestones)
+            continue
+        data = HTTP_GET(f"{GECKO}/networks/{net}/pools/{pairs[k]}/ohlcv/day",
+                        {"limit": min(age + 2, 1000), "currency": "usd"})
+        calls += 1
+        lst = (((data or {}).get("data") or {}).get("attributes") or {}).get("ohlcv_list") or []
+        t0 = datetime.fromisoformat(first).replace(tzinfo=timezone.utc).timestamp()
+        candles = sorted([[int(c[0])] + [float(x) for x in c[1:6]] for c in lst if len(c) >= 6 and c[0] >= t0])
+        if candles:
+            out[k] = candles
+        if data is not None or age >= max(milestones):
+            done[k] = sorted(set(done.get(k, [])) | {m for m in milestones if age >= m})
+            if is_dead(track[k]):  # tot: es kommen keine neuen Hochs mehr, spätere Abrufe sparen
+                done[k] = list(milestones)
+        SLEEP(2.1)  # GeckoTerminal: 30 Abrufe/Minute
+    if out:
+        gz_save(OHLC_DIR / f"{now_utc():%Y-%m-%d_%H}.json.gz", out)
+    save_json_compact(OHLC_DONE_FILE, dict(sorted(done.items())))
+    log(f"Tageshochs: {len(out)} Tokens nachgeladen, {max(0, len(due) - budget)} warten noch")
+
+
+def save_json_compact(path: Path, obj):
+    """Eine Zeile je Eintrag – klein und für Git gut vergleichbar."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    items = [f"{json.dumps(k)}:{json.dumps(v, ensure_ascii=False, separators=(',', ':'))}" for k, v in obj.items()]
+    path.write_text("{\n" + ",\n".join(items) + "\n}\n", encoding="utf-8")
 
 
 def migrate_old_tracking():
@@ -756,10 +828,15 @@ def run():
     for ch, addrs in missing.items():
         for addr, p in fetch_pairs(ch, addrs).items():
             mm = to_metrics(ch, p)
-            extra[f"{ch}:{addr}"] = {"price": mm["price"], "liq": mm["liq"], "mcap": mm["mcap"]}
+            extra[f"{ch}:{addr}"] = {"price": mm["price"], "liq": mm["liq"], "mcap": mm["mcap"], "pair": mm["pair"]}
     prices.update(extra)
     track = update_tracking(all_metrics, extra, track_old)
     log(f"Tracking: {len(track)} Tokens in der Datenbank, {len(extra)} nachgepreist")
+    try:
+        pairs = update_pairs(all_metrics, extra)
+        update_ohlc(track, pairs)
+    except Exception as e:  # Nachladen darf den Lauf nie abbrechen
+        log(f"Tageshochs übersprungen: {e}")
 
     update_after_sale(state, prices)
     state["collect"] = {"last": now_utc().isoformat(timespec="seconds"), "tracked": len(track),
@@ -817,9 +894,10 @@ def run():
                                                "mcap": round(m["mcap"]), "price": m["price"]})
     ranked.sort(key=lambda m: m["score"], reverse=True)
 
-    # Snapshots kürzen: max. 30 Einträge je Token, Tokens ohne Eintrag seit 45 Tagen löschen
-    cutoff = t - 45 * 86400
-    snaps = {k: v[-30:] for k, v in snaps.items() if v and v[-1]["t"] >= cutoff}
+    # Snapshots: bis 400 Einträge je Token, erst nach 200 Tagen ohne neuen Eintrag entfernen
+    # (alle Werte stehen zusätzlich dauerhaft in data/runs/JJJJ-MM-TT.json)
+    cutoff = t - 200 * 86400
+    snaps = {k: v[-400:] for k, v in snaps.items() if v and v[-1]["t"] >= cutoff}
 
     # Sicherheitscheck für offene Positionen (Ausstiegssignale)
     pos_safety: dict[str, dict] = {m["key"]: {"ok": m["safety_ok"], "flags": m["flags"], "holders": m["holders"]}
@@ -851,7 +929,8 @@ def run():
                            "checked": len(to_check), "rejected": rejected}
     keep = ("chain", "address", "symbol", "name", "url", "price", "liq", "mcap", "vol24", "chg24",
             "age_days", "score", "why", "flags", "safety_ok", "holders", "holder_growth_7d", "top10",
-            "lp_locked", "buys24", "sells24", "key", "image")
+            "lp_locked", "buys24", "sells24", "key", "image", "pair", "lp_locked", "chg6", "vol24",
+            "buys6", "sells6", "twitter", "telegram", "website", "boosted")
     run_rows = [{k: m.get(k) for k in keep} for m in ranked]
     state["last_ranked"] = run_rows[:40]
     state.setdefault("events", [])

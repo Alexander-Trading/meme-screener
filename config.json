@@ -41,6 +41,7 @@
 
   "tracking": {"days": 180, "max_tokens": 6000, "after_sale_days": null},
 
-  "safety_checks_per_run": 40,
+  "safety_checks_per_run": 100,
+  "ohlc": {"milestones": [7, 30, 90], "max_calls_per_run": 150},
   "exclude_symbols": ["SOL", "WSOL", "USDC", "USDT", "WETH", "ETH", "CBBTC", "WBTC", "DAI", "USDS", "EURC", "JUP", "RAY"]
 }

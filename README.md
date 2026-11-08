@@ -48,8 +48,10 @@ Alle Grenzen und Regeln stehen in `config.json` und lassen sich dort anpassen (z
 - `data/raw/JJJJ-MM-TT_HH.json.gz` – Rohdaten **aller** gesehenen Tokens je Lauf (auch der aussortierten)
 - `data/tokens/JJJJ-MM-TT.json.gz` – Tokens, die an diesem Tag zum ersten Mal gesehen wurden (Startmerkmale)
 - `data/prices/JJJJ-MM-TT_HH.json.gz` – Kurse aller verfolgten Tokens je Lauf; jeder Token wird 180 Tage verfolgt, tote Tokens (7 Tage Liquidität < 1.000 $) nicht mehr
+- `data/pairs.json` – Pool-Adresse je Token
+- `data/ohlc/JJJJ-MM-TT_HH.json.gz` – echte Tageskerzen (Hoch/Tief) von GeckoTerminal, an Tag 7, 30 und 90 nach dem ersten Sehen nachgeladen, damit Kursspitzen zwischen den Abrufen nicht fehlen
 - `analyse.csv` – Merkmale am ersten Tag + Entwicklung nach 7/30/90 Tagen (Excel, Semikolon); nach jedem Hauptlauf unter **Actions → letzter Lauf → Artifacts** zum Download
-- `analyze.py` – Zusammenfassung: Trefferquote (≥ 3x) und Ausfallquote nach Score, Alter und Filter
+- `analyze.py` – Zusammenfassung: Anteil ≥ 3x und ≥ 10x, Ausfallquote und typischer Kurs nach Score, Sicherheitscheck, Alter, MCap, Liquidität, Volumen, Kaufdruck, Holdern, Top-10-Anteil, Socials, Boost und Chain
 
 ## Daten sammeln und auswerten
 Weil ein Rückwärtstest mit kostenlosen Daten nicht sauber geht, baut der Screener sich seine eigene Datenbank auf: Jeder Token, der irgendwo auftaucht, wird mit seinen Startmerkmalen gespeichert und danach täglich weiterverfolgt – auch die, die durchfallen oder sterben. Nach 1–3 Monaten zeigt die Auswertung im Dashboard bzw. `analyse.csv`, welche Merkmale die späteren Gewinner am ersten Tag hatten und ob der Score funktioniert. Alle Datendateien werden nur einmal geschrieben, damit das Repository langsam wächst (grob 150–300 MB pro Jahr).
