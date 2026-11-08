@@ -54,11 +54,24 @@ def outcomes(rec: dict) -> dict:
     """Entwicklung ab dem ersten Sehen. Hochs aus Abrufen UND Tageskerzen (ab dem Folgetag,
     damit keine Spitze vor dem ersten Sehen zählt)."""
     s = rec.get("s") or []
-    p0 = (rec.get("f") or {}).get("price") or (s[0][1] if s else 0)
-    if not p0 or not s:
+    f = rec.get("f") or {}
+    p0 = f.get("price") or (s[0][1] if s else 0)
+    # Datenbereinigung: ohne nennenswerte Liquidität beim ersten Sehen ist der Startkurs nicht belastbar
+    if not p0 or not s or (f.get("liq") or 0) < 1000:
         return {}
     d0 = _d(rec["first"])
-    candles = [(_day(c[0]) - d0, c[2]) for c in rec.get("o") or [] if _day(c[0]) > d0]
+    # Ausreißer-Dochte kappen: Hoch höchstens das 5-Fache von Eröffnung/Schluss der Kerze
+    candles = [(_day(c[0]) - d0, min(c[2], 5 * max(c[1], c[4]))) for c in rec.get("o") or [] if _day(c[0]) > d0]
+    # Plausibilitätsprüfung: Schlusskurse der Kerzen müssen zu unseren eigenen Kursmessungen passen
+    # (sonst z. B. falscher Pool oder Kurs in der Gegenwährung) – dann Kerzen verwerfen
+    if candles:
+        own = {}
+        for x in s:
+            own[_d(x[0]) - d0] = x[1]
+        ratios = sorted(c[4] / own[_day(c[0]) - d0] for c in rec.get("o") or []
+                        if own.get(_day(c[0]) - d0) and c[4] > 0)
+        if not ratios or not (0.5 <= ratios[len(ratios) // 2] <= 2):
+            candles = []
     points = [(_d(x[0]) - d0, x[1]) for x in s]
     covered = max([a for a, _ in points] + [a for a, _ in candles])
     out = {"days_tracked": covered, "last_mult": round(s[-1][1] / p0, 3),
