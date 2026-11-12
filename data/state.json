@@ -12,14 +12,14 @@
     "opened": "2026-11-01",
     "opened_ts": 1793576162.21666,
     "entry_price": 0.00347,
-    "price": 0.003372,
-    "liq": 269023.28,
+    "price": 0.003458,
+    "liq": 272070.87,
     "units": 32196.1409512279,
     "cost": 100,
     "eur_per_usd": 0.89509,
     "score": 71,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.4953890489913544,
     "holders_hist": [
      [
@@ -70,14 +70,14 @@
     "opened": "2026-11-02",
     "opened_ts": 1793602382.686208,
     "entry_price": 0.001868,
-    "price": 0.004187,
-    "liq": 223016.93,
+    "price": 0.00423,
+    "liq": 224261.66,
     "units": 59807.60658498973,
     "cost": 100,
     "eur_per_usd": 0.89509,
     "score": 70,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 2.7221627408993574,
     "holders_hist": [
      [
@@ -128,15 +128,15 @@
     "opened": "2026-11-02",
     "opened_ts": 1793602382.686208,
     "entry_price": 0.001204,
-    "price": 0.006462,
-    "liq": 368612.4,
+    "price": 0.006598,
+    "liq": 375312.08,
     "units": 62170.10639328052,
     "cost": 100,
     "eur_per_usd": 0.89509,
     "score": 68,
     "status": "open",
-    "updated": "2026-11-11",
-    "max_mult": 5.367109634551495,
+    "updated": "2026-11-12",
+    "max_mult": 5.480066445182724,
     "holders_hist": [
      [
       "2026-11-03",
@@ -200,14 +200,14 @@
     "opened": "2026-11-02",
     "opened_ts": 1793602382.686208,
     "entry_price": 0.001941,
-    "price": 0.004795,
-    "liq": 312766.03,
+    "price": 0.004958,
+    "liq": 317645.66,
     "units": 38564.04332689837,
     "cost": 100,
     "eur_per_usd": 0.89509,
     "score": 68,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 4.9309634209170525,
     "holders_hist": [
      [
@@ -272,14 +272,14 @@
     "opened": "2026-11-04",
     "opened_ts": 1793775704.769064,
     "entry_price": 0.003565,
-    "price": 0.00123,
-    "liq": 113635.88,
+    "price": 0.001238,
+    "liq": 114121.91,
     "units": 31357.797819626467,
     "cost": 100,
     "eur_per_usd": 0.89453,
     "score": 72,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.2984572230014026,
     "holders_hist": [
      [
@@ -322,14 +322,14 @@
     "opened": "2026-11-04",
     "opened_ts": 1793775704.769064,
     "entry_price": 0.003945,
-    "price": 0.004409,
-    "liq": 365824.31,
+    "price": 0.004433,
+    "liq": 367251.1,
     "units": 28337.274835733424,
     "cost": 100,
     "eur_per_usd": 0.89453,
     "score": 71,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.45297845373891,
     "holders_hist": [
      [
@@ -372,14 +372,14 @@
     "opened": "2026-11-04",
     "opened_ts": 1793775704.769064,
     "entry_price": 0.001954,
-    "price": 0.0007453,
-    "liq": 108392.21,
+    "price": 0.0007581,
+    "liq": 109185.12,
     "units": 57211.13061769107,
     "cost": 100,
     "eur_per_usd": 0.89453,
     "score": 69,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.0,
     "holders_hist": [
      [
@@ -422,14 +422,14 @@
     "opened": "2026-11-05",
     "opened_ts": 1793863713.23308,
     "entry_price": 0.01033,
-    "price": 0.004503,
-    "liq": 267000.65,
+    "price": 0.004369,
+    "liq": 264339.49,
     "units": 10907.038601045777,
     "cost": 100,
     "eur_per_usd": 0.88755,
     "score": 69,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.0,
     "holders_hist": [
      [
@@ -468,14 +468,14 @@
     "opened": "2026-11-05",
     "opened_ts": 1793863713.23308,
     "entry_price": 0.0007661,
-    "price": 0.0003073,
-    "liq": 54591.83,
+    "price": 0.0002971,
+    "liq": 53641.35,
     "units": 147069.19298890862,
     "cost": 100,
     "eur_per_usd": 0.88755,
     "score": 68,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.0,
     "holders_hist": [
      [
@@ -514,14 +514,14 @@
     "opened": "2026-11-07",
     "opened_ts": 1794033580.980655,
     "entry_price": 0.001743,
-    "price": 0.0008872,
-    "liq": 103344.08,
+    "price": 0.0008643,
+    "liq": 101956.39,
     "units": 64055.94369400558,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 73,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.0,
     "holders_hist": [
      [
@@ -552,14 +552,14 @@
     "opened": "2026-11-07",
     "opened_ts": 1794033580.980655,
     "entry_price": 0.01223,
-    "price": 0.00634,
-    "liq": 267096.82,
+    "price": 0.005851,
+    "liq": 256868.13,
     "units": 9129.150438156315,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 73,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.046606704824203,
     "holders_hist": [
      [
@@ -590,14 +590,14 @@
     "opened": "2026-11-07",
     "opened_ts": 1794033580.980655,
     "entry_price": 0.001278,
-    "price": 0.0008629,
-    "liq": 109925.06,
+    "price": 0.0009525,
+    "liq": 115945.31,
     "units": 87362.683770463,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 66,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.0,
     "holders_hist": [
      [
@@ -628,14 +628,14 @@
     "opened": "2026-11-08",
     "opened_ts": 1794120373.763453,
     "entry_price": 0.001668,
-    "price": 0.00115,
-    "liq": 161700.39,
+    "price": 0.001108,
+    "liq": 158603.35,
     "units": 66936.15698959936,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 70,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.0,
     "holders_hist": [
      [
@@ -662,14 +662,14 @@
     "opened": "2026-11-08",
     "opened_ts": 1794120373.763453,
     "entry_price": 0.0002101,
-    "price": 0.0001013,
-    "liq": 26449.5,
+    "price": 9.392e-05,
+    "liq": 25376.54,
     "units": 531411.2796699273,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 65,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.0,
     "holders_hist": [
      [
@@ -696,14 +696,14 @@
     "opened": "2026-11-09",
     "opened_ts": 1794219676.514169,
     "entry_price": 0.0002642,
-    "price": 0.0003783,
-    "liq": 65200.59,
+    "price": 0.0003391,
+    "liq": 61841.86,
     "units": 422594.66259898455,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 69,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.4318697956093867,
     "image": "https://cdn.dexscreener.com/cms/images/ICjO7aWlI8TG_fPi?width=800&height=800&quality=95&format=auto",
     "holders_hist": [
@@ -727,15 +727,15 @@
     "opened": "2026-11-09",
     "opened_ts": 1794219676.514169,
     "entry_price": 0.01561,
-    "price": 0.0163,
-    "liq": 1616628.45,
+    "price": 0.01645,
+    "liq": 1626981.02,
     "units": 7152.434968523493,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 67,
     "status": "open",
-    "updated": "2026-11-11",
-    "max_mult": 1.0506085842408712,
+    "updated": "2026-11-12",
+    "max_mult": 1.053811659192825,
     "image": null,
     "holders_hist": [
      [
@@ -758,14 +758,14 @@
     "opened": "2026-11-09",
     "opened_ts": 1794219676.514169,
     "entry_price": 0.001327,
-    "price": 0.001026,
-    "liq": 126988.63,
+    "price": 0.0008493,
+    "liq": 115343.1,
     "units": 84136.78210900657,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 65,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.1537302185380558,
     "image": "https://cdn.dexscreener.com/cms/images/NISe7k6pm95eP1fB?width=800&height=800&quality=95&format=auto",
     "holders_hist": [
@@ -789,14 +789,14 @@
     "opened": "2026-11-10",
     "opened_ts": 1794316232.5791,
     "entry_price": 0.002344,
-    "price": 0.001959,
-    "liq": 119830.9,
+    "price": 0.001945,
+    "liq": 119368.0,
     "units": 47751.467440795626,
     "cost": 100,
     "eur_per_usd": 0.89342,
     "score": 72,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.1262798634812285,
     "image": "https://cdn.dexscreener.com/cms/images/gAu3LdjS988GlL3f?width=800&height=800&quality=95&format=auto",
     "holders_hist": [
@@ -816,14 +816,14 @@
     "opened": "2026-11-10",
     "opened_ts": 1794316232.5791,
     "entry_price": 0.0004586,
-    "price": 0.0003448,
-    "liq": 56863.26,
+    "price": 0.0002706,
+    "liq": 50269.83,
     "units": 244067.6835613279,
     "cost": 100,
     "eur_per_usd": 0.89342,
     "score": 72,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.098778892280855,
     "image": "https://cdn.dexscreener.com/cms/images/jPrSz4tn7DdMCm5z?width=800&height=800&quality=95&format=auto",
     "holders_hist": [
@@ -843,14 +843,14 @@
     "opened": "2026-11-10",
     "opened_ts": 1794316232.5791,
     "entry_price": 0.00381,
-    "price": 0.002093,
-    "liq": 83918.15,
+    "price": 0.001965,
+    "liq": 79312.17,
     "units": 29377.805690610225,
     "cost": 100,
     "eur_per_usd": 0.89342,
     "score": 66,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.3236220472440945,
     "image": "https://cdn.dexscreener.com/cms/images/xOljTGtIz_HUn9dG?width=800&height=800&quality=95&format=auto",
     "holders_hist": [
@@ -870,14 +870,14 @@
     "opened": "2026-11-11",
     "opened_ts": 1794386122.79339,
     "entry_price": 0.02469,
-    "price": 0.02374,
-    "liq": 1602850.9,
+    "price": 0.02377,
+    "liq": 1601636.11,
     "units": 4541.932359490349,
     "cost": 100,
     "eur_per_usd": 0.89174,
     "score": 68,
     "status": "open",
-    "updated": "2026-11-11",
+    "updated": "2026-11-12",
     "max_mult": 1.0660186310247064,
     "image": "https://cdn.dexscreener.com/cms/images/_aILGflqFiJQJ4A-?width=800&height=800&quality=95&format=auto"
    }
@@ -939,9 +939,9 @@
      }
     ],
     "closed": "2026-11-08",
-    "post_price": 1.802e-05,
-    "post_liq": 11844,
-    "post_updated": "2026-11-11",
+    "post_price": 1.777e-05,
+    "post_liq": 11715,
+    "post_updated": "2026-11-12",
     "post_max": 2.661e-05,
     "post_max_date": "2026-11-09"
    },
@@ -994,9 +994,9 @@
      }
     ],
     "closed": "2026-11-10",
-    "post_price": 0.007059,
-    "post_liq": 250662,
-    "post_updated": "2026-11-11",
+    "post_price": 0.006488,
+    "post_liq": 240750,
+    "post_updated": "2026-11-12",
     "post_max": 0.01047,
     "post_max_date": "2026-11-11"
    },
@@ -1037,9 +1037,9 @@
      }
     ],
     "closed": "2026-11-10",
-    "post_price": 9.988e-05,
-    "post_liq": 27795,
-    "post_updated": "2026-11-11",
+    "post_price": 5.908e-05,
+    "post_liq": 20829,
+    "post_updated": "2026-11-12",
     "post_max": 0.0003965,
     "post_max_date": "2026-11-11"
    },
@@ -1112,9 +1112,11 @@
      }
     ],
     "closed": "2026-11-11",
-    "post_price": 0.001377,
-    "post_liq": 197644,
-    "post_updated": "2026-11-11"
+    "post_price": 0.001266,
+    "post_liq": 190615,
+    "post_updated": "2026-11-12",
+    "post_max": 0.001266,
+    "post_max_date": "2026-11-12"
    },
    {
     "key": "solana:Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr",
@@ -1192,9 +1194,11 @@
     ],
     "liq_ref": 654628.59,
     "closed": "2026-11-11",
-    "post_price": 0.003953,
-    "post_liq": 372874,
-    "post_updated": "2026-11-11"
+    "post_price": 0.003729,
+    "post_liq": 367598,
+    "post_updated": "2026-11-12",
+    "post_max": 0.003729,
+    "post_max_date": "2026-11-12"
    }
   ],
   "history": [
@@ -1273,6 +1277,13 @@
     "total": 10049.44,
     "cash": 8019.14,
     "invested": 2030.3,
+    "open": 21
+   },
+   {
+    "date": "2026-11-12",
+    "total": 10014.83,
+    "cash": 8019.14,
+    "invested": 1995.69,
     "open": 21
    }
   ]
@@ -2861,22 +2872,22 @@
   }
  ],
  "collect": {
-  "last": "2026-11-11T23:13:44+00:00",
-  "tracked": 2139,
-  "seen": 238,
-  "passed": 47,
+  "last": "2026-11-12T04:25:35+00:00",
+  "tracked": 2178,
+  "seen": 233,
+  "passed": 49,
   "rejected": {
-   "zu jung": 128,
-   "Liquidität zu gering": 18,
-   "zu alt": 32,
-   "ausgeschlossen": 9,
-   "Marktkapitalisierung außerhalb": 2,
-   "zu wenig Handel": 2
+   "zu jung": 113,
+   "Liquidität zu gering": 19,
+   "zu alt": 40,
+   "Marktkapitalisierung außerhalb": 3,
+   "ausgeschlossen": 8,
+   "zu wenig Handel": 1
   }
  },
  "analysis": {
-  "tracked": 2139,
-  "with_history": 1109,
+  "tracked": 2178,
+  "with_history": 1136,
   "horizon": 7,
   "groups": [
    {
@@ -2884,25 +2895,25 @@
     "rows": [
      {
       "label": "0–39",
-      "n": 222,
-      "win": 6.8,
+      "n": 287,
+      "win": 7.0,
       "win10": 1.4,
-      "dead": 38.7,
+      "dead": 38.3,
       "median": 0.45
      },
      {
       "label": "40–54",
-      "n": 117,
-      "win": 6.0,
-      "win10": 1.7,
-      "dead": 19.7,
-      "median": 0.59
+      "n": 135,
+      "win": 8.1,
+      "win10": 1.5,
+      "dead": 19.3,
+      "median": 0.57
      },
      {
       "label": "55–64",
-      "n": 13,
-      "win": 15.4,
-      "win10": 7.7,
+      "n": 14,
+      "win": 14.3,
+      "win10": 7.1,
       "dead": 0.0,
       "median": 0.86
      }
@@ -2913,7 +2924,7 @@
     "rows": [
      {
       "label": "0–39",
-      "n": 5,
+      "n": 7,
       "win": 0.0,
       "win10": 0.0,
       "dead": 0.0,
@@ -2921,17 +2932,17 @@
      },
      {
       "label": "40–54",
-      "n": 19,
-      "win": 15.8,
-      "win10": 0.0,
-      "dead": 0.0,
-      "median": 0.62
+      "n": 26,
+      "win": 23.1,
+      "win10": 3.8,
+      "dead": 3.8,
+      "median": 0.74
      },
      {
       "label": "55–64",
-      "n": 18,
-      "win": 11.1,
-      "win10": 11.1,
+      "n": 20,
+      "win": 15.0,
+      "win10": 10.0,
       "dead": 0.0,
       "median": 0.77
      },
@@ -2945,10 +2956,10 @@
      },
      {
       "label": "keine Daten",
-      "n": 299,
-      "win": 5.7,
-      "win10": 1.0,
-      "dead": 36.5,
+      "n": 372,
+      "win": 5.9,
+      "win10": 0.8,
+      "dead": 36.3,
       "median": 0.44
      }
     ]
@@ -2958,26 +2969,26 @@
     "rows": [
      {
       "label": "bestanden",
-      "n": 48,
-      "win": 14.6,
-      "win10": 6.2,
-      "dead": 0.0,
+      "n": 58,
+      "win": 19.0,
+      "win10": 6.9,
+      "dead": 1.7,
       "median": 0.8
      },
      {
       "label": "durchgefallen",
-      "n": 5,
+      "n": 6,
       "win": 0.0,
       "win10": 0.0,
       "dead": 0.0,
-      "median": 0.72
+      "median": 0.85
      },
      {
       "label": "nicht geprüft",
-      "n": 299,
-      "win": 5.7,
-      "win10": 1.0,
-      "dead": 36.5,
+      "n": 372,
+      "win": 5.9,
+      "win10": 0.8,
+      "dead": 36.3,
       "median": 0.44
      }
     ]
@@ -2987,34 +2998,34 @@
     "rows": [
      {
       "label": "unter 3 Tage",
-      "n": 203,
-      "win": 6.9,
-      "win10": 1.5,
-      "dead": 50.2,
-      "median": 0.23
+      "n": 256,
+      "win": 8.2,
+      "win10": 1.2,
+      "dead": 49.2,
+      "median": 0.22
      },
      {
       "label": "3–14 Tage",
-      "n": 42,
-      "win": 11.9,
-      "win10": 2.4,
-      "dead": 7.1,
-      "median": 0.7
+      "n": 51,
+      "win": 11.8,
+      "win10": 3.9,
+      "dead": 7.8,
+      "median": 0.6
      },
      {
       "label": "14–60 Tage",
-      "n": 46,
-      "win": 8.7,
-      "win10": 2.2,
-      "dead": 6.5,
+      "n": 57,
+      "win": 8.8,
+      "win10": 1.8,
+      "dead": 7.0,
       "median": 0.75
      },
      {
       "label": "über 60 Tage",
-      "n": 61,
-      "win": 1.6,
-      "win10": 1.6,
-      "dead": 1.6,
+      "n": 72,
+      "win": 1.4,
+      "win10": 1.4,
+      "dead": 2.8,
       "median": 0.91
      }
     ]
@@ -3024,34 +3035,34 @@
     "rows": [
      {
       "label": "unter 250k $",
-      "n": 240,
-      "win": 7.1,
-      "win10": 1.7,
-      "dead": 40.0,
-      "median": 0.41
+      "n": 304,
+      "win": 8.2,
+      "win10": 1.6,
+      "dead": 38.5,
+      "median": 0.44
      },
      {
       "label": "250k–1 M $",
-      "n": 35,
-      "win": 5.7,
+      "n": 49,
+      "win": 6.1,
       "win10": 0.0,
-      "dead": 20.0,
-      "median": 0.18
+      "dead": 22.4,
+      "median": 0.16
      },
      {
       "label": "1–5 M $",
-      "n": 33,
-      "win": 12.1,
-      "win10": 3.0,
-      "dead": 15.2,
+      "n": 36,
+      "win": 11.1,
+      "win10": 2.8,
+      "dead": 16.7,
       "median": 0.82
      },
      {
       "label": "5–50 M $",
-      "n": 19,
+      "n": 22,
       "win": 0.0,
       "win10": 0.0,
-      "dead": 5.3,
+      "dead": 9.1,
       "median": 0.91
      },
      {
@@ -3069,34 +3080,34 @@
     "rows": [
      {
       "label": "unter 30k $",
-      "n": 197,
-      "win": 6.6,
-      "win10": 1.5,
-      "dead": 46.2,
+      "n": 255,
+      "win": 8.2,
+      "win10": 1.6,
+      "dead": 43.9,
       "median": 0.41
      },
      {
       "label": "30–100k $",
-      "n": 68,
-      "win": 10.3,
-      "win10": 1.5,
-      "dead": 20.6,
-      "median": 0.25
+      "n": 88,
+      "win": 9.1,
+      "win10": 1.1,
+      "dead": 21.6,
+      "median": 0.23
      },
      {
       "label": "100–500k $",
-      "n": 48,
-      "win": 6.2,
-      "win10": 2.1,
-      "dead": 4.2,
-      "median": 0.85
+      "n": 53,
+      "win": 5.7,
+      "win10": 1.9,
+      "dead": 5.7,
+      "median": 0.82
      },
      {
       "label": "über 500k $",
-      "n": 39,
-      "win": 2.6,
-      "win10": 2.6,
-      "dead": 5.1,
+      "n": 40,
+      "win": 2.5,
+      "win10": 2.5,
+      "dead": 5.0,
       "median": 0.93
      }
     ]
@@ -3106,34 +3117,34 @@
     "rows": [
      {
       "label": "unter 5 %",
-      "n": 39,
-      "win": 2.6,
-      "win10": 2.6,
-      "dead": 2.6,
+      "n": 42,
+      "win": 2.4,
+      "win10": 2.4,
+      "dead": 4.8,
       "median": 0.94
      },
      {
       "label": "5–15 %",
-      "n": 46,
-      "win": 10.9,
+      "n": 54,
+      "win": 9.3,
       "win10": 0.0,
-      "dead": 21.7,
-      "median": 0.66
+      "dead": 27.8,
+      "median": 0.45
      },
      {
       "label": "15–30 %",
-      "n": 74,
-      "win": 10.8,
-      "win10": 4.1,
-      "dead": 18.9,
-      "median": 0.31
+      "n": 94,
+      "win": 13.8,
+      "win10": 4.3,
+      "dead": 17.0,
+      "median": 0.41
      },
      {
       "label": "über 30 %",
-      "n": 190,
-      "win": 5.3,
-      "win10": 1.1,
-      "dead": 44.2,
+      "n": 243,
+      "win": 5.8,
+      "win10": 0.8,
+      "dead": 42.4,
       "median": 0.44
      },
      {
@@ -3151,42 +3162,42 @@
     "rows": [
      {
       "label": "unter 0,5",
-      "n": 67,
-      "win": 4.5,
-      "win10": 1.5,
-      "dead": 9.0,
-      "median": 0.9
+      "n": 84,
+      "win": 4.8,
+      "win10": 1.2,
+      "dead": 8.3,
+      "median": 0.89
      },
      {
       "label": "0,5–2",
-      "n": 65,
-      "win": 7.7,
-      "win10": 3.1,
-      "dead": 6.2,
+      "n": 75,
+      "win": 8.0,
+      "win10": 2.7,
+      "dead": 8.0,
       "median": 0.68
      },
      {
       "label": "2–5",
-      "n": 35,
-      "win": 8.6,
-      "win10": 2.9,
-      "dead": 22.9,
+      "n": 42,
+      "win": 11.9,
+      "win10": 2.4,
+      "dead": 23.8,
       "median": 0.46
      },
      {
       "label": "5–15",
-      "n": 64,
-      "win": 7.8,
-      "win10": 1.6,
-      "dead": 35.9,
+      "n": 83,
+      "win": 7.2,
+      "win10": 2.4,
+      "dead": 32.5,
       "median": 0.25
      },
      {
       "label": "über 15",
-      "n": 121,
-      "win": 6.6,
-      "win10": 0.8,
-      "dead": 56.2,
+      "n": 152,
+      "win": 7.9,
+      "win10": 0.7,
+      "dead": 56.6,
       "median": 0.24
      }
     ]
@@ -3196,34 +3207,34 @@
     "rows": [
      {
       "label": "unter 0,9",
-      "n": 24,
+      "n": 33,
       "win": 0.0,
       "win10": 0.0,
-      "dead": 16.7,
+      "dead": 18.2,
       "median": 0.6
      },
      {
       "label": "0,9–1,1",
-      "n": 76,
+      "n": 87,
       "win": 9.2,
-      "win10": 1.3,
-      "dead": 17.1,
-      "median": 0.84
+      "win10": 1.1,
+      "dead": 20.7,
+      "median": 0.81
      },
      {
       "label": "1,1–1,5",
-      "n": 178,
-      "win": 5.6,
-      "win10": 1.7,
-      "dead": 39.3,
-      "median": 0.31
+      "n": 228,
+      "win": 6.6,
+      "win10": 1.8,
+      "dead": 38.2,
+      "median": 0.32
      },
      {
       "label": "über 1,5",
-      "n": 74,
-      "win": 9.5,
-      "win10": 2.7,
-      "dead": 29.7,
+      "n": 88,
+      "win": 11.4,
+      "win10": 2.3,
+      "dead": 28.4,
       "median": 0.61
      }
     ]
@@ -3233,42 +3244,42 @@
     "rows": [
      {
       "label": "unter −20 %",
-      "n": 107,
-      "win": 5.6,
-      "win10": 1.9,
-      "dead": 58.9,
-      "median": 0.44
+      "n": 133,
+      "win": 6.8,
+      "win10": 1.5,
+      "dead": 59.4,
+      "median": 0.4
      },
      {
       "label": "−20 bis 0 %",
-      "n": 68,
-      "win": 4.4,
-      "win10": 1.5,
-      "dead": 7.4,
-      "median": 0.85
+      "n": 81,
+      "win": 3.7,
+      "win10": 1.2,
+      "dead": 8.6,
+      "median": 0.84
      },
      {
       "label": "0–50 %",
-      "n": 82,
-      "win": 7.3,
-      "win10": 1.2,
-      "dead": 15.9,
-      "median": 0.85
+      "n": 99,
+      "win": 8.1,
+      "win10": 1.0,
+      "dead": 15.2,
+      "median": 0.84
      },
      {
       "label": "50–200 %",
-      "n": 46,
-      "win": 6.5,
-      "win10": 4.3,
-      "dead": 17.4,
-      "median": 0.29
+      "n": 57,
+      "win": 8.8,
+      "win10": 5.3,
+      "dead": 15.8,
+      "median": 0.25
      },
      {
       "label": "über 200 %",
-      "n": 49,
-      "win": 12.2,
+      "n": 66,
+      "win": 12.1,
       "win10": 0.0,
-      "dead": 40.8,
+      "dead": 39.4,
       "median": 0.06
      }
     ]
@@ -3277,35 +3288,43 @@
     "title": "Holder beim ersten Check",
     "rows": [
      {
-      "label": "500–2.000",
+      "label": "unter 500",
       "n": 1,
       "win": 0.0,
       "win10": 0.0,
       "dead": 0.0,
-      "median": 1.85
+      "median": 1.11
+     },
+     {
+      "label": "500–2.000",
+      "n": 5,
+      "win": 20.0,
+      "win10": 20.0,
+      "dead": 20.0,
+      "median": 0.16
      },
      {
       "label": "2.000–10.000",
-      "n": 21,
-      "win": 4.8,
-      "win10": 4.8,
+      "n": 24,
+      "win": 16.7,
+      "win10": 4.2,
       "dead": 0.0,
-      "median": 0.62
+      "median": 0.74
      },
      {
       "label": "über 10.000",
-      "n": 31,
-      "win": 19.4,
-      "win10": 6.5,
+      "n": 34,
+      "win": 17.6,
+      "win10": 5.9,
       "dead": 0.0,
       "median": 0.81
      },
      {
       "label": "keine Daten",
-      "n": 299,
-      "win": 5.7,
-      "win10": 1.0,
-      "dead": 36.5,
+      "n": 372,
+      "win": 5.9,
+      "win10": 0.8,
+      "dead": 36.3,
       "median": 0.44
      }
     ]
@@ -3315,42 +3334,42 @@
     "rows": [
      {
       "label": "unter 15 %",
-      "n": 6,
-      "win": 16.7,
+      "n": 7,
+      "win": 14.3,
       "win10": 0.0,
-      "dead": 0.0,
-      "median": 1.57
+      "dead": 14.3,
+      "median": 0.42
      },
      {
       "label": "15–25 %",
-      "n": 37,
-      "win": 10.8,
-      "win10": 5.4,
+      "n": 44,
+      "win": 15.9,
+      "win10": 6.8,
       "dead": 0.0,
-      "median": 0.77
+      "median": 0.8
      },
      {
       "label": "25–35 %",
-      "n": 5,
-      "win": 40.0,
-      "win10": 20.0,
+      "n": 7,
+      "win": 42.9,
+      "win10": 14.3,
       "dead": 0.0,
       "median": 1.47
      },
      {
       "label": "über 35 %",
-      "n": 5,
+      "n": 6,
       "win": 0.0,
       "win10": 0.0,
       "dead": 0.0,
-      "median": 0.72
+      "median": 0.85
      },
      {
       "label": "keine Daten",
-      "n": 299,
-      "win": 5.7,
-      "win10": 1.0,
-      "dead": 36.5,
+      "n": 372,
+      "win": 5.9,
+      "win10": 0.8,
+      "dead": 36.3,
       "median": 0.44
      }
     ]
@@ -3360,26 +3379,26 @@
     "rows": [
      {
       "label": "X und Telegram",
-      "n": 93,
-      "win": 5.4,
-      "win10": 1.1,
-      "dead": 14.0,
-      "median": 0.73
+      "n": 120,
+      "win": 8.3,
+      "win10": 1.7,
+      "dead": 14.2,
+      "median": 0.77
      },
      {
       "label": "nur eins",
-      "n": 225,
+      "n": 278,
       "win": 7.6,
-      "win10": 1.8,
-      "dead": 40.0,
-      "median": 0.33
+      "win10": 1.4,
+      "dead": 40.3,
+      "median": 0.32
      },
      {
       "label": "keine",
-      "n": 34,
-      "win": 5.9,
-      "win10": 2.9,
-      "dead": 17.6,
+      "n": 38,
+      "win": 5.3,
+      "win10": 2.6,
+      "dead": 18.4,
       "median": 0.88
      }
     ]
@@ -3389,19 +3408,19 @@
     "rows": [
      {
       "label": "ja",
-      "n": 78,
-      "win": 12.8,
-      "win10": 3.8,
-      "dead": 33.3,
-      "median": 0.46
+      "n": 99,
+      "win": 13.1,
+      "win10": 4.0,
+      "dead": 32.3,
+      "median": 0.45
      },
      {
       "label": "nein",
-      "n": 274,
-      "win": 5.1,
-      "win10": 1.1,
-      "dead": 30.3,
-      "median": 0.56
+      "n": 337,
+      "win": 5.9,
+      "win10": 0.9,
+      "dead": 30.9,
+      "median": 0.55
      }
     ]
    },
@@ -3410,19 +3429,19 @@
     "rows": [
      {
       "label": "base",
-      "n": 9,
+      "n": 11,
       "win": 0.0,
       "win10": 0.0,
-      "dead": 11.1,
+      "dead": 9.1,
       "median": 0.61
      },
      {
       "label": "solana",
-      "n": 343,
-      "win": 7.0,
-      "win10": 1.7,
-      "dead": 31.5,
-      "median": 0.51
+      "n": 425,
+      "win": 7.8,
+      "win10": 1.6,
+      "dead": 31.8,
+      "median": 0.49
      }
     ]
    },
@@ -3431,19 +3450,19 @@
     "rows": [
      {
       "label": "Liquidität zu gering",
-      "n": 42,
-      "win": 11.9,
-      "win10": 2.4,
-      "dead": 14.3,
-      "median": 0.63
+      "n": 58,
+      "win": 12.1,
+      "win10": 3.4,
+      "dead": 12.1,
+      "median": 0.73
      },
      {
       "label": "Marktkapitalisierung außerhalb",
-      "n": 6,
+      "n": 7,
       "win": 0.0,
       "win10": 0.0,
       "dead": 0.0,
-      "median": 0.99
+      "median": 0.7
      },
      {
       "label": "ausgeschlossen",
@@ -3455,26 +3474,26 @@
      },
      {
       "label": "ok",
-      "n": 50,
-      "win": 8.0,
-      "win10": 2.0,
-      "dead": 0.0,
-      "median": 0.77
+      "n": 58,
+      "win": 6.9,
+      "win10": 1.7,
+      "dead": 1.7,
+      "median": 0.75
      },
      {
       "label": "zu alt",
-      "n": 42,
-      "win": 2.4,
-      "win10": 2.4,
-      "dead": 2.4,
-      "median": 0.9
+      "n": 48,
+      "win": 2.1,
+      "win10": 2.1,
+      "dead": 4.2,
+      "median": 0.91
      },
      {
       "label": "zu jung",
-      "n": 201,
-      "win": 7.0,
-      "win10": 1.5,
-      "dead": 50.7,
+      "n": 254,
+      "win": 8.3,
+      "win10": 1.2,
+      "dead": 49.6,
       "median": 0.21
      },
      {
@@ -3565,6 +3584,21 @@
     "filter": "zu jung"
    },
    {
+    "symbol": "timmy",
+    "chain": "solana",
+    "address": "TiMSdJrkVwUpeEWJpuqRvHt4wVS7uH77LbNPGGVJXNw",
+    "first": "2026-11-05",
+    "max": 11.843,
+    "score": 37,
+    "full_score": 52,
+    "age": 4.5781,
+    "liq": 12467.81,
+    "mcap": 43303.0,
+    "holders": 1991,
+    "top10": 24.7,
+    "filter": "Liquidität zu gering"
+   },
+   {
     "symbol": "FLOAT",
     "chain": "solana",
     "address": "Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr",
@@ -3578,6 +3612,21 @@
     "holders": 12380,
     "top10": 18.3,
     "filter": "ok"
+   },
+   {
+    "symbol": "WEALTH",
+    "chain": "solana",
+    "address": "8Mi9E1V2bdPeAaRkR5yxUsAvpzP6UBUEEUrYmgKNpump",
+    "first": "2026-11-05",
+    "max": 9.549,
+    "score": 36,
+    "full_score": 52,
+    "age": 0.2179,
+    "liq": 29963.34,
+    "mcap": 141471.0,
+    "holders": 4401,
+    "top10": 23.3,
+    "filter": "zu jung"
    },
    {
     "symbol": "RICO",
@@ -3644,7 +3693,7 @@
     "chain": "solana",
     "address": "KMifrkYmDdAKtVXAVBEPEQxJ7qP2iLgUcfZjUZipump",
     "first": "2026-11-04",
-    "max": 5.691,
+    "max": 6.028,
     "score": 44,
     "full_score": null,
     "age": 1.0037,
@@ -3683,40 +3732,10 @@
     "holders": 39461,
     "top10": 16.3,
     "filter": "ok"
-   },
-   {
-    "symbol": "ANAKIN",
-    "chain": "solana",
-    "address": "8s4bNqEztH1JP7mkU747uMr7AckCQdiV47FDqYnDpump",
-    "first": "2026-11-01",
-    "max": 5.134,
-    "score": 42,
-    "full_score": null,
-    "age": 0.0463,
-    "liq": 98871.03,
-    "mcap": 1384942.0,
-    "holders": null,
-    "top10": null,
-    "filter": "zu jung"
-   },
-   {
-    "symbol": "白いヤク",
-    "chain": "solana",
-    "address": "6jFcYpa95qnzX3Kui4TTyPCEzQorHRCHXhoCAg5tpump",
-    "first": "2026-11-01",
-    "max": 4.986,
-    "score": 31,
-    "full_score": null,
-    "age": 0.5635,
-    "liq": 10867.86,
-    "mcap": 20615.0,
-    "holders": null,
-    "top10": null,
-    "filter": "zu jung"
    }
   ],
-  "n": 352,
-  "with_candles": 266
+  "n": 436,
+  "with_candles": 285
  },
  "last_main": "2026-11-11"
 }
