@@ -12,14 +12,14 @@
     "opened": "2026-11-01",
     "opened_ts": 1793576162.21666,
     "entry_price": 0.00347,
-    "price": 0.003366,
-    "liq": 263383.81,
+    "price": 0.003292,
+    "liq": 257294.4,
     "units": 32196.1409512279,
     "cost": 100,
     "eur_per_usd": 0.89509,
     "score": 71,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.4953890489913544,
     "holders_hist": [
      [
@@ -78,14 +78,14 @@
     "opened": "2026-11-02",
     "opened_ts": 1793602382.686208,
     "entry_price": 0.001868,
-    "price": 0.003458,
-    "liq": 203865.81,
+    "price": 0.003351,
+    "liq": 200827.03,
     "units": 59807.60658498973,
     "cost": 100,
     "eur_per_usd": 0.89509,
     "score": 70,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 2.7221627408993574,
     "holders_hist": [
      [
@@ -144,14 +144,14 @@
     "opened": "2026-11-02",
     "opened_ts": 1793602382.686208,
     "entry_price": 0.001204,
-    "price": 0.004716,
-    "liq": 317850.86,
+    "price": 0.004802,
+    "liq": 320604.34,
     "units": 62170.10639328052,
     "cost": 100,
     "eur_per_usd": 0.89509,
     "score": 68,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 5.8612956810631225,
     "holders_hist": [
      [
@@ -224,14 +224,14 @@
     "opened": "2026-11-04",
     "opened_ts": 1793775704.769064,
     "entry_price": 0.003565,
-    "price": 0.001228,
-    "liq": 110677.8,
+    "price": 0.001142,
+    "liq": 106154.26,
     "units": 31357.797819626467,
     "cost": 100,
     "eur_per_usd": 0.89453,
     "score": 72,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.2984572230014026,
     "holders_hist": [
      [
@@ -282,14 +282,14 @@
     "opened": "2026-11-04",
     "opened_ts": 1793775704.769064,
     "entry_price": 0.003945,
-    "price": 0.003679,
-    "liq": 334575.01,
+    "price": 0.00336,
+    "liq": 318681.15,
     "units": 28337.274835733424,
     "cost": 100,
     "eur_per_usd": 0.89453,
     "score": 71,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.45297845373891,
     "holders_hist": [
      [
@@ -340,14 +340,14 @@
     "opened": "2026-11-04",
     "opened_ts": 1793775704.769064,
     "entry_price": 0.001954,
-    "price": 0.0008359,
-    "liq": 112764.41,
+    "price": 0.0008504,
+    "liq": 112384.99,
     "units": 57211.13061769107,
     "cost": 100,
     "eur_per_usd": 0.89453,
     "score": 69,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.0,
     "holders_hist": [
      [
@@ -398,14 +398,14 @@
     "opened": "2026-11-05",
     "opened_ts": 1793863713.23308,
     "entry_price": 0.01033,
-    "price": 0.004563,
-    "liq": 269608.81,
+    "price": 0.004331,
+    "liq": 262448.26,
     "units": 10907.038601045777,
     "cost": 100,
     "eur_per_usd": 0.88755,
     "score": 69,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.0,
     "holders_hist": [
      [
@@ -452,14 +452,14 @@
     "opened": "2026-11-05",
     "opened_ts": 1793863713.23308,
     "entry_price": 0.0007661,
-    "price": 0.0003326,
-    "liq": 55959.74,
+    "price": 0.0003701,
+    "liq": 58366.74,
     "units": 147069.19298890862,
     "cost": 100,
     "eur_per_usd": 0.88755,
     "score": 68,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.0,
     "holders_hist": [
      [
@@ -506,15 +506,15 @@
     "opened": "2026-11-07",
     "opened_ts": 1794033580.980655,
     "entry_price": 0.001743,
-    "price": 0.001319,
-    "liq": 126944.77,
+    "price": 0.002356,
+    "liq": 170672.92,
     "units": 64055.94369400558,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 73,
     "status": "open",
-    "updated": "2026-11-13",
-    "max_mult": 1.0,
+    "updated": "2026-11-14",
+    "max_mult": 1.3516924842226048,
     "holders_hist": [
      [
       "2026-11-08",
@@ -552,14 +552,14 @@
     "opened": "2026-11-07",
     "opened_ts": 1794033580.980655,
     "entry_price": 0.01223,
-    "price": 0.006291,
-    "liq": 266180.44,
+    "price": 0.008067,
+    "liq": 298902.13,
     "units": 9129.150438156315,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 73,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.046606704824203,
     "holders_hist": [
      [
@@ -598,14 +598,14 @@
     "opened": "2026-11-07",
     "opened_ts": 1794033580.980655,
     "entry_price": 0.001278,
-    "price": 0.001916,
-    "liq": 165605.73,
+    "price": 0.001883,
+    "liq": 164505.76,
     "units": 87362.683770463,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 66,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.4992175273865413,
     "holders_hist": [
      [
@@ -644,14 +644,14 @@
     "opened": "2026-11-08",
     "opened_ts": 1794120373.763453,
     "entry_price": 0.001668,
-    "price": 0.0007557,
-    "liq": 129120.87,
+    "price": 0.0007314,
+    "liq": 125579.24,
     "units": 66936.15698959936,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 70,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.0,
     "holders_hist": [
      [
@@ -686,14 +686,14 @@
     "opened": "2026-11-09",
     "opened_ts": 1794219676.514169,
     "entry_price": 0.0002642,
-    "price": 0.0002363,
-    "liq": 51047.73,
+    "price": 0.0001923,
+    "liq": 45479.67,
     "units": 422594.66259898455,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 69,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.4318697956093867,
     "image": "https://cdn.dexscreener.com/cms/images/ICjO7aWlI8TG_fPi?width=800&height=800&quality=95&format=auto",
     "holders_hist": [
@@ -725,14 +725,14 @@
     "opened": "2026-11-09",
     "opened_ts": 1794219676.514169,
     "entry_price": 0.01561,
-    "price": 0.0174,
-    "liq": 1685281.02,
+    "price": 0.01704,
+    "liq": 1663632.71,
     "units": 7152.434968523493,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 67,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.1146700832799485,
     "image": null,
     "holders_hist": [
@@ -764,14 +764,14 @@
     "opened": "2026-11-09",
     "opened_ts": 1794219676.514169,
     "entry_price": 0.001327,
-    "price": 0.002353,
-    "liq": 187945.23,
+    "price": 0.002034,
+    "liq": 174124.31,
     "units": 84136.78210900657,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 65,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.773172569706104,
     "image": "https://cdn.dexscreener.com/cms/images/NISe7k6pm95eP1fB?width=800&height=800&quality=95&format=auto",
     "holders_hist": [
@@ -803,14 +803,14 @@
     "opened": "2026-11-10",
     "opened_ts": 1794316232.5791,
     "entry_price": 0.002344,
-    "price": 0.001442,
-    "liq": 101049.2,
+    "price": 0.001665,
+    "liq": 107415.68,
     "units": 47751.467440795626,
     "cost": 100,
     "eur_per_usd": 0.89342,
     "score": 72,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.1262798634812285,
     "image": "https://cdn.dexscreener.com/cms/images/gAu3LdjS988GlL3f?width=800&height=800&quality=95&format=auto",
     "holders_hist": [
@@ -838,14 +838,14 @@
     "opened": "2026-11-10",
     "opened_ts": 1794316232.5791,
     "entry_price": 0.0004586,
-    "price": 0.0002259,
-    "liq": 45845.04,
+    "price": 0.0002993,
+    "liq": 52580.43,
     "units": 244067.6835613279,
     "cost": 100,
     "eur_per_usd": 0.89342,
     "score": 72,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.098778892280855,
     "image": "https://cdn.dexscreener.com/cms/images/jPrSz4tn7DdMCm5z?width=800&height=800&quality=95&format=auto",
     "holders_hist": [
@@ -873,14 +873,14 @@
     "opened": "2026-11-10",
     "opened_ts": 1794316232.5791,
     "entry_price": 0.00381,
-    "price": 0.002246,
-    "liq": 88551.5,
+    "price": 0.002055,
+    "liq": 84160.97,
     "units": 29377.805690610225,
     "cost": 100,
     "eur_per_usd": 0.89342,
     "score": 66,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.3236220472440945,
     "image": "https://cdn.dexscreener.com/cms/images/xOljTGtIz_HUn9dG?width=800&height=800&quality=95&format=auto",
     "holders_hist": [
@@ -908,14 +908,14 @@
     "opened": "2026-11-11",
     "opened_ts": 1794386122.79339,
     "entry_price": 0.02469,
-    "price": 0.01954,
-    "liq": 1429266.84,
+    "price": 0.0178,
+    "liq": 1347894.12,
     "units": 4541.932359490349,
     "cost": 100,
     "eur_per_usd": 0.89174,
     "score": 68,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.0895099230457674,
     "image": "https://cdn.dexscreener.com/cms/images/_aILGflqFiJQJ4A-?width=800&height=800&quality=95&format=auto",
     "holders_hist": [
@@ -939,14 +939,14 @@
     "opened": "2026-11-12",
     "opened_ts": 1794490042.291962,
     "entry_price": 0.0008645,
-    "price": 0.00119,
-    "liq": 114172.22,
+    "price": 0.0009347,
+    "liq": 100071.75,
     "units": 128710.92998222585,
     "cost": 100,
     "eur_per_usd": 0.89871,
     "score": 73,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.376518218623482,
     "image": "https://cdn.dexscreener.com/cms/images/nTp1iTQApK51uzGT?width=800&height=800&quality=95&format=auto",
     "holders_hist": [
@@ -966,14 +966,14 @@
     "opened": "2026-11-12",
     "opened_ts": 1794490042.291962,
     "entry_price": 0.001464,
-    "price": 0.001386,
-    "liq": 229139.2,
+    "price": 0.001336,
+    "liq": 222303.37,
     "units": 76004.50749291957,
     "cost": 100,
     "eur_per_usd": 0.89871,
     "score": 70,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.0382513661202186,
     "image": "https://cdn.dexscreener.com/cms/images/kQiqJ4FfkHR8RBtA?width=800&height=800&quality=95&format=auto",
     "holders_hist": [
@@ -993,14 +993,14 @@
     "opened": "2026-11-13",
     "opened_ts": 1794564635.178296,
     "entry_price": 0.04625,
-    "price": 0.04637,
-    "liq": 2131138.67,
+    "price": 0.04551,
+    "liq": 2088644.94,
     "units": 2395.880283851917,
     "cost": 100,
     "eur_per_usd": 0.90245,
     "score": 65,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.0025945945945947,
     "image": "https://cdn.dexscreener.com/cms/images/bJ1wrZe7IYIknT9a?width=800&height=800&quality=95&format=auto"
    },
@@ -1013,14 +1013,14 @@
     "opened": "2026-11-13",
     "opened_ts": 1794564635.178296,
     "entry_price": 0.0005688,
-    "price": 0.0006042,
-    "liq": 67958.78,
+    "price": 0.0004533,
+    "liq": 58117.51,
     "units": 194812.69888915465,
     "cost": 100,
     "eur_per_usd": 0.90245,
     "score": 65,
     "status": "open",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "max_mult": 1.0622362869198314,
     "image": "https://cdn.dexscreener.com/cms/images/7QGpeFCZnrWdB6ev?width=800&height=800&quality=95&format=auto"
    }
@@ -1082,9 +1082,9 @@
      }
     ],
     "closed": "2026-11-08",
-    "post_price": 2.149e-05,
-    "post_liq": 12830,
-    "post_updated": "2026-11-13",
+    "post_price": 2.084e-05,
+    "post_liq": 12413,
+    "post_updated": "2026-11-14",
     "post_max": 2.661e-05,
     "post_max_date": "2026-11-09"
    },
@@ -1137,9 +1137,9 @@
      }
     ],
     "closed": "2026-11-10",
-    "post_price": 0.005826,
-    "post_liq": 226282,
-    "post_updated": "2026-11-13",
+    "post_price": 0.004458,
+    "post_liq": 195580,
+    "post_updated": "2026-11-14",
     "post_max": 0.01047,
     "post_max_date": "2026-11-11"
    },
@@ -1180,9 +1180,9 @@
      }
     ],
     "closed": "2026-11-10",
-    "post_price": 2.477e-05,
-    "post_liq": 12487,
-    "post_updated": "2026-11-13",
+    "post_price": 4.352e-05,
+    "post_liq": 17099,
+    "post_updated": "2026-11-14",
     "post_max": 0.0003965,
     "post_max_date": "2026-11-11"
    },
@@ -1255,9 +1255,9 @@
      }
     ],
     "closed": "2026-11-11",
-    "post_price": 0.002395,
-    "post_liq": 265140,
-    "post_updated": "2026-11-13",
+    "post_price": 0.001977,
+    "post_liq": 240738,
+    "post_updated": "2026-11-14",
     "post_max": 0.002395,
     "post_max_date": "2026-11-13"
    },
@@ -1337,9 +1337,9 @@
     ],
     "liq_ref": 654628.59,
     "closed": "2026-11-11",
-    "post_price": 0.002657,
-    "post_liq": 305200,
-    "post_updated": "2026-11-13",
+    "post_price": 0.002354,
+    "post_liq": 276968,
+    "post_updated": "2026-11-14",
     "post_max": 0.003729,
     "post_max_date": "2026-11-12"
    },
@@ -1427,9 +1427,9 @@
     ],
     "liq_ref": 351112.88,
     "closed": "2026-11-12",
-    "post_price": 0.005198,
-    "post_liq": 320793,
-    "post_updated": "2026-11-13",
+    "post_price": 0.00489,
+    "post_liq": 307515,
+    "post_updated": "2026-11-14",
     "post_max": 0.005198,
     "post_max_date": "2026-11-13"
    },
@@ -1482,9 +1482,9 @@
      }
     ],
     "closed": "2026-11-12",
-    "post_price": 0.0001015,
-    "post_liq": 26004,
-    "post_updated": "2026-11-13",
+    "post_price": 9.85e-05,
+    "post_liq": 25300,
+    "post_updated": "2026-11-14",
     "post_max": 0.0001328,
     "post_max_date": "2026-11-13"
    }
@@ -1579,6 +1579,13 @@
     "total": 10008.57,
     "cash": 7801.3,
     "invested": 2207.27,
+    "open": 23
+   },
+   {
+    "date": "2026-11-14",
+    "total": 9977.61,
+    "cash": 7801.3,
+    "invested": 2176.31,
     "open": 23
    }
   ]
@@ -3204,22 +3211,22 @@
   }
  ],
  "collect": {
-  "last": "2026-11-13T18:13:45+00:00",
-  "tracked": 2476,
-  "seen": 246,
-  "passed": 46,
+  "last": "2026-11-14T00:02:44+00:00",
+  "tracked": 2534,
+  "seen": 235,
+  "passed": 45,
   "rejected": {
-   "zu jung": 125,
-   "zu alt": 45,
-   "Liquidität zu gering": 14,
-   "ausgeschlossen": 11,
-   "Marktkapitalisierung außerhalb": 4,
+   "zu jung": 123,
+   "zu alt": 32,
+   "Liquidität zu gering": 22,
+   "ausgeschlossen": 10,
+   "Marktkapitalisierung außerhalb": 2,
    "zu wenig Handel": 1
   }
  },
  "analysis": {
-  "tracked": 2476,
-  "with_history": 1283,
+  "tracked": 2534,
+  "with_history": 1320,
   "horizon": 7,
   "groups": [
    {
@@ -3227,19 +3234,19 @@
     "rows": [
      {
       "label": "0–39",
-      "n": 342,
+      "n": 343,
       "win": 7.9,
       "win10": 2.3,
-      "dead": 43.3,
-      "median": 0.44
+      "dead": 43.4,
+      "median": 0.43
      },
      {
       "label": "40–54",
-      "n": 152,
-      "win": 11.2,
+      "n": 153,
+      "win": 11.8,
       "win10": 1.3,
-      "dead": 19.7,
-      "median": 0.57
+      "dead": 20.3,
+      "median": 0.56
      },
      {
       "label": "55–64",
@@ -3288,10 +3295,10 @@
      },
      {
       "label": "keine Daten",
-      "n": 440,
-      "win": 6.8,
+      "n": 442,
+      "win": 7.0,
       "win10": 1.4,
-      "dead": 40.2,
+      "dead": 40.5,
       "median": 0.41
      }
     ]
@@ -3317,10 +3324,10 @@
      },
      {
       "label": "nicht geprüft",
-      "n": 440,
-      "win": 6.8,
+      "n": 442,
+      "win": 7.0,
       "win10": 1.4,
-      "dead": 40.2,
+      "dead": 40.5,
       "median": 0.41
      }
     ]
@@ -3330,10 +3337,10 @@
     "rows": [
      {
       "label": "unter 3 Tage",
-      "n": 312,
+      "n": 314,
       "win": 9.9,
       "win10": 2.2,
-      "dead": 53.8,
+      "dead": 54.1,
       "median": 0.21
      },
      {
@@ -3347,7 +3354,7 @@
      {
       "label": "14–60 Tage",
       "n": 64,
-      "win": 9.4,
+      "win": 10.9,
       "win10": 1.6,
       "dead": 6.2,
       "median": 0.78
@@ -3367,10 +3374,10 @@
     "rows": [
      {
       "label": "unter 250k $",
-      "n": 368,
-      "win": 9.0,
+      "n": 369,
+      "win": 9.2,
       "win10": 2.4,
-      "dead": 42.7,
+      "dead": 42.8,
       "median": 0.41
      },
      {
@@ -3399,10 +3406,10 @@
      },
      {
       "label": "über 50 M $",
-      "n": 25,
-      "win": 4.0,
-      "win10": 4.0,
-      "dead": 0.0,
+      "n": 26,
+      "win": 3.8,
+      "win10": 3.8,
+      "dead": 3.8,
       "median": 0.94
      }
     ]
@@ -3412,10 +3419,10 @@
     "rows": [
      {
       "label": "unter 30k $",
-      "n": 308,
-      "win": 8.1,
+      "n": 309,
+      "win": 8.4,
       "win10": 1.9,
-      "dead": 48.4,
+      "dead": 48.5,
       "median": 0.41
      },
      {
@@ -3436,11 +3443,11 @@
      },
      {
       "label": "über 500k $",
-      "n": 42,
-      "win": 2.4,
-      "win10": 2.4,
-      "dead": 4.8,
-      "median": 0.93
+      "n": 43,
+      "win": 2.3,
+      "win10": 2.3,
+      "dead": 7.0,
+      "median": 0.92
      }
     ]
    },
@@ -3449,10 +3456,10 @@
     "rows": [
      {
       "label": "unter 5 %",
-      "n": 42,
-      "win": 2.4,
-      "win10": 2.4,
-      "dead": 4.8,
+      "n": 43,
+      "win": 2.3,
+      "win10": 2.3,
+      "dead": 7.0,
       "median": 0.94
      },
      {
@@ -3466,17 +3473,17 @@
      {
       "label": "15–30 %",
       "n": 108,
-      "win": 15.7,
+      "win": 16.7,
       "win10": 4.6,
       "dead": 18.5,
       "median": 0.26
      },
      {
       "label": "über 30 %",
-      "n": 294,
+      "n": 295,
       "win": 7.1,
       "win10": 1.7,
-      "dead": 47.3,
+      "dead": 47.5,
       "median": 0.44
      },
      {
@@ -3495,17 +3502,17 @@
      {
       "label": "unter 0,5",
       "n": 93,
-      "win": 5.4,
+      "win": 6.5,
       "win10": 1.1,
       "dead": 8.6,
       "median": 0.89
      },
      {
       "label": "0,5–2",
-      "n": 85,
-      "win": 9.4,
-      "win10": 2.4,
-      "dead": 10.6,
+      "n": 86,
+      "win": 9.3,
+      "win10": 2.3,
+      "dead": 11.6,
       "median": 0.66
      },
      {
@@ -3526,10 +3533,10 @@
      },
      {
       "label": "über 15",
-      "n": 187,
-      "win": 8.6,
+      "n": 188,
+      "win": 8.5,
       "win10": 2.1,
-      "dead": 60.4,
+      "dead": 60.6,
       "median": 0.26
      }
     ]
@@ -3555,18 +3562,18 @@
      },
      {
       "label": "1,1–1,5",
-      "n": 264,
-      "win": 9.5,
-      "win10": 2.7,
-      "dead": 41.7,
-      "median": 0.29
+      "n": 265,
+      "win": 9.4,
+      "win10": 2.6,
+      "dead": 41.9,
+      "median": 0.28
      },
      {
       "label": "über 1,5",
-      "n": 107,
-      "win": 11.2,
+      "n": 108,
+      "win": 12.0,
       "win10": 2.8,
-      "dead": 30.8,
+      "dead": 31.5,
       "median": 0.61
      }
     ]
@@ -3592,10 +3599,10 @@
      },
      {
       "label": "0–50 %",
-      "n": 111,
-      "win": 9.0,
+      "n": 112,
+      "win": 9.8,
       "win10": 0.9,
-      "dead": 14.4,
+      "dead": 15.2,
       "median": 0.84
      },
      {
@@ -3608,10 +3615,10 @@
      },
      {
       "label": "über 200 %",
-      "n": 81,
-      "win": 16.0,
+      "n": 82,
+      "win": 15.9,
       "win10": 3.7,
-      "dead": 40.7,
+      "dead": 41.5,
       "median": 0.05
      }
     ]
@@ -3653,10 +3660,10 @@
      },
      {
       "label": "keine Daten",
-      "n": 440,
-      "win": 6.8,
+      "n": 442,
+      "win": 7.0,
       "win10": 1.4,
-      "dead": 40.2,
+      "dead": 40.5,
       "median": 0.41
      }
     ]
@@ -3698,10 +3705,10 @@
      },
      {
       "label": "keine Daten",
-      "n": 440,
-      "win": 6.8,
+      "n": 442,
+      "win": 7.0,
       "win10": 1.4,
-      "dead": 40.2,
+      "dead": 40.5,
       "median": 0.41
      }
     ]
@@ -3712,26 +3719,26 @@
      {
       "label": "X und Telegram",
       "n": 136,
-      "win": 8.1,
+      "win": 8.8,
       "win10": 1.5,
       "dead": 14.7,
       "median": 0.77
      },
      {
       "label": "nur eins",
-      "n": 331,
-      "win": 9.4,
+      "n": 332,
+      "win": 9.3,
       "win10": 1.8,
-      "dead": 44.7,
+      "dead": 44.9,
       "median": 0.31
      },
      {
       "label": "keine",
-      "n": 42,
-      "win": 9.5,
-      "win10": 7.1,
-      "dead": 23.8,
-      "median": 0.88
+      "n": 43,
+      "win": 9.3,
+      "win10": 7.0,
+      "dead": 25.6,
+      "median": 0.87
      }
     ]
    },
@@ -3748,11 +3755,11 @@
      },
      {
       "label": "nein",
-      "n": 392,
-      "win": 7.4,
+      "n": 394,
+      "win": 7.6,
       "win10": 1.5,
-      "dead": 34.9,
-      "median": 0.49
+      "dead": 35.3,
+      "median": 0.48
      }
     ]
    },
@@ -3769,11 +3776,11 @@
      },
      {
       "label": "solana",
-      "n": 497,
-      "win": 9.3,
+      "n": 499,
+      "win": 9.4,
       "win10": 2.2,
-      "dead": 35.6,
-      "median": 0.47
+      "dead": 35.9,
+      "median": 0.46
      }
     ]
    },
@@ -3783,7 +3790,7 @@
      {
       "label": "Liquidität zu gering",
       "n": 67,
-      "win": 10.4,
+      "win": 11.9,
       "win10": 3.0,
       "dead": 10.4,
       "median": 0.73
@@ -3822,11 +3829,11 @@
      },
      {
       "label": "zu jung",
-      "n": 310,
-      "win": 10.0,
-      "win10": 2.3,
-      "dead": 54.2,
-      "median": 0.21
+      "n": 312,
+      "win": 9.9,
+      "win10": 2.2,
+      "dead": 54.5,
+      "median": 0.2
      },
      {
       "label": "zu wenig Handel",
@@ -4066,8 +4073,8 @@
     "filter": "Liquidität zu gering"
    }
   ],
-  "n": 509,
-  "with_candles": 386
+  "n": 511,
+  "with_candles": 405
  },
  "last_main": "2026-11-13"
 }
