@@ -1,7 +1,7 @@
 {
  "eur_per_usd": 0.90481,
  "portfolio": {
-  "cash": 7539.027458615344,
+  "cash": 7567.777428761818,
   "positions": [
    {
     "key": "solana:GTBxUiw6wJdmmkCGZgRHLyYxqu1vG4KtRpeox6yDpump",
@@ -12,8 +12,8 @@
     "opened": "2026-11-01",
     "opened_ts": 1793576162.21666,
     "entry_price": 0.00347,
-    "price": 0.002707,
-    "liq": 228005.92,
+    "price": 0.002639,
+    "liq": 221559.73,
     "units": 32196.1409512279,
     "cost": 100,
     "eur_per_usd": 0.89509,
@@ -82,8 +82,8 @@
     "opened": "2026-11-02",
     "opened_ts": 1793602382.686208,
     "entry_price": 0.001868,
-    "price": 0.00361,
-    "liq": 208704.8,
+    "price": 0.003379,
+    "liq": 201949.72,
     "units": 59807.60658498973,
     "cost": 100,
     "eur_per_usd": 0.89509,
@@ -152,8 +152,8 @@
     "opened": "2026-11-02",
     "opened_ts": 1793602382.686208,
     "entry_price": 0.001204,
-    "price": 0.004123,
-    "liq": 298373.74,
+    "price": 0.004316,
+    "liq": 305451.17,
     "units": 62170.10639328052,
     "cost": 100,
     "eur_per_usd": 0.89509,
@@ -236,8 +236,8 @@
     "opened": "2026-11-04",
     "opened_ts": 1793775704.769064,
     "entry_price": 0.003945,
-    "price": 0.003408,
-    "liq": 309039.62,
+    "price": 0.003004,
+    "liq": 278216.97,
     "units": 28337.274835733424,
     "cost": 100,
     "eur_per_usd": 0.89453,
@@ -298,8 +298,8 @@
     "opened": "2026-11-04",
     "opened_ts": 1793775704.769064,
     "entry_price": 0.001954,
-    "price": 0.0007458,
-    "liq": 102738.04,
+    "price": 0.0006906,
+    "liq": 97366.21,
     "units": 57211.13061769107,
     "cost": 100,
     "eur_per_usd": 0.89453,
@@ -360,8 +360,8 @@
     "opened": "2026-11-05",
     "opened_ts": 1793863713.23308,
     "entry_price": 0.01033,
-    "price": 0.003978,
-    "liq": 252062.96,
+    "price": 0.003791,
+    "liq": 244939.9,
     "units": 10907.038601045777,
     "cost": 100,
     "eur_per_usd": 0.88755,
@@ -418,8 +418,8 @@
     "opened": "2026-11-05",
     "opened_ts": 1793863713.23308,
     "entry_price": 0.0007661,
-    "price": 0.000311,
-    "liq": 52243.46,
+    "price": 0.0002868,
+    "liq": 49481.22,
     "units": 147069.19298890862,
     "cost": 100,
     "eur_per_usd": 0.88755,
@@ -476,8 +476,8 @@
     "opened": "2026-11-07",
     "opened_ts": 1794033580.980655,
     "entry_price": 0.001743,
-    "price": 0.002207,
-    "liq": 163371.96,
+    "price": 0.002261,
+    "liq": 163347.24,
     "units": 64055.94369400558,
     "cost": 100,
     "eur_per_usd": 0.89566,
@@ -526,8 +526,8 @@
     "opened": "2026-11-07",
     "opened_ts": 1794033580.980655,
     "entry_price": 0.01223,
-    "price": 0.006829,
-    "liq": 269869.04,
+    "price": 0.006973,
+    "liq": 268918.86,
     "units": 9129.150438156315,
     "cost": 100,
     "eur_per_usd": 0.89566,
@@ -576,8 +576,8 @@
     "opened": "2026-11-07",
     "opened_ts": 1794033580.980655,
     "entry_price": 0.001278,
-    "price": 0.002392,
-    "liq": 187066.14,
+    "price": 0.002153,
+    "liq": 177481.56,
     "units": 87362.683770463,
     "cost": 100,
     "eur_per_usd": 0.89566,
@@ -618,52 +618,6 @@
     "liq_ref": 183188.01
    },
    {
-    "key": "solana:H8WTvo3ZXSYHJAcYqzCforbG8coR1FDAX2kHFfqHBAGS",
-    "chain": "solana",
-    "address": "H8WTvo3ZXSYHJAcYqzCforbG8coR1FDAX2kHFfqHBAGS",
-    "symbol": "BAGSPAY",
-    "url": "https://dexscreener.com/solana/dxsbgayrefnfxgu9tec17n4usq5jjy4zf9djt7rblrgf",
-    "opened": "2026-11-08",
-    "opened_ts": 1794120373.763453,
-    "entry_price": 0.001668,
-    "price": 0.0005262,
-    "liq": 104399.25,
-    "units": 66936.15698959936,
-    "cost": 100,
-    "eur_per_usd": 0.89566,
-    "score": 70,
-    "status": "open",
-    "updated": "2026-11-14",
-    "max_mult": 1.0,
-    "holders_hist": [
-     [
-      "2026-11-09",
-      18214
-     ],
-     [
-      "2026-11-10",
-      18454
-     ],
-     [
-      "2026-11-11",
-      18663
-     ],
-     [
-      "2026-11-12",
-      18662
-     ],
-     [
-      "2026-11-13",
-      18641
-     ],
-     [
-      "2026-11-14",
-      18833
-     ]
-    ],
-    "liq_ref": 104478.78
-   },
-   {
     "key": "base:0x07b3d902783c3c12b077508c3b5c00113d1291d0",
     "chain": "base",
     "address": "0x07b3d902783c3c12b077508c3b5c00113d1291d0",
@@ -672,8 +626,8 @@
     "opened": "2026-11-09",
     "opened_ts": 1794219676.514169,
     "entry_price": 0.01561,
-    "price": 0.01769,
-    "liq": 1702680.03,
+    "price": 0.01751,
+    "liq": 1691858.43,
     "units": 7152.434968523493,
     "cost": 100,
     "eur_per_usd": 0.89566,
@@ -715,15 +669,15 @@
     "opened": "2026-11-09",
     "opened_ts": 1794219676.514169,
     "entry_price": 0.001327,
-    "price": 0.002098,
-    "liq": 174589.26,
+    "price": 0.002398,
+    "liq": 185680.95,
     "units": 84136.78210900657,
     "cost": 100,
     "eur_per_usd": 0.89566,
     "score": 65,
     "status": "open",
     "updated": "2026-11-14",
-    "max_mult": 1.773172569706104,
+    "max_mult": 1.8070836473247927,
     "image": "https://cdn.dexscreener.com/cms/images/NISe7k6pm95eP1fB?width=800&height=800&quality=95&format=auto",
     "holders_hist": [
      [
@@ -758,8 +712,8 @@
     "opened": "2026-11-10",
     "opened_ts": 1794316232.5791,
     "entry_price": 0.002344,
-    "price": 0.001431,
-    "liq": 97315.63,
+    "price": 0.001632,
+    "liq": 102426.85,
     "units": 47751.467440795626,
     "cost": 100,
     "eur_per_usd": 0.89342,
@@ -797,8 +751,8 @@
     "opened": "2026-11-10",
     "opened_ts": 1794316232.5791,
     "entry_price": 0.0004586,
-    "price": 0.0001663,
-    "liq": 38166.28,
+    "price": 0.0001463,
+    "liq": 35282.78,
     "units": 244067.6835613279,
     "cost": 100,
     "eur_per_usd": 0.89342,
@@ -836,8 +790,8 @@
     "opened": "2026-11-10",
     "opened_ts": 1794316232.5791,
     "entry_price": 0.00381,
-    "price": 0.001883,
-    "liq": 77476.58,
+    "price": 0.001719,
+    "liq": 72842.96,
     "units": 29377.805690610225,
     "cost": 100,
     "eur_per_usd": 0.89342,
@@ -875,8 +829,8 @@
     "opened": "2026-11-11",
     "opened_ts": 1794386122.79339,
     "entry_price": 0.02469,
-    "price": 0.01682,
-    "liq": 1281075.93,
+    "price": 0.01626,
+    "liq": 1239530.83,
     "units": 4541.932359490349,
     "cost": 100,
     "eur_per_usd": 0.89174,
@@ -910,8 +864,8 @@
     "opened": "2026-11-12",
     "opened_ts": 1794490042.291962,
     "entry_price": 0.0008645,
-    "price": 0.0007892,
-    "liq": 90080.42,
+    "price": 0.0006634,
+    "liq": 81303.63,
     "units": 128710.92998222585,
     "cost": 100,
     "eur_per_usd": 0.89871,
@@ -941,8 +895,8 @@
     "opened": "2026-11-12",
     "opened_ts": 1794490042.291962,
     "entry_price": 0.001464,
-    "price": 0.001317,
-    "liq": 215699.28,
+    "price": 0.001169,
+    "liq": 199879.97,
     "units": 76004.50749291957,
     "cost": 100,
     "eur_per_usd": 0.89871,
@@ -972,8 +926,8 @@
     "opened": "2026-11-13",
     "opened_ts": 1794564635.178296,
     "entry_price": 0.04625,
-    "price": 0.04166,
-    "liq": 1908897.18,
+    "price": 0.04015,
+    "liq": 1863877.93,
     "units": 2395.880283851917,
     "cost": 100,
     "eur_per_usd": 0.90245,
@@ -999,8 +953,8 @@
     "opened": "2026-11-13",
     "opened_ts": 1794564635.178296,
     "entry_price": 0.0005688,
-    "price": 0.0003881,
-    "liq": 52580.88,
+    "price": 0.0003394,
+    "liq": 48382.59,
     "units": 194812.69888915465,
     "cost": 100,
     "eur_per_usd": 0.90245,
@@ -1026,8 +980,8 @@
     "opened": "2026-11-14",
     "opened_ts": 1794640389.926006,
     "entry_price": 0.01676,
-    "price": 0.01487,
-    "liq": 417400.93,
+    "price": 0.01353,
+    "liq": 392735.88,
     "units": 6594.298374434233,
     "cost": 100,
     "eur_per_usd": 0.90481,
@@ -1046,8 +1000,8 @@
     "opened": "2026-11-14",
     "opened_ts": 1794640389.926006,
     "entry_price": 0.0005914,
-    "price": 0.000467,
-    "liq": 53787.43,
+    "price": 0.0005034,
+    "liq": 55177.33,
     "units": 186879.33844355386,
     "cost": 100,
     "eur_per_usd": 0.90481,
@@ -1066,8 +1020,8 @@
     "opened": "2026-11-14",
     "opened_ts": 1794640389.926006,
     "entry_price": 0.003669,
-    "price": 0.002997,
-    "liq": 160061.32,
+    "price": 0.003024,
+    "liq": 158410.63,
     "units": 30122.769352825766,
     "cost": 100,
     "eur_per_usd": 0.90481,
@@ -1135,8 +1089,8 @@
      }
     ],
     "closed": "2026-11-08",
-    "post_price": 2.137e-05,
-    "post_liq": 12463,
+    "post_price": 2.033e-05,
+    "post_liq": 11866,
     "post_updated": "2026-11-14",
     "post_max": 2.661e-05,
     "post_max_date": "2026-11-09"
@@ -1190,8 +1144,8 @@
      }
     ],
     "closed": "2026-11-10",
-    "post_price": 0.004511,
-    "post_liq": 192528,
+    "post_price": 0.004429,
+    "post_liq": 187748,
     "post_updated": "2026-11-14",
     "post_max": 0.01047,
     "post_max_date": "2026-11-11"
@@ -1233,8 +1187,8 @@
      }
     ],
     "closed": "2026-11-10",
-    "post_price": 7.289e-05,
-    "post_liq": 22771,
+    "post_price": 7.251e-05,
+    "post_liq": 22571,
     "post_updated": "2026-11-14",
     "post_max": 0.0003965,
     "post_max_date": "2026-11-11"
@@ -1308,8 +1262,8 @@
      }
     ],
     "closed": "2026-11-11",
-    "post_price": 0.001964,
-    "post_liq": 241370,
+    "post_price": 0.001913,
+    "post_liq": 238376,
     "post_updated": "2026-11-14",
     "post_max": 0.002395,
     "post_max_date": "2026-11-13"
@@ -1390,8 +1344,8 @@
     ],
     "liq_ref": 654628.59,
     "closed": "2026-11-11",
-    "post_price": 0.003195,
-    "post_liq": 323654,
+    "post_price": 0.002963,
+    "post_liq": 306172,
     "post_updated": "2026-11-14",
     "post_max": 0.003729,
     "post_max_date": "2026-11-12"
@@ -1480,8 +1434,8 @@
     ],
     "liq_ref": 351112.88,
     "closed": "2026-11-12",
-    "post_price": 0.004077,
-    "post_liq": 274732,
+    "post_price": 0.004048,
+    "post_liq": 269803,
     "post_updated": "2026-11-14",
     "post_max": 0.005198,
     "post_max_date": "2026-11-13"
@@ -1535,8 +1489,8 @@
      }
     ],
     "closed": "2026-11-12",
-    "post_price": 9.93e-05,
-    "post_liq": 24875,
+    "post_price": 7.652e-05,
+    "post_liq": 21378,
     "post_updated": "2026-11-14",
     "post_max": 0.0001328,
     "post_max_date": "2026-11-13"
@@ -1614,8 +1568,8 @@
      }
     ],
     "closed": "2026-11-14",
-    "post_price": 0.0007631,
-    "post_liq": 85599,
+    "post_price": 0.0006919,
+    "post_liq": 80945,
     "post_updated": "2026-11-14"
    },
    {
@@ -1672,8 +1626,69 @@
      }
     ],
     "closed": "2026-11-14",
-    "post_price": 2.417e-05,
-    "post_liq": 14991,
+    "post_price": 2.555e-05,
+    "post_liq": 15237,
+    "post_updated": "2026-11-14"
+   },
+   {
+    "key": "solana:H8WTvo3ZXSYHJAcYqzCforbG8coR1FDAX2kHFfqHBAGS",
+    "chain": "solana",
+    "address": "H8WTvo3ZXSYHJAcYqzCforbG8coR1FDAX2kHFfqHBAGS",
+    "symbol": "BAGSPAY",
+    "url": "https://dexscreener.com/solana/dxsbgayrefnfxgu9tec17n4usq5jjy4zf9djt7rblrgf",
+    "opened": "2026-11-08",
+    "opened_ts": 1794120373.763453,
+    "entry_price": 0.001668,
+    "price": 0.0004747,
+    "liq": 97932.14,
+    "units": 0.0,
+    "cost": 100,
+    "eur_per_usd": 0.89566,
+    "score": 70,
+    "status": "closed",
+    "updated": "2026-11-14",
+    "max_mult": 1.0,
+    "holders_hist": [
+     [
+      "2026-11-09",
+      18214
+     ],
+     [
+      "2026-11-10",
+      18454
+     ],
+     [
+      "2026-11-11",
+      18663
+     ],
+     [
+      "2026-11-12",
+      18662
+     ],
+     [
+      "2026-11-13",
+      18641
+     ],
+     [
+      "2026-11-14",
+      18833
+     ]
+    ],
+    "liq_ref": 104478.78,
+    "realized": 28.749970146473984,
+    "sales": [
+     {
+      "date": "2026-11-14",
+      "mult": 0.285,
+      "price": 0.0004747,
+      "units": 66936.15698959936,
+      "eur": 28.75,
+      "reason": "Stop-Loss"
+     }
+    ],
+    "closed": "2026-11-14",
+    "post_price": 0.0004747,
+    "post_liq": 97932,
     "post_updated": "2026-11-14"
    }
   ],
@@ -1771,10 +1786,10 @@
    },
    {
     "date": "2026-11-14",
-    "total": 9739.57,
-    "cash": 7539.03,
-    "invested": 2200.54,
-    "open": 24
+    "total": 9681.46,
+    "cash": 7567.78,
+    "invested": 2113.68,
+    "open": 23
    }
   ]
  },
@@ -3233,6 +3248,10 @@
  "events": [
   {
    "date": "2026-11-14",
+   "text": "BAGSPAY: Stop-Loss, 100% verkauft bei 0.28x (29 €)"
+  },
+  {
+   "date": "2026-11-14",
    "text": "ARNOLD: Liquidität -57% seit dem Vortag, 100% verkauft bei 0.09x (9 €)"
   },
   {
@@ -3413,22 +3432,22 @@
   }
  ],
  "collect": {
-  "last": "2026-11-14T14:41:46+00:00",
-  "tracked": 2648,
+  "last": "2026-11-14T19:38:53+00:00",
+  "tracked": 2700,
   "seen": 255,
   "passed": 46,
   "rejected": {
-   "zu jung": 132,
-   "Liquidität zu gering": 23,
-   "zu alt": 38,
-   "ausgeschlossen": 10,
+   "zu jung": 131,
+   "zu alt": 39,
+   "Liquidität zu gering": 22,
+   "ausgeschlossen": 11,
    "Marktkapitalisierung außerhalb": 4,
    "zu wenig Handel": 2
   }
  },
  "analysis": {
-  "tracked": 2648,
-  "with_history": 1378,
+  "tracked": 2700,
+  "with_history": 1402,
   "horizon": 7,
   "groups": [
    {
@@ -3436,10 +3455,10 @@
     "rows": [
      {
       "label": "0–39",
-      "n": 405,
-      "win": 7.9,
+      "n": 408,
+      "win": 8.1,
       "win10": 2.2,
-      "dead": 46.2,
+      "dead": 46.8,
       "median": 0.41
      },
      {
@@ -3497,11 +3516,11 @@
      },
      {
       "label": "keine Daten",
-      "n": 520,
-      "win": 6.7,
+      "n": 523,
+      "win": 6.9,
       "win10": 1.3,
-      "dead": 43.3,
-      "median": 0.36
+      "dead": 43.8,
+      "median": 0.38
      }
     ]
    },
@@ -3526,11 +3545,11 @@
      },
      {
       "label": "nicht geprüft",
-      "n": 520,
-      "win": 6.7,
+      "n": 523,
+      "win": 6.9,
       "win10": 1.3,
-      "dead": 43.3,
-      "median": 0.36
+      "dead": 43.8,
+      "median": 0.38
      }
     ]
    },
@@ -3539,10 +3558,10 @@
     "rows": [
      {
       "label": "unter 3 Tage",
-      "n": 382,
-      "win": 9.2,
+      "n": 385,
+      "win": 9.4,
       "win10": 2.1,
-      "dead": 56.5,
+      "dead": 57.1,
       "median": 0.19
      },
      {
@@ -3576,10 +3595,10 @@
     "rows": [
      {
       "label": "unter 250k $",
-      "n": 440,
-      "win": 9.1,
+      "n": 443,
+      "win": 9.3,
       "win10": 2.3,
-      "dead": 45.2,
+      "dead": 45.8,
       "median": 0.4
      },
      {
@@ -3621,11 +3640,11 @@
     "rows": [
      {
       "label": "unter 30k $",
-      "n": 369,
-      "win": 7.9,
+      "n": 372,
+      "win": 8.1,
       "win10": 1.9,
-      "dead": 51.2,
-      "median": 0.39
+      "dead": 51.9,
+      "median": 0.4
      },
      {
       "label": "30–100k $",
@@ -3682,10 +3701,10 @@
      },
      {
       "label": "über 30 %",
-      "n": 351,
-      "win": 6.8,
+      "n": 354,
+      "win": 7.1,
       "win10": 1.7,
-      "dead": 50.1,
+      "dead": 50.8,
       "median": 0.41
      },
      {
@@ -3735,11 +3754,11 @@
      },
      {
       "label": "über 15",
-      "n": 224,
-      "win": 8.9,
+      "n": 227,
+      "win": 9.3,
       "win10": 2.2,
-      "dead": 62.9,
-      "median": 0.24
+      "dead": 63.9,
+      "median": 0.25
      }
     ]
    },
@@ -3756,18 +3775,18 @@
      },
      {
       "label": "0,9–1,1",
-      "n": 109,
-      "win": 7.3,
+      "n": 111,
+      "win": 7.2,
       "win10": 0.9,
-      "dead": 28.4,
-      "median": 0.77
+      "dead": 29.7,
+      "median": 0.78
      },
      {
       "label": "1,1–1,5",
-      "n": 312,
-      "win": 9.3,
+      "n": 313,
+      "win": 9.6,
       "win10": 2.6,
-      "dead": 45.5,
+      "dead": 46.0,
       "median": 0.27
      },
      {
@@ -3785,10 +3804,10 @@
     "rows": [
      {
       "label": "unter −20 %",
-      "n": 194,
-      "win": 6.7,
+      "n": 197,
+      "win": 7.1,
       "win10": 1.0,
-      "dead": 71.1,
+      "dead": 72.1,
       "median": 0.4
      },
      {
@@ -3862,11 +3881,11 @@
      },
      {
       "label": "keine Daten",
-      "n": 520,
-      "win": 6.7,
+      "n": 523,
+      "win": 6.9,
       "win10": 1.3,
-      "dead": 43.3,
-      "median": 0.36
+      "dead": 43.8,
+      "median": 0.38
      }
     ]
    },
@@ -3907,11 +3926,11 @@
      },
      {
       "label": "keine Daten",
-      "n": 520,
-      "win": 6.7,
+      "n": 523,
+      "win": 6.9,
       "win10": 1.3,
-      "dead": 43.3,
-      "median": 0.36
+      "dead": 43.8,
+      "median": 0.38
      }
     ]
    },
@@ -3921,17 +3940,17 @@
      {
       "label": "X und Telegram",
       "n": 156,
-      "win": 7.7,
+      "win": 8.3,
       "win10": 1.3,
       "dead": 17.9,
       "median": 0.75
      },
      {
       "label": "nur eins",
-      "n": 394,
-      "win": 9.4,
+      "n": 397,
+      "win": 9.3,
       "win10": 1.8,
-      "dead": 47.2,
+      "dead": 47.9,
       "median": 0.27
      },
      {
@@ -3957,10 +3976,10 @@
      },
      {
       "label": "nein",
-      "n": 458,
-      "win": 7.9,
+      "n": 461,
+      "win": 8.0,
       "win10": 1.5,
-      "dead": 38.2,
+      "dead": 38.8,
       "median": 0.41
      }
     ]
@@ -3978,10 +3997,10 @@
      },
      {
       "label": "solana",
-      "n": 581,
-      "win": 9.1,
+      "n": 584,
+      "win": 9.2,
       "win10": 2.1,
-      "dead": 38.6,
+      "dead": 39.0,
       "median": 0.41
      }
     ]
@@ -4031,10 +4050,10 @@
      },
      {
       "label": "zu jung",
-      "n": 380,
-      "win": 9.2,
+      "n": 383,
+      "win": 9.4,
       "win10": 2.1,
-      "dead": 56.8,
+      "dead": 57.4,
       "median": 0.19
      },
      {
@@ -4275,8 +4294,8 @@
     "filter": "zu jung"
    }
   ],
-  "n": 596,
-  "with_candles": 445
+  "n": 599,
+  "with_candles": 457
  },
  "last_main": "2026-11-14"
 }
